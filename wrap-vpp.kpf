@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="bd984c81-8fef-b94f-98de-ae73c4b97bb0" kpf_version="4" name="wrap-vpp.kpf">
+<command cwd="%p" doNotOpenOutputWindow="0" env="" id="f69c51de-293c-9b43-aba1-2446103e6e59" idref="bd984c81-8fef-b94f-98de-ae73c4b97bb0" insertOutput="0" keyboard_shortcut="" name="run" operateOnSelection="0" parseOutput="0" parseRegex="" runIn="command-output-window" showParsedOutputList="0">
+%(python) func_defs.py</command>
+<preference-set idref="bd984c81-8fef-b94f-98de-ae73c4b97bb0">
+  <boolean id="import_live">1</boolean>
+</preference-set>
+</project>
