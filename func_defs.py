@@ -21,13 +21,36 @@ from pycparser import c_parser, c_ast, parse_file
 
 class ContextVisitor(c_ast.NodeVisitor):
 	def __init__(self):
-		isMember = False
+		pass
+
+	def prep(self, node):
+		self.isMember = self.isMemberFunc(node)
+		self.retType = None
+		self.params = None
+		self.name = node.decl.name
+		self.location = node.decl.coord
+
+
+	def visit_TypeDecl(self, node):
+		if node.declname == self.name:
+			# Then this is the declaration of the return type.
+			self.retType = node.type.names
 
 	def visit_IdentifierType(self, node):
-		#current = node
-		#while not hasattr(current, "declname") and not hasattr(current, "name"):
-		#	current = current.type
-		print "Found an argument of type: ", node.names #getattr(current, "declname", current.name)
+		print "Found a type identifier: ", node.names
+
+	def explain(self):
+		print '%s: %s returns %s, takes:' % (context.location, context.name, context.retType)
+		if self.isMember:
+			print "MEMBER!"
+		return
+
+	def isMemberFunc(self, func_decl):
+		print func_decl.args.children()[0].type.name
+		if func_decl.args.children()[0].name == "VirtContext":
+			return True
+		else:
+			return False
 
 class FuncDefVisitor(c_ast.NodeVisitor):
 	#def visit_FuncDecl(self, func_decl):
@@ -40,10 +63,12 @@ class FuncDefVisitor(c_ast.NodeVisitor):
 
 	def visit_FuncDef(self, node):
 		func_decl = node.decl.type
-		node.show()
+		#node.show()
+		#context = ContextVisitor(node.decl.name)
+		#context.visit(func_decl)
 		context = ContextVisitor()
-		context.visit(func_decl)
-		print '%s at %s: takes:' % (node.decl.name, node.decl.coord)
+		context.prep(node)
+		context.visit(node)
 		#print self.isMemberFunc(func_decl)
 		#for arg in func_decl.args.children():
 		#	print "   ", arg.type , arg.name
@@ -52,12 +77,7 @@ class FuncDefVisitor(c_ast.NodeVisitor):
 #node.show()
 #        if node.decl.FuncDecl.ParamList.Decl.TypeDecl.IdentifierType == 'VirtContext':
 #           print
-	def isMemberFunc(self, func_decl):
-		print func_decl.args.children()[0].type.name
-		if func_decl.args.children()[0].name == "VirtContext":
-			return True
-		else:
-			return False
+
 
 
 def show_func_defs(filename):
