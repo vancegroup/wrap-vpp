@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+
+# Based slightly on:
 #-----------------------------------------------------------------
 # pycparser: func_defs.py
 #
@@ -16,93 +19,140 @@ from pycparser import c_parser, c_ast, parse_file
 
 def renameFunctionToMethod(funcname):
 	name = funcname[4:]
-#	name = name[0:1].lower() + name[1:]
-	return name + "  " + name[0:1].lower() + name[1:]
+	if name[1:2].lower() == name[1:2]:
+		# then this is title case - lowercase the first letter
+		return name[0:1].lower() + name[1:]
+	else:
+		return name
 
-# A simple visitor for FuncDef nodes that prints the names and
-# locations of function definitions.
-#
+def isStatic(func_decl):
+	### TODO fix this
+	return False
+	print func_decl.args.children()[0].type.name
+	if func_decl.args.children()[0].type.name == "VirtContext":
+		return False
+	else:
+		return True
 
-class ContextVisitor(c_ast.NodeVisitor):
-	def __init__(self):
+class MethodWrapperVisitor(c_ast.NodeVisitor):
+	def __init__(self, node):
+		self.prep(node)
 		pass
 
 	def prep(self, node):
-		self.isMember = self.isMemberFunc(node.decl.type)
+		self.static = isStatic(node.decl.type)
 		self.retType = None
 		self.params = None
 		self.name = node.decl.name
 		self.methodName = renameFunctionToMethod(self.name)
 		self.location = node.decl.coord
-
-		#for arg in node.decl.type.args.children():
-		#		print "   ", arg.type , arg.name
 		self.args = node.decl.type.args.children
 
 	def visit_TypeDecl(self, node):
 		if node.declname == self.name:
 			# Then this is the declaration of the return type.
 			self.retType = node.type.names
-
-	def visit_IdentifierType(self, node):
-		print "Found a type identifier: ", node.names
+		else:
+			# This is a type for an argument!
+			### TODO
+			pass
 
 	def explain(self):
 		print '%s: %s returns %s, takes:' % (context.location, context.name, context.retType)
-		if self.isMember:
-			print "MEMBER!"
 		return
 
 	def generateWrapper(self):
-		declaration = " ".join(self.retType) + " " + self.methodName + "("
-		declaration = declaration + (", ".join([str(x.name) for x in self.args()])) + ") "
-		body = "{ return "
-		return declaration + body
-
-	def isMemberFunc(self, func_decl):
-		#print func_decl.args.children()[0].type.name
-		#if func_decl.args.children()[0].name == "VirtContext":
-			return True
-		#else:
-		#	return False
+		# Static designation if needed
+		if self.static:
+			qualifiers = "static"
+		else:
+			qualifiers = ""
+		
+		# Return type		
+		returntype = " ".join([str(x) for x in self.retType]) 
+		
+		declaration = ""
+		# Method name
+		declaration += self.methodName + "("
+		
+		# Method arguments
+		if self.static:
+			# No implicit VC parameter - forward them all
+			declaration += (", ".join([str(x.name) for x in self.args()])) + ")"
+		else:
+			# Drop the VC parameter
+			declaration += (", ".join([str(x.name) for x in self.args()[1:]])) + ")"
+		
+		# Basic implementation - call original function
+		body = "return _VAPI::" + self.name + "("
+		if self.static:
+			body +=  ", ".join([str(x.name) for x in self.args()])
+		else:
+			body +=  "m_vc, " + ", ".join([str(x.name) for x in self.args()[1:]])
+		body += ");"
+			
+		return (qualifiers, returntype, declaration, body)
 
 class FuncDefVisitor(c_ast.NodeVisitor):
-	#def visit_FuncDecl(self, func_decl):
-		#func_decl = node.decl.type
-	#	func_decl.show()
-#		print '%s at %s: takes:' % (node.decl.name, node.decl.coord)
-	#	print self.isMemberFunc(func_decl)
-	#	for arg in func_decl.args.children():
-	#		print "   ", arg.type , arg.name
+	def __init__(self):
+		self.wrapped_methods = []
 
 	def visit_FuncDef(self, node):
-		func_decl = node.decl.type
-		#node.show()
-		#context = ContextVisitor(node.decl.name)
-		#context.visit(func_decl)
-		context = ContextVisitor()
-		context.prep(node)
-		context.visit(node)
-		print context.generateWrapper()
-		#print self.isMemberFunc(func_decl)
-		#for arg in func_decl.args.children():
-		#	print "   ", arg.type , arg.name
+		if node.decl.name == "virtOpen":
+			# manually wrapped in constructor
+			return
+		if node.decl.name == "virtClose":
+			# manually wrapped in destructor
+			return
+		
+		# So, we have either a member or static member method of our class.
+		method = MethodWrapperVisitor(node)
+		method.visit(node)
+		self.wrapped_methods.append(method.generateWrapper())
 
-#        print node.decl.func_decl.param_decls
-#node.show()
-#        if node.decl.FuncDecl.ParamList.Decl.TypeDecl.IdentifierType == 'VirtContext':
-#           print
+def wrap_virtuose_api(filename):
+		# Note that cpp is used. Provide a path to your own cpp or
+		# make sure one exists in PATH.
+		#
+		ast = parse_file(filename, use_cpp=True, cpp_args=r'-Iutils/fake_libc_include')
 
+		classname = "Virtuose"
+		
+		v = FuncDefVisitor()
+		v.visit(ast)
 
+		#classbody = "\n\t\t".join(v.wrapped_methods)
+		
+		# Combined declaration and definition.
+		#bodylines = [ " ".join([qualifiers, returntype, declaration, "{ " + body + " }"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods]
+		#classbody = "\n\t\t".join(bodylines)
+		#implbody = ""
+		
+		# separate
+		classlines = [ " ".join([qualifiers, returntype, declaration + ";"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods]
+		classbody = "\n\t\t".join(classlines)
+		impllines = ["/* Wrapper Implementation Details Follow */"]
+		impllines.extend([ " ".join([returntype, classname+"::"+declaration, "{\n\t" + body + "\n}"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods])
+		implbody = "\n\n".join(impllines)
 
-def show_func_defs(filename):
-    # Note that cpp is used. Provide a path to your own cpp or
-    # make sure one exists in PATH.
-    #
-    ast = parse_file(filename, use_cpp=True, cpp_args=r'-Iutils/fake_libc_include')
+		boilerplatefile = open("vpp-boilerplate.h", 'r')
+		boilerplate = boilerplatefile.read()
+		boilerplatefile.close()
 
-    v = FuncDefVisitor()
-    v.visit(ast)
+		classmarker = "/* CLASS BODY GOES HERE */"
+		implmarker = "/* IMPLEMENTATION BODY GOES HERE */"
+		classidx = boilerplate.find(classmarker)
+		implidx = boilerplate.find(implmarker)
+
+		if classidx != -1 and implidx != -1:
+			fullfile = boilerplate[:classidx] + classbody + boilerplate[classidx+len(classmarker):implidx] + implbody + boilerplate[implidx+len(implmarker):]
+		else:
+			print "COULD NOT FIND PLACEHOLDER!"
+			fullfile = None
+		
+		
+		
+		return fullfile
 
 
 if __name__ == "__main__":
@@ -110,5 +160,12 @@ if __name__ == "__main__":
         filename  = sys.argv[1]
     else:
         filename = 'VirtuoseAPI.h'
+    
+    output = wrap_virtuose_api(filename)
+    print output
+    
+    if len(sys.argv) > 2:
+    	out = open(sys.argv[2], 'w')
+    	out.write(output)
+    	out.close()
 
-    show_func_defs(filename)

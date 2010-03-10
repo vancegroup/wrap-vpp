@@ -43,11 +43,13 @@ class Virtuose {
 			_VAPI::virtClose(m_vc);
 		}
 
-/* BODY GOES HERE */
+		/* CLASS BODY GOES HERE */
 
 	protected:
 		std::string m_name;
 		VirtContext m_vc;
 };
+
+/* IMPLEMENTATION BODY GOES HERE */
 
 #endif
