@@ -14,6 +14,10 @@ import sys
 
 from pycparser import c_parser, c_ast, parse_file
 
+def renameFunctionToMethod(funcname):
+	name = funcname[4:]
+#	name = name[0:1].lower() + name[1:]
+	return name + "  " + name[0:1].lower() + name[1:]
 
 # A simple visitor for FuncDef nodes that prints the names and
 # locations of function definitions.
@@ -24,12 +28,16 @@ class ContextVisitor(c_ast.NodeVisitor):
 		pass
 
 	def prep(self, node):
-		self.isMember = self.isMemberFunc(node)
+		self.isMember = self.isMemberFunc(node.decl.type)
 		self.retType = None
 		self.params = None
 		self.name = node.decl.name
+		self.methodName = renameFunctionToMethod(self.name)
 		self.location = node.decl.coord
 
+		#for arg in node.decl.type.args.children():
+		#		print "   ", arg.type , arg.name
+		self.args = node.decl.type.args.children
 
 	def visit_TypeDecl(self, node):
 		if node.declname == self.name:
@@ -45,12 +53,18 @@ class ContextVisitor(c_ast.NodeVisitor):
 			print "MEMBER!"
 		return
 
+	def generateWrapper(self):
+		declaration = " ".join(self.retType) + " " + self.methodName + "("
+		declaration = declaration + (", ".join([str(x.name) for x in self.args()])) + ") "
+		body = "{ return "
+		return declaration + body
+
 	def isMemberFunc(self, func_decl):
-		print func_decl.args.children()[0].type.name
-		if func_decl.args.children()[0].name == "VirtContext":
+		#print func_decl.args.children()[0].type.name
+		#if func_decl.args.children()[0].name == "VirtContext":
 			return True
-		else:
-			return False
+		#else:
+		#	return False
 
 class FuncDefVisitor(c_ast.NodeVisitor):
 	#def visit_FuncDecl(self, func_decl):
@@ -69,6 +83,7 @@ class FuncDefVisitor(c_ast.NodeVisitor):
 		context = ContextVisitor()
 		context.prep(node)
 		context.visit(node)
+		print context.generateWrapper()
 		#print self.isMemberFunc(func_decl)
 		#for arg in func_decl.args.children():
 		#	print "   ", arg.type , arg.name
