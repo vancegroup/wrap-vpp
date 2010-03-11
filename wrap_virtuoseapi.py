@@ -17,6 +17,19 @@ import sys
 
 from pycparser import c_parser, c_ast, parse_file
 
+
+bpfilename = "vpp-boilerplate.hxx"
+classmarker = "/* CLASS BODY GOES HERE */"
+implmarker = "/* IMPLEMENTATION BODY GOES HERE */"
+structtype = "VirtContext"
+apicallqualifier = "_VAPI::"
+manuallywrapped = ("virtOpen", "virtClose")
+classname = "Virtuose"
+
+defaultapifilename = 'VirtuoseAPI.h'
+defaultoutputfilename = 'vpp.hxx'
+
+
 def renameFunctionToMethod(funcname):
 	name = funcname[4:]
 	if name[1:2].lower() == name[1:2]:
@@ -29,7 +42,7 @@ def isStatic(func_decl):
 	### TODO fix this
 	return False
 	print func_decl.args.children()[0].type.name
-	if func_decl.args.children()[0].type.name == "VirtContext":
+	if func_decl.args.children()[0].type.name == structtype:
 		return False
 	else:
 		return True
@@ -84,7 +97,7 @@ class MethodWrapperVisitor(c_ast.NodeVisitor):
 			declaration += (", ".join([str(x.name) for x in self.args()[1:]])) + ")"
 		
 		# Basic implementation - call original function
-		body = "return _VAPI::" + self.name + "("
+		body = "return "+ apicallqualifier + self.name + "("
 		if self.static:
 			body +=  ", ".join([str(x.name) for x in self.args()])
 		else:
@@ -98,14 +111,11 @@ class FuncDefVisitor(c_ast.NodeVisitor):
 		self.wrapped_methods = []
 
 	def visit_FuncDef(self, node):
-		if node.decl.name == "virtOpen":
-			# manually wrapped in constructor
-			return
-		if node.decl.name == "virtClose":
-			# manually wrapped in destructor
+		if node.decl.name in manuallywrapped:
+			# manually wrapped, skip it.
 			return
 		
-		# So, we have either a member or static member method of our class.
+		# So, we need to wrap this method
 		method = MethodWrapperVisitor(node)
 		method.visit(node)
 		self.wrapped_methods.append(method.generateWrapper())
@@ -115,32 +125,30 @@ def wrap_virtuose_api(filename):
 		# make sure one exists in PATH.
 		#
 		ast = parse_file(filename, use_cpp=True, cpp_args=r'-Iutils/fake_libc_include')
-
-		classname = "Virtuose"
 		
 		v = FuncDefVisitor()
 		v.visit(ast)
-
-		#classbody = "\n\t\t".join(v.wrapped_methods)
 		
 		# Combined declaration and definition.
 		#bodylines = [ " ".join([qualifiers, returntype, declaration, "{ " + body + " }"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods]
 		#classbody = "\n\t\t".join(bodylines)
 		#implbody = ""
 		
-		# separate
-		classlines = [ " ".join([qualifiers, returntype, declaration + ";"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods]
+		# separated declarations and definitions
+		classlines = [ " ".join([returntype, declaration + ";"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods if qualifiers == ""]
+		classlines.append("/* Static Methods */")
+		classlines.extend([ " ".join([qualifiers, returntype, declaration + ";"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods if not qualifiers == ""])
+		
 		classbody = "\n\t\t".join(classlines)
 		impllines = ["/* Wrapper Implementation Details Follow */"]
 		impllines.extend([ " ".join([returntype, classname+"::"+declaration, "{\n\t" + body + "\n}"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods])
 		implbody = "\n\n".join(impllines)
 
-		boilerplatefile = open("vpp-boilerplate.h", 'r')
+		boilerplatefile = open(bpfilename, 'r')
 		boilerplate = boilerplatefile.read()
 		boilerplatefile.close()
 
-		classmarker = "/* CLASS BODY GOES HERE */"
-		implmarker = "/* IMPLEMENTATION BODY GOES HERE */"
+		
 		classidx = boilerplate.find(classmarker)
 		implidx = boilerplate.find(implmarker)
 
@@ -149,9 +157,7 @@ def wrap_virtuose_api(filename):
 		else:
 			print "COULD NOT FIND PLACEHOLDER!"
 			fullfile = None
-		
-		
-		
+
 		return fullfile
 
 
@@ -159,13 +165,17 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         filename  = sys.argv[1]
     else:
-        filename = 'VirtuoseAPI.h'
+        filename = defaultapifilename
     
     output = wrap_virtuose_api(filename)
     print output
     
     if len(sys.argv) > 2:
-    	out = open(sys.argv[2], 'w')
-    	out.write(output)
-    	out.close()
+    	outfile = sys.argv[2]
+    else:
+    	outfile = defaultoutputfilename
+    	
+  	out = open(outfile, 'w')
+  	out.write(output)
+  	out.close()
 

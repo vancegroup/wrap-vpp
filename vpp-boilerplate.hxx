@@ -14,12 +14,13 @@
 */
 
 #pragma once
-#ifndef _VPP_H
-#define _VPP_H
+#ifndef _VPP_HXX
+#define _VPP_HXX
 
 // Standard includes
 #include <exception>
 #include <stdexcept>
+#include <string>
 
 // Library/third-party includes
 namespace _VAPI {
@@ -52,4 +53,4 @@ class Virtuose {
 
 /* IMPLEMENTATION BODY GOES HERE */
 
-#endif
+#endif // _VPP_HXX
