@@ -17,16 +17,31 @@ import sys
 
 from pycparser import c_parser, c_ast, parse_file
 
+defaultapifilename = 'VirtuoseAPI.h'
+
+structtype = "VirtContext"
+apicallqualifier = "_VAPI::"
+manuallywrapped = ("virtOpen", "virtClose")
+
+classname = "Virtuose"
+argTrans = {	'fichier':		'fh',
+										'intensite':	'intensity',
+										'clic_gauche':'left_click',
+										'clic_droit':	'right_click',
+										'btn_gauche': 'left_btn',
+										'btn_droit':	'right_btn',
+										'btn_milieu':	'middle_btn',
+										'actif':			'active',		# questionable
+										'axe':				'axis',
+										'decalage':		'shift'
+									}
+										
 
 bpfilename = "vpp-boilerplate.hxx"
 classmarker = "/* CLASS BODY GOES HERE */"
 implmarker = "/* IMPLEMENTATION BODY GOES HERE */"
-structtype = "VirtContext"
-apicallqualifier = "_VAPI::"
-manuallywrapped = ("virtOpen", "virtClose")
-classname = "Virtuose"
 
-defaultapifilename = 'VirtuoseAPI.h'
+
 defaultoutputfilename = 'vpp.hxx'
 
 
@@ -67,7 +82,7 @@ class MethodWrapperVisitor(c_ast.NodeVisitor):
 			self.retType = node.type.names
 		else:
 			# This is a type for an argument!
-			### TODO
+			### TODO (?)
 			pass
 
 	def explain(self):
@@ -82,26 +97,41 @@ class MethodWrapperVisitor(c_ast.NodeVisitor):
 			qualifiers = ""
 		
 		# Return type		
+		### todo: handle pointer types correctly
 		returntype = " ".join([str(x) for x in self.retType]) 
 		
-		declaration = ""
 		# Method name
-		declaration += self.methodName + "("
+		declaration = self.methodName + "("
 		
 		# Method arguments
+		
+		translateArg = lambda x: argTrans.get(str(x.name),str(x.name))
+		
+		### todo: must also include the type of the arguments!
 		if self.static:
 			# No implicit VC parameter - forward them all
-			declaration += (", ".join([str(x.name) for x in self.args()])) + ")"
+			declaration += ( ", ".join([translateArg(x)
+				for x
+				in self.args()]) +
+				")")
 		else:
 			# Drop the VC parameter
-			declaration += (", ".join([str(x.name) for x in self.args()[1:]])) + ")"
+			declaration += ( ", ".join([translateArg(x)
+				for x
+				in self.args()[1:]]) +
+				")")
 		
 		# Basic implementation - call original function
 		body = "return "+ apicallqualifier + self.name + "("
 		if self.static:
-			body +=  ", ".join([str(x.name) for x in self.args()])
+			callargs = []
+			forwardargs = self.args()[:]
 		else:
-			body +=  "m_vc, " + ", ".join([str(x.name) for x in self.args()[1:]])
+			callargs = ["m_vc"]
+			forwardargs = self.args()[1:]
+
+		callargs.extend([translateArg(x) for x in forwardargs])
+		body += ", ".join(callargs)
 		body += ");"
 			
 		return (qualifiers, returntype, declaration, body)
