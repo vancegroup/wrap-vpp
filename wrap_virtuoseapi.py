@@ -145,6 +145,7 @@ class FuncDefVisitor(c_ast.NodeVisitor):
 			# manually wrapped, skip it.
 			return
 		
+		node.show(attrnames=True)
 		# So, we need to wrap this method
 		method = MethodWrapperVisitor(node)
 		method.visit(node)
@@ -198,7 +199,7 @@ if __name__ == "__main__":
         filename = defaultapifilename
     
     output = wrap_virtuose_api(filename)
-    print output
+    #print output
     
     if len(sys.argv) > 2:
     	outfile = sys.argv[2]
