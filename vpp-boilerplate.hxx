@@ -31,6 +31,16 @@ namespace _VAPI {
 
 class Virtuose {
 	public:
+		using _VAPI::VirtContext;
+
+		/** @brief constructor
+
+			Opens a new VirtContext upon construction.
+
+			@param name Name of Virtuose device to connect to.
+
+			@throws std::runtime_error if opening the device failed.
+		*/
 		Virtuose(const std::string & name) :
 			m_name(name),
 			m_vc(_VAPI::virtOpen(m_name.c_str())
@@ -39,9 +49,16 @@ class Virtuose {
 				throw std::runtime_error("Failed opening Virtuose " + m_name);
 			}
 		}
-		
+
+		/** @brief destructor that closes the connection to the Virtuose
+			device.
+		*/
 		~Virtuose() {
 			_VAPI::virtClose(m_vc);
+		}
+
+		VirtContext() {
+			return m_vc;
 		}
 
 		/* CLASS BODY GOES HERE */

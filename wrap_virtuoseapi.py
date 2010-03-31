@@ -57,7 +57,7 @@ class TypeVisitor(c_ast.NodeVisitor):
 		self.generic_visit(node)
 
 		# add a pointer symbol only if this isn't a function pointer
-		if self.type[0] != "(" and self.type[len(self.type)-1] != ")":
+		if not "(*" in self.type:
 			self.type.append('*')
 		print "after visit_PtrDecl:", self.type
 
@@ -79,7 +79,6 @@ class TypeVisitor(c_ast.NodeVisitor):
 		self.type.append("(*")
 		self.type.append(None) # indicating where to put the name
 		self.type.append(")")
-		self.type.append("(")
 
 		# Must independently parse the args with new TypeVisitors
 		args = []
@@ -88,10 +87,9 @@ class TypeVisitor(c_ast.NodeVisitor):
 			fullarg.visit(arg)
 			print "Argument:", fullarg.getFullType()
 			args.append(" ".join(fullarg.getFullType()))
-		self.type.append(", ".join(args))
 
-		# wrap args in parens
-		self.type.append(")")
+		# Append it, wrapped in parens
+		self.type.append("(" + ", ".join(args) + ")")
 
 		print "after visit_FuncDecl:", self.type
 
