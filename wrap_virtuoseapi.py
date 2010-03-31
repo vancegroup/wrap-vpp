@@ -21,7 +21,7 @@ defaultapifilename = 'VirtuoseAPI.h'
 
 structtype = "VirtContext"
 apicallqualifier = "_VAPI::"
-manuallywrapped = ("virtOpen", "virtClose")
+manuallywrapped = ("virtOpen", "virtClose", "virtGetErrorMessage")
 
 classname = "Virtuose"
 argTrans = {	'fichier':		'fh',
@@ -79,6 +79,10 @@ class MethodWrapperVisitor(c_ast.NodeVisitor):
 	def visit_TypeDecl(self, node):
 		if node.declname == self.name:
 			# Then this is the declaration of the return type.
+			# WARNING: right now it does not handle pointers properly -
+			# since the only function returning a pointer as of 20100331 is
+			# virtGetErrorMessage, we simply manually wrapped it.
+			## TODO - handle pointer types properly here
 			self.retType = node.type.names
 		else:
 			# This is a type for an argument!

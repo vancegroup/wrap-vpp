@@ -46,6 +46,10 @@ class Virtuose {
 
 		/* CLASS BODY GOES HERE */
 
+		static std::string getErrorMessage(int code) {
+			return std::string(_VAPI::virtGetErrorMessage(code));
+		}
+
 	protected:
 		std::string m_name;
 		VirtContext m_vc;
