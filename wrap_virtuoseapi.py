@@ -172,7 +172,7 @@ def wrap_virtuose_api(filename):
 		
 		classbody = "\n\t\t".join(classlines)
 		impllines = ["/* Wrapper Implementation Details Follow */"]
-		impllines.extend([ " ".join([returntype, classname+"::"+declaration, "{\n\t" + body + "\n}"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods])
+		impllines.extend([ " ".join(["inline", returntype, classname+"::"+declaration, "{\n\t" + body + "\n}"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods])
 		implbody = "\n\n".join(impllines)
 
 		boilerplatefile = open(bpfilename, 'r')
