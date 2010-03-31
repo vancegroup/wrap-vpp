@@ -53,15 +53,6 @@ def renameFunctionToMethod(funcname):
 	else:
 		return name
 
-def isStatic(func_decl):
-	### TODO fix this
-	return False
-	print func_decl.args.children()[0].type.name
-	if func_decl.args.children()[0].type.name == structtype:
-		return False
-	else:
-		return True
-
 class IsStaticVisitor(c_ast.NodeVisitor):
 	"""Call on a FuncDef."""
 	def __init__(self, funcdef):
