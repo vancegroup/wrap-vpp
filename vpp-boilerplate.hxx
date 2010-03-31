@@ -23,15 +23,17 @@
 #include <string>
 
 // Library/third-party includes
-namespace _VAPI {
+/// @todo use namespace
+//namespace _VAPI {
 #include <VirtuoseAPI.h>
-}
+//}
+
 // Internal Includes
 // none
 
 class Virtuose {
 	public:
-		using _VAPI::VirtContext;
+		//using _VAPI::VirtContext;
 
 		/** @brief constructor
 
@@ -43,7 +45,7 @@ class Virtuose {
 		*/
 		Virtuose(const std::string & name) :
 			m_name(name),
-			m_vc(_VAPI::virtOpen(m_name.c_str())
+			m_vc(virtOpen(m_name.c_str())
 		{
 			if (!m_vc) {
 				throw std::runtime_error("Failed opening Virtuose " + m_name);
@@ -54,7 +56,7 @@ class Virtuose {
 			device.
 		*/
 		~Virtuose() {
-			_VAPI::virtClose(m_vc);
+			virtClose(m_vc);
 		}
 
 		VirtContext() {
@@ -64,7 +66,7 @@ class Virtuose {
 		/* CLASS BODY GOES HERE */
 
 		static std::string getErrorMessage(int code) {
-			return std::string(_VAPI::virtGetErrorMessage(code));
+			return std::string(virtGetErrorMessage(code));
 		}
 
 	protected:

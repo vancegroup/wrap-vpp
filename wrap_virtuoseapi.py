@@ -20,7 +20,7 @@ from pycparser import c_parser, c_ast, parse_file
 defaultapifilename = 'VirtuoseAPI.h'
 
 structtype = ["VirtContext"]
-apicallqualifier = "_VAPI::"
+apicallqualifier = ""; #"_VAPI::"
 manuallywrapped = ("virtOpen", "virtClose", "virtGetErrorMessage")
 
 classname = "Virtuose"
