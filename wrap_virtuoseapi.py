@@ -50,6 +50,8 @@ class TypeVisitor(c_ast.NodeVisitor):
 	def __init__(self):
 		self.type = []
 		self.name = None
+		print "-------------------------"
+
 	def visit_PtrDecl(self, node):
 		# recurse first
 		self.generic_visit(node)
@@ -60,7 +62,9 @@ class TypeVisitor(c_ast.NodeVisitor):
 	def visit_IdentifierType(self, node):
 		# recurse first
 		self.generic_visit(node)
-		self.type.append(node.name)
+
+		# add typenames
+		self.type.extend(node.names)
 
 
 	def visit_FuncDecl(self, node):
@@ -100,8 +104,6 @@ class TypeVisitor(c_ast.NodeVisitor):
 			ret.append(self.name)
 		return ret
 
-
-
 def renameFunctionToMethod(funcname):
 	name = funcname[4:]
 	if name[1:2].lower() == name[1:2]:
@@ -140,6 +142,7 @@ def getFullType(decl):
 	decl.show(attrnames=True)
 	fulltype = recursiveFullType(decl.type)
 	print "Full type:", fulltype
+	print "-------------------------"
 	return fulltype
 
 class IsStaticVisitor(c_ast.NodeVisitor):
@@ -154,7 +157,11 @@ class IsStaticVisitor(c_ast.NodeVisitor):
 
 class Method:
 	def __init__(self, node):
+
+		print "-------------------------"
+		print "-- method --"
 		statvisit = IsStaticVisitor(node)
+		node.show(attrnames=True)
 		self.static = statvisit.isStatic #isStatic(node.decl.type)
 		self.retType = None
 		self.params = None
@@ -286,4 +293,3 @@ if __name__ == "__main__":
   	out = open(outfile, 'w')
   	out.write(output)
   	out.close()
-
