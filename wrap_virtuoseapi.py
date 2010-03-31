@@ -74,8 +74,10 @@ class TypeVisitor(c_ast.NodeVisitor):
 
 		# wrap args in parens
 		self.type.append(")")
+
 	def visit_TypeDecl(self, node):
-		self.name = translateArg(node.declname)
+		if node.declname is not None:
+			self.name = translateArg(node.declname)
 
 	def getTypeOnly(self):
 		return self.type
@@ -89,10 +91,11 @@ class TypeVisitor(c_ast.NodeVisitor):
 		for elem in self.type:
 			if elem is None and usedName == False:
 				usedName = True
-				elem = self.name
-			ret.append(elem)
+				ret.append(self.name)
+			else:
+				ret.append(elem)
 
-		if usedName == False:
+		if usedName == False and self.name is not None:
 			# Didn't fill in a placeholder, so stick it on the end.
 			ret.append(self.name)
 		return ret
@@ -149,7 +152,7 @@ class IsStaticVisitor(c_ast.NodeVisitor):
 		if node.names == structtype:
 			self.isStatic = False
 
-class MethodWrapperVisitor(c_ast.NodeVisitor):
+class Method:
 	def __init__(self, node):
 		statvisit = IsStaticVisitor(node)
 		self.static = statvisit.isStatic #isStatic(node.decl.type)
@@ -158,7 +161,6 @@ class MethodWrapperVisitor(c_ast.NodeVisitor):
 		self.name = node.decl.name
 		self.methodName = renameFunctionToMethod(self.name)
 		self.location = node.decl.coord
-		#self.args = node.decl.type.args.children
 		self.args = []
 		for arg in node.decl.type.args.children():
 			#fullarg = Var(getFullType(arg), arg.name);
@@ -169,18 +171,6 @@ class MethodWrapperVisitor(c_ast.NodeVisitor):
 
 		self.retType = getFullType(node.decl.type)
 
-	def visit_TypeDecl(self, node):
-#		if node.name == self.declname:
-			# Then this is the declaration of the return type.
-			# WARNING: right now it does not handle pointers properly -
-			# since the only function returning a pointer as of 20100331 is
-			# virtGetErrorMessage, we simply manually wrapped it.
-			## TODO - handle pointer types properly here
-#			self.retType = node.type.names
-#		else:
-			# This is a type for an argument!
-#			pass
-		pass
 
 	def explain(self):
 		print '%s: %s returns %s, takes:' % (context.location, context.name, context.retType)
@@ -201,25 +191,22 @@ class MethodWrapperVisitor(c_ast.NodeVisitor):
 		declaration = self.methodName + "("
 
 		# Method arguments
-
+		typestring = lambda x: " ".join(x.getFullType())
 		### todo: must also include the type of the arguments!
-		if self.static:
-			# No implicit VC parameter - forward them all
-			declaration += ( ", ".join([" ".join(x.getFullType()) for x in self.args]) + ")")
-		else:
+		if not self.static:
 			# Drop the VC parameter
-			declaration += ( ", ".join([" ".join(x.getFullType()) for x in self.args[1:]]) + ")")
+			self.args.pop(0)
+			# Forward the remaining parameters
+		declaration += ( ", ".join([typestring(x) for x in self.args]) + ")")
 
 		# Basic implementation - call original function
 		body = "return "+ apicallqualifier + self.name + "("
-		if self.static:
-			callargs = []
-			forwardargs = self.args[:]
-		else:
-			callargs = ["m_vc"]
-			forwardargs = self.args[1:]
 
-		callargs.extend([x.name for x in forwardargs])
+		callargs = []
+		if not self.static:
+			callargs.append("m_vc")
+
+		callargs.extend([x.getNameOnly() for x in self.args])
 		body += ", ".join(callargs)
 		body += ");"
 
@@ -238,8 +225,7 @@ class FuncDefVisitor(c_ast.NodeVisitor):
 		#node.show(attrnames=True)
 
 		# So, we need to wrap this method
-		method = MethodWrapperVisitor(node)
-		method.visit(node)
+		method = Method(node)
 		self.wrapped_methods.append(method.generateWrapper())
 
 def wrap_virtuose_api(filename):
