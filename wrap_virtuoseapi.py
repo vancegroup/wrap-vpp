@@ -19,7 +19,7 @@ from pycparser import c_parser, c_ast, parse_file
 
 defaultapifilename = 'VirtuoseAPI.h'
 
-structtype = "VirtContext"
+structtype = ["VirtContext"]
 apicallqualifier = "_VAPI::"
 manuallywrapped = ("virtOpen", "virtClose", "virtGetErrorMessage")
 
@@ -62,13 +62,19 @@ def isStatic(func_decl):
 	else:
 		return True
 
+class IsStaticVisitor(c_ast.NodeVisitor):
+	"""Call on a FuncDef."""
+	def __init__(self, funcdef):
+		self.isStatic = True
+		self.visit(funcdef.decl.type.args)
+	def visit_IdentifierType(self, node):
+		if node.names == structtype:
+			self.isStatic = False
+
 class MethodWrapperVisitor(c_ast.NodeVisitor):
 	def __init__(self, node):
-		self.prep(node)
-		pass
-
-	def prep(self, node):
-		self.static = isStatic(node.decl.type)
+		statvisit = IsStaticVisitor(node)
+		self.static = statvisit.isStatic #isStatic(node.decl.type)
 		self.retType = None
 		self.params = None
 		self.name = node.decl.name
