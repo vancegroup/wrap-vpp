@@ -58,6 +58,7 @@ class TypeVisitor(c_ast.NodeVisitor):
 
 		# add a pointer
 		self.type.append('*')
+		print "after visit_PtrDecl:", self.type
 
 	def visit_IdentifierType(self, node):
 		# recurse first
@@ -65,7 +66,7 @@ class TypeVisitor(c_ast.NodeVisitor):
 
 		# add typenames
 		self.type.extend(node.names)
-
+		print "after visit_IdentifierType:", self.type
 
 	def visit_FuncDecl(self, node):
 		# for function pointers
@@ -79,9 +80,13 @@ class TypeVisitor(c_ast.NodeVisitor):
 		# wrap args in parens
 		self.type.append(")")
 
+		print "after visit_FuncDecl:", self.type
+
 	def visit_TypeDecl(self, node):
 		if node.declname is not None:
 			self.name = translateArg(node.declname)
+		self.generic_visit(node)
+		print "after visit_TypeDecl:", self.type
 
 	def getTypeOnly(self):
 		return self.type
@@ -112,39 +117,6 @@ def renameFunctionToMethod(funcname):
 	else:
 		return name
 
-def recursiveFullType(node):
-	print " --- recursive --- "
-	#node.show(attrnames=True)
-	if "PtrDecl" in type(node).__name__:
-		#print "Pointer, has children: " , node.children()
-		ret = []
-		for child in node.children():
-			ret.extend(recursiveFullType(child))
-		ret.append('*')
-		#print "returning ret: ", ret
-		return ret
-	elif "IdentifierType" in type(node).__name__:
-		#print "returning node.names: ", node.names
-		return node.names
-	elif "TypeDecl" in type(node).__name__:
-		# We just want to recurse - don't care about name here
-		ret = []
-		for child in node.children():
-			ret.extend(recursiveFullType(child))
-		return ret
-
-def getFullType(decl):
-	"""Pass in a Decl, and I'll return a list of how to completely specify the type.
-
-	To get a nice space-separated string, try " ".join(getFullType(whatever))
-	"""
-	print "-------------------------"
-	decl.show(attrnames=True)
-	fulltype = recursiveFullType(decl.type)
-	print "Full type:", fulltype
-	print "-------------------------"
-	return fulltype
-
 class IsStaticVisitor(c_ast.NodeVisitor):
 	"""Call on a FuncDef."""
 	def __init__(self, funcdef):
@@ -170,13 +142,14 @@ class Method:
 		self.location = node.decl.coord
 		self.args = []
 		for arg in node.decl.type.args.children():
-			#fullarg = Var(getFullType(arg), arg.name);
 			fullarg = TypeVisitor()
 			fullarg.visit(arg)
 			print "Argument:", fullarg.getFullType()
 			self.args.append(fullarg)
 
-		self.retType = getFullType(node.decl.type)
+		retType = TypeVisitor()
+		retType.visit(node.decl.type.type)
+		self.retType = retType.getTypeOnly() #getFullType(node.decl.type)
 
 
 	def explain(self):
@@ -203,7 +176,8 @@ class Method:
 		if not self.static:
 			# Drop the VC parameter
 			self.args.pop(0)
-			# Forward the remaining parameters
+
+		# Forward the remaining parameters
 		declaration += ( ", ".join([typestring(x) for x in self.args]) + ")")
 
 		# Basic implementation - call original function
