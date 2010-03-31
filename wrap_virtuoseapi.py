@@ -71,19 +71,23 @@ class TypeVisitor(c_ast.NodeVisitor):
 
 	def visit_FuncDecl(self, node):
 		# for function pointers
+
+		# visit the return type
+		self.visit(node.type)
+
+		# add the function pointer name part
 		self.type.append("(*")
 		self.type.append(None) # indicating where to put the name
 		self.type.append(")")
 		self.type.append("(")
 
-		# Must independently parse the args
+		# Must independently parse the args with new TypeVisitors
 		args = []
 		for arg in node.args.children():
 			fullarg = TypeVisitor()
 			fullarg.visit(arg)
 			print "Argument:", fullarg.getFullType()
 			args.append(" ".join(fullarg.getFullType()))
-		#self.visit(node.args)
 		self.type.append(", ".join(args))
 
 		# wrap args in parens
