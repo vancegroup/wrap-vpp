@@ -35,7 +35,7 @@ argTrans = {	'fichier':		'fh',
 										'axe':				'axis',
 										'decalage':		'shift'
 									}
-										
+
 
 bpfilename = "vpp-boilerplate.hxx"
 classmarker = "/* CLASS BODY GOES HERE */"
@@ -58,6 +58,7 @@ class IsStaticVisitor(c_ast.NodeVisitor):
 	def __init__(self, funcdef):
 		self.isStatic = True
 		self.visit(funcdef.decl.type.args)
+
 	def visit_IdentifierType(self, node):
 		if node.names == structtype:
 			self.isStatic = False
@@ -157,20 +158,20 @@ def wrap_virtuose_api(filename):
 		# make sure one exists in PATH.
 		#
 		ast = parse_file(filename, use_cpp=True, cpp_args=r'-Iutils/fake_libc_include')
-		
+
 		v = FuncDefVisitor()
 		v.visit(ast)
-		
+
 		# Combined declaration and definition.
 		#bodylines = [ " ".join([qualifiers, returntype, declaration, "{ " + body + " }"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods]
 		#classbody = "\n\t\t".join(bodylines)
 		#implbody = ""
-		
+
 		# separated declarations and definitions
 		classlines = [ " ".join([returntype, declaration + ";"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods if qualifiers == ""]
 		classlines.append("/* Static Methods */")
 		classlines.extend([ " ".join([qualifiers, returntype, declaration + ";"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods if not qualifiers == ""])
-		
+
 		classbody = "\n\t\t".join(classlines)
 		impllines = ["/* Wrapper Implementation Details Follow */"]
 		impllines.extend([ " ".join(["inline", returntype, classname+"::"+declaration, "{\n\t" + body + "\n}"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods])
@@ -180,7 +181,7 @@ def wrap_virtuose_api(filename):
 		boilerplate = boilerplatefile.read()
 		boilerplatefile.close()
 
-		
+
 		classidx = boilerplate.find(classmarker)
 		implidx = boilerplate.find(implmarker)
 
@@ -198,15 +199,15 @@ if __name__ == "__main__":
         filename  = sys.argv[1]
     else:
         filename = defaultapifilename
-    
+
     output = wrap_virtuose_api(filename)
     #print output
-    
+
     if len(sys.argv) > 2:
     	outfile = sys.argv[2]
     else:
     	outfile = defaultoutputfilename
-    	
+
   	out = open(outfile, 'w')
   	out.write(output)
   	out.close()
