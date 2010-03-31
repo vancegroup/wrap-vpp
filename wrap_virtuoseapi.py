@@ -56,8 +56,9 @@ class TypeVisitor(c_ast.NodeVisitor):
 		# recurse first
 		self.generic_visit(node)
 
-		# add a pointer
-		self.type.append('*')
+		# add a pointer symbol only if this isn't a function pointer
+		if self.type[0] != "(" and self.type[len(self.type)-1] != ")":
+			self.type.append('*')
 		print "after visit_PtrDecl:", self.type
 
 	def visit_IdentifierType(self, node):
@@ -73,9 +74,17 @@ class TypeVisitor(c_ast.NodeVisitor):
 		self.type.append("(*")
 		self.type.append(None) # indicating where to put the name
 		self.type.append(")")
+		self.type.append("(")
 
-		# recurse to the params
-		self.visit(node.args)
+		# Must independently parse the args
+		args = []
+		for arg in node.args.children():
+			fullarg = TypeVisitor()
+			fullarg.visit(arg)
+			print "Argument:", fullarg.getFullType()
+			args.append(" ".join(fullarg.getFullType()))
+		#self.visit(node.args)
+		self.type.append(", ".join(args))
 
 		# wrap args in parens
 		self.type.append(")")
@@ -87,6 +96,12 @@ class TypeVisitor(c_ast.NodeVisitor):
 			self.name = translateArg(node.declname)
 		self.generic_visit(node)
 		print "after visit_TypeDecl:", self.type
+
+	def visit_Decl(self, node):
+		if node.name is not None:
+			self.name = translateArg(node.name)
+		self.generic_visit(node)
+		print "after visit_Decl:", self.type
 
 	def getTypeOnly(self):
 		return self.type
@@ -176,6 +191,9 @@ class Method:
 		if not self.static:
 			# Drop the VC parameter
 			self.args.pop(0)
+
+		for x in self.args:
+			print x.getFullType()
 
 		# Forward the remaining parameters
 		declaration += ( ", ".join([typestring(x) for x in self.args]) + ")")
