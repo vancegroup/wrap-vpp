@@ -44,6 +44,60 @@ implmarker = "/* IMPLEMENTATION BODY GOES HERE */"
 
 defaultoutputfilename = 'vpp.hxx'
 
+translateArg = lambda x: argTrans.get(x, x)
+
+class TypeVisitor(c_ast.NodeVisitor):
+	def __init__(self):
+		self.type = []
+		self.name = None
+	def visit_PtrDecl(self, node):
+		# recurse first
+		self.generic_visit(node)
+
+		# add a pointer
+		self.type.append('*')
+
+	def visit_IdentifierType(self, node):
+		# recurse first
+		self.generic_visit(node)
+		self.type.append(node.name)
+
+
+	def visit_FuncDecl(self, node):
+		# for function pointers
+		self.type.append("(*")
+		self.type.append(None) # indicating where to put the name
+		self.type.append(")")
+
+		# recurse to the params
+		self.visit(node.args)
+
+		# wrap args in parens
+		self.type.append(")")
+	def visit_TypeDecl(self, node):
+		self.name = translateArg(node.declname)
+
+	def getTypeOnly(self):
+		return self.type
+
+	def getNameOnly(self):
+		return self.name
+
+	def getFullType(self):
+		ret = []
+		usedName = False
+		for elem in self.type:
+			if elem is None and usedName == False:
+				usedName = True
+				elem = self.name
+			ret.append(elem)
+
+		if usedName == False:
+			# Didn't fill in a placeholder, so stick it on the end.
+			ret.append(self.name)
+		return ret
+
+
 
 def renameFunctionToMethod(funcname):
 	name = funcname[4:]
@@ -52,6 +106,38 @@ def renameFunctionToMethod(funcname):
 		return name[0:1].lower() + name[1:]
 	else:
 		return name
+
+def recursiveFullType(node):
+	print " --- recursive --- "
+	#node.show(attrnames=True)
+	if "PtrDecl" in type(node).__name__:
+		#print "Pointer, has children: " , node.children()
+		ret = []
+		for child in node.children():
+			ret.extend(recursiveFullType(child))
+		ret.append('*')
+		#print "returning ret: ", ret
+		return ret
+	elif "IdentifierType" in type(node).__name__:
+		#print "returning node.names: ", node.names
+		return node.names
+	elif "TypeDecl" in type(node).__name__:
+		# We just want to recurse - don't care about name here
+		ret = []
+		for child in node.children():
+			ret.extend(recursiveFullType(child))
+		return ret
+
+def getFullType(decl):
+	"""Pass in a Decl, and I'll return a list of how to completely specify the type.
+
+	To get a nice space-separated string, try " ".join(getFullType(whatever))
+	"""
+	print "-------------------------"
+	decl.show(attrnames=True)
+	fulltype = recursiveFullType(decl.type)
+	print "Full type:", fulltype
+	return fulltype
 
 class IsStaticVisitor(c_ast.NodeVisitor):
 	"""Call on a FuncDef."""
@@ -72,20 +158,29 @@ class MethodWrapperVisitor(c_ast.NodeVisitor):
 		self.name = node.decl.name
 		self.methodName = renameFunctionToMethod(self.name)
 		self.location = node.decl.coord
-		self.args = node.decl.type.args.children
+		#self.args = node.decl.type.args.children
+		self.args = []
+		for arg in node.decl.type.args.children():
+			#fullarg = Var(getFullType(arg), arg.name);
+			fullarg = TypeVisitor()
+			fullarg.visit(arg)
+			print "Argument:", fullarg.getFullType()
+			self.args.append(fullarg)
+
+		self.retType = getFullType(node.decl.type)
 
 	def visit_TypeDecl(self, node):
-		if node.declname == self.name:
+#		if node.name == self.declname:
 			# Then this is the declaration of the return type.
 			# WARNING: right now it does not handle pointers properly -
 			# since the only function returning a pointer as of 20100331 is
 			# virtGetErrorMessage, we simply manually wrapped it.
 			## TODO - handle pointer types properly here
-			self.retType = node.type.names
-		else:
+#			self.retType = node.type.names
+#		else:
 			# This is a type for an argument!
-			### TODO (?)
-			pass
+#			pass
+		pass
 
 	def explain(self):
 		print '%s: %s returns %s, takes:' % (context.location, context.name, context.retType)
@@ -97,45 +192,37 @@ class MethodWrapperVisitor(c_ast.NodeVisitor):
 			qualifiers = "static"
 		else:
 			qualifiers = ""
-		
-		# Return type		
+
+		# Return type
 		### todo: handle pointer types correctly
-		returntype = " ".join([str(x) for x in self.retType]) 
-		
+		returntype = " ".join([str(x) for x in self.retType])
+
 		# Method name
 		declaration = self.methodName + "("
-		
+
 		# Method arguments
-		
-		translateArg = lambda x: argTrans.get(str(x.name),str(x.name))
-		
+
 		### todo: must also include the type of the arguments!
 		if self.static:
 			# No implicit VC parameter - forward them all
-			declaration += ( ", ".join([translateArg(x)
-				for x
-				in self.args()]) +
-				")")
+			declaration += ( ", ".join([" ".join(x.getFullType()) for x in self.args]) + ")")
 		else:
 			# Drop the VC parameter
-			declaration += ( ", ".join([translateArg(x)
-				for x
-				in self.args()[1:]]) +
-				")")
-		
+			declaration += ( ", ".join([" ".join(x.getFullType()) for x in self.args[1:]]) + ")")
+
 		# Basic implementation - call original function
 		body = "return "+ apicallqualifier + self.name + "("
 		if self.static:
 			callargs = []
-			forwardargs = self.args()[:]
+			forwardargs = self.args[:]
 		else:
 			callargs = ["m_vc"]
-			forwardargs = self.args()[1:]
+			forwardargs = self.args[1:]
 
-		callargs.extend([translateArg(x) for x in forwardargs])
+		callargs.extend([x.name for x in forwardargs])
 		body += ", ".join(callargs)
 		body += ");"
-			
+
 		return (qualifiers, returntype, declaration, body)
 
 class FuncDefVisitor(c_ast.NodeVisitor):
@@ -146,8 +233,10 @@ class FuncDefVisitor(c_ast.NodeVisitor):
 		if node.decl.name in manuallywrapped:
 			# manually wrapped, skip it.
 			return
-		
-		node.show(attrnames=True)
+
+		## TODO - remove this debug output code
+		#node.show(attrnames=True)
+
 		# So, we need to wrap this method
 		method = MethodWrapperVisitor(node)
 		method.visit(node)
