@@ -44,21 +44,49 @@ class Virtuose {
 		*/
 		Virtuose(const std::string & name) :
 			m_name(name),
-			m_vc(virtOpen(m_name.c_str()))
+			m_vc(virtOpen(m_name.c_str())),
+			_weOpened(true)
 		{
 			if (!m_vc) {
 				throw std::runtime_error("Failed opening Virtuose " + m_name);
 			}
 		}
 
+		/// @brief Constructor from an existing Virtuose
+		Virtuose(VirtContext vc) :
+			m_name("n/a"),
+			m_vc(vc),
+			_weOpened(false)
+		{}
+
+		/// @brief Copy constructor
+		Virtuose(Virtuose const& other) :
+			m_name(other.m_name),
+			m_vc(other.m_vc),
+			_weOpened(false)
+		{}
+
+		/// @brief Assignment operator
+		operator=(Virtuose const& other) {
+			if (_weOpened) {
+				// Close our existing one first.
+				virtClose(m_vc);
+			}
+			m_name = other.m_name;
+			m_vc = other.m_vc;
+			_weOpened = false;
+		}
+
 		/** @brief destructor that closes the connection to the Virtuose
 			device.
 		*/
 		~Virtuose() {
-			virtClose(m_vc);
+			if (_weOpened) {
+				virtClose(m_vc);
+			}
 		}
 
-		VirtContext() {
+		operator VirtContext() {
 			return m_vc;
 		}
 
@@ -71,6 +99,7 @@ class Virtuose {
 	protected:
 		std::string m_name;
 		VirtContext m_vc;
+		bool _weOpened;
 };
 
 /* IMPLEMENTATION BODY GOES HERE */
