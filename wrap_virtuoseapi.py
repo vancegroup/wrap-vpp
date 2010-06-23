@@ -37,12 +37,12 @@ argTrans = {	'fichier':		'fh',
 									}
 
 
-bpfilename = "vpp-boilerplate.hxx"
+bpfilename = "vpp-boilerplate.h"
 classmarker = "/* CLASS BODY GOES HERE */"
 implmarker = "/* IMPLEMENTATION BODY GOES HERE */"
 
 
-defaultoutputfilename = 'vpp.hxx'
+defaultoutputfilename = 'vpp.h'
 
 translateArg = lambda x: argTrans.get(x, x)
 

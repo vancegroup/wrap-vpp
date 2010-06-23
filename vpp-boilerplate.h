@@ -12,15 +12,12 @@
 	Iowa State University Virtual Reality Applications Center
 	Human-Computer Interaction Graduate Program
 */
-
 #pragma once
-#ifndef _VPP_HXX
-#define _VPP_HXX
+#ifndef INCLUDED_vpp_h_GUID_0d0a89d6_fd37_447c_aa27_ebc289ddb935
+#define INCLUDED_vpp_h_GUID_0d0a89d6_fd37_447c_aa27_ebc289ddb935
 
-// Standard includes
-#include <exception>
-#include <stdexcept>
-#include <string>
+// Internal Includes
+// none
 
 // Library/third-party includes
 /// @todo use namespace
@@ -28,8 +25,10 @@
 #include <VirtuoseAPI.h>
 //}
 
-// Internal Includes
-// none
+// Standard includes
+#include <exception>
+#include <stdexcept>
+#include <string>
 
 class Virtuose {
 	public:
@@ -45,7 +44,7 @@ class Virtuose {
 		*/
 		Virtuose(const std::string & name) :
 			m_name(name),
-			m_vc(virtOpen(m_name.c_str())
+			m_vc(virtOpen(m_name.c_str()))
 		{
 			if (!m_vc) {
 				throw std::runtime_error("Failed opening Virtuose " + m_name);
@@ -76,4 +75,5 @@ class Virtuose {
 
 /* IMPLEMENTATION BODY GOES HERE */
 
-#endif // _VPP_HXX
+#endif // INCLUDED_vpp_h_GUID_0d0a89d6_fd37_447c_aa27_ebc289ddb935
+
