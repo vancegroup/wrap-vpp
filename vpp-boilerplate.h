@@ -67,14 +67,20 @@ class Virtuose {
 		{}
 
 		/// @brief Assignment operator
-		operator=(Virtuose const& other) {
-			if (_weOpened) {
-				// Close our existing one first.
-				virtClose(m_vc);
+		Virtuose & operator=(Virtuose const& other) {
+			if (&other == this) {
+				// Self assignment - no-op
+			} else {
+				// Actual assignment
+				if (_weOpened) {
+					// Close our existing one first.
+					virtClose(m_vc);
+				}
+				m_name = other.m_name;
+				m_vc = other.m_vc;
+				_weOpened = false;
 			}
-			m_name = other.m_name;
-			m_vc = other.m_vc;
-			_weOpened = false;
+			return *this;
 		}
 
 		/** @brief destructor that closes the connection to the Virtuose
