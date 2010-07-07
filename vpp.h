@@ -52,7 +52,7 @@ class Virtuose {
 			_weOpened(true)
 		{
 #ifdef VPP_VERBOSE
-			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Constructing a new Virtuose object, device named " << name << ", VirtContext=" << m_vc << std::endl;
+			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Constructing a new Virtuose object, device named " << m_name << ", VirtContext=" << m_vc << std::endl;
 #endif
 			if (!m_vc) {
 				throw std::runtime_error("Failed opening Virtuose " + m_name);
@@ -77,7 +77,7 @@ class Virtuose {
 			_weOpened(false)
 		{
 #ifdef VPP_VERBOSE
-			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Copy-constructing a Virtuose object from existing Virtuose object, named " << name << ", VirtContext=" << m_vc << std::endl;
+			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Copy-constructing a Virtuose object from existing Virtuose object, named " << m_name << ", VirtContext=" << m_vc << std::endl;
 #endif
 		}
 
@@ -93,7 +93,7 @@ class Virtuose {
 				if (_weOpened) {
 					// Close our existing one first.
 #ifdef VPP_VERBOSE
-					std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In assignment operator, closing existing Virtuose device named " << name << ", VirtContext=" << m_vc << std::endl;
+					std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In assignment operator, closing existing Virtuose device named " << m_name << ", VirtContext=" << m_vc << std::endl;
 #endif
 					virtClose(m_vc);
 				}
@@ -101,7 +101,7 @@ class Virtuose {
 				m_vc = other.m_vc;
 				_weOpened = false;
 #ifdef VPP_VERBOSE
-				std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Assignment operator has set ourselves to a device named " << name << ", VirtContext=" << m_vc << std::endl;
+				std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Assignment operator has set ourselves to a device named " << m_name << ", VirtContext=" << m_vc << std::endl;
 #endif
 			}
 			return *this;
@@ -113,12 +113,12 @@ class Virtuose {
 		~Virtuose() {
 			if (_weOpened) {
 #ifdef VPP_VERBOSE
-			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In destructor for device named " << name << ", VirtContext=" << m_vc << ", closing because _weOpened flag is set" << std::endl;
+			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In destructor for device named " << m_name << ", VirtContext=" << m_vc << ", closing because _weOpened flag is set" << std::endl;
 #endif
 				virtClose(m_vc);
 			} else {
 #ifdef VPP_VERBOSE
-				std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In destructor for device named " << name << ", VirtContext=" << m_vc << ", NOT closing because _weOpened flag is not set" << std::endl;
+				std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In destructor for device named " << m_name << ", VirtContext=" << m_vc << ", NOT closing because _weOpened flag is not set" << std::endl;
 #endif
 			}
 		}
