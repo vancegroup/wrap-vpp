@@ -30,6 +30,10 @@
 #include <stdexcept>
 #include <string>
 
+#ifdef VPP_VERBOSE
+#include <iostream>
+#endif
+
 class Virtuose {
 	public:
 		//using _VAPI::VirtContext;
