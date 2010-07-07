@@ -41,6 +41,8 @@ bpfilename = "vpp-boilerplate.h"
 classmarker = "/* CLASS BODY GOES HERE */"
 implmarker = "/* IMPLEMENTATION BODY GOES HERE */"
 
+virtcontextmember = "_vc"
+
 
 defaultoutputfilename = 'vpp.h'
 
@@ -205,7 +207,7 @@ class Method:
 
 		callargs = []
 		if not self.static:
-			callargs.append("m_vc")
+			callargs.append(virtcontextmember)
 
 		callargs.extend([x.getNameOnly() for x in self.args])
 		body += ", ".join(callargs)

@@ -47,37 +47,37 @@ class Virtuose {
 			@throws std::runtime_error if opening the device failed.
 		*/
 		Virtuose(const std::string & name) :
-			m_name(name),
-			m_vc(virtOpen(m_name.c_str())),
+			_name(name),
+			_vc(virtOpen(_name.c_str())),
 			_weOpened(true)
 		{
 #ifdef VPP_VERBOSE
-			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Constructing a new Virtuose object, device named " << m_name << ", VirtContext=" << m_vc << std::endl;
+			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Constructing a new Virtuose object, device named " << _name << ", VirtContext=" << _vc << std::endl;
 #endif
-			if (!m_vc) {
-				throw std::runtime_error("Failed opening Virtuose " + m_name);
+			if (!_vc) {
+				throw std::runtime_error("Failed opening Virtuose " + _name);
 			}
 		}
 
 		/// @brief Constructor from an existing Virtuose
 		Virtuose(VirtContext vc) :
-			m_name("n/a"),
-			m_vc(vc),
+			_name("n/a"),
+			_vc(vc),
 			_weOpened(false)
 		{
 #ifdef VPP_VERBOSE
-			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Constructing a Virtuose object from existing VirtContext " << m_vc << std::endl;
+			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Constructing a Virtuose object from existing VirtContext " << _vc << std::endl;
 #endif		
 		}
 
 		/// @brief Copy constructor
 		Virtuose(Virtuose const& other) :
-			m_name(other.m_name),
-			m_vc(other.m_vc),
+			_name(other._name),
+			_vc(other._vc),
 			_weOpened(false)
 		{
 #ifdef VPP_VERBOSE
-			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Copy-constructing a Virtuose object from existing Virtuose object, named " << m_name << ", VirtContext=" << m_vc << std::endl;
+			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Copy-constructing a Virtuose object from existing Virtuose object, named " << _name << ", VirtContext=" << _vc << std::endl;
 #endif
 		}
 
@@ -93,15 +93,15 @@ class Virtuose {
 				if (_weOpened) {
 					// Close our existing one first.
 #ifdef VPP_VERBOSE
-					std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In assignment operator, closing existing Virtuose device named " << m_name << ", VirtContext=" << m_vc << std::endl;
+					std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In assignment operator, closing existing Virtuose device named " << _name << ", VirtContext=" << _vc << std::endl;
 #endif
-					virtClose(m_vc);
+					virtClose(_vc);
 				}
-				m_name = other.m_name;
-				m_vc = other.m_vc;
+				_name = other._name;
+				_vc = other._vc;
 				_weOpened = false;
 #ifdef VPP_VERBOSE
-				std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Assignment operator has set ourselves to a device named " << m_name << ", VirtContext=" << m_vc << std::endl;
+				std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Assignment operator has set ourselves to a device named " << _name << ", VirtContext=" << _vc << std::endl;
 #endif
 			}
 			return *this;
@@ -113,24 +113,24 @@ class Virtuose {
 		~Virtuose() {
 			if (_weOpened) {
 #ifdef VPP_VERBOSE
-			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In destructor for device named " << m_name << ", VirtContext=" << m_vc << ", closing because _weOpened flag is set" << std::endl;
+			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In destructor for device named " << _name << ", VirtContext=" << _vc << ", closing because _weOpened flag is set" << std::endl;
 #endif
-				virtClose(m_vc);
+				virtClose(_vc);
 			} else {
 #ifdef VPP_VERBOSE
-				std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In destructor for device named " << m_name << ", VirtContext=" << m_vc << ", NOT closing because _weOpened flag is not set" << std::endl;
+				std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In destructor for device named " << _name << ", VirtContext=" << _vc << ", NOT closing because _weOpened flag is not set" << std::endl;
 #endif
 			}
 		}
 
 		operator VirtContext() {
-			return m_vc;
+			return _vc;
 		}
 
 		/* CLASS BODY GOES HERE */
 		
 		std::string getErrorMessage() {
-			return std::string(virtGetErrorMessage(virtGetErrorCode(m_vc)));
+			return std::string(virtGetErrorMessage(virtGetErrorCode(_vc)));
 		}
 		
 		static std::string getErrorMessage(int code) {
@@ -138,8 +138,8 @@ class Virtuose {
 		}
 
 	protected:
-		std::string m_name;
-		VirtContext m_vc;
+		std::string _name;
+		VirtContext _vc;
 		bool _weOpened;
 };
 
