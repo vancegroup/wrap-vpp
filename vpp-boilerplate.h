@@ -128,7 +128,11 @@ class Virtuose {
 		}
 
 		/* CLASS BODY GOES HERE */
-
+		
+		std::string getErrorMessage() {
+			return std::string(virtGetErrorMessage(virtGetErrorCode(m_vc)));
+		}
+		
 		static std::string getErrorMessage(int code) {
 			return std::string(virtGetErrorMessage(code));
 		}
