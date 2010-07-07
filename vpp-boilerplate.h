@@ -47,6 +47,9 @@ class Virtuose {
 			m_vc(virtOpen(m_name.c_str())),
 			_weOpened(true)
 		{
+#ifdef VPP_VERBOSE
+			std::cout << __FILE__ << ":" << __LINE__ << ": Constructing a new Virtuose object, device named " << name << ", VirtContext=" << m_vc << std::endl;
+#endif
 			if (!m_vc) {
 				throw std::runtime_error("Failed opening Virtuose " + m_name);
 			}
@@ -57,28 +60,45 @@ class Virtuose {
 			m_name("n/a"),
 			m_vc(vc),
 			_weOpened(false)
-		{}
+		{
+#ifdef VPP_VERBOSE
+			std::cout << __FILE__ << ":" << __LINE__ << ": Constructing a Virtuose object from existing VirtContext " << m_vc << std::endl;
+#endif		
+		}
 
 		/// @brief Copy constructor
 		Virtuose(Virtuose const& other) :
 			m_name(other.m_name),
 			m_vc(other.m_vc),
 			_weOpened(false)
-		{}
+		{
+#ifdef VPP_VERBOSE
+			std::cout << __FILE__ << ":" << __LINE__ << ": Copy-constructing a Virtuose object from existing Virtuose object, named " << name << ", VirtContext=" << m_vc << std::endl;
+#endif
+		}
 
 		/// @brief Assignment operator
 		Virtuose & operator=(Virtuose const& other) {
 			if (&other == this) {
 				// Self assignment - no-op
+#ifdef VPP_VERBOSE
+				std::cout << __FILE__ << ":" << __LINE__ << ": Self-assignment is a no-op" << std::endl;
+#endif
 			} else {
 				// Actual assignment
 				if (_weOpened) {
 					// Close our existing one first.
+#ifdef VPP_VERBOSE
+					std::cout << __FILE__ << ":" << __LINE__ << ": In assignment operator, closing existing Virtuose device named " << name << ", VirtContext=" << m_vc << std::endl;
+#endif
 					virtClose(m_vc);
 				}
 				m_name = other.m_name;
 				m_vc = other.m_vc;
 				_weOpened = false;
+#ifdef VPP_VERBOSE
+				std::cout << __FILE__ << ":" << __LINE__ << ": Assignment operator has set ourselves to a device named " << name << ", VirtContext=" << m_vc << std::endl;
+#endif
 			}
 			return *this;
 		}
@@ -88,7 +108,14 @@ class Virtuose {
 		*/
 		~Virtuose() {
 			if (_weOpened) {
+#ifdef VPP_VERBOSE
+			std::cout << __FILE__ << ":" << __LINE__ << ": In destructor for device named " << name << ", VirtContext=" << m_vc << ", closing because _weOpened flag is set" << std::endl;
+#endif
 				virtClose(m_vc);
+			} else {
+#ifdef VPP_VERBOSE
+				std::cout << __FILE__ << ":" << __LINE__ << ": In destructor for device named " << name << ", VirtContext=" << m_vc << ", NOT closing because _weOpened flag is not set" << std::endl;
+#endif
 			}
 		}
 
