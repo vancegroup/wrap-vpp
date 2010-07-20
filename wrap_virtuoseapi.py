@@ -16,6 +16,7 @@
 import sys
 import os
 import string
+import re
 
 from pycparser import c_parser, c_ast, parse_file
 
@@ -43,6 +44,7 @@ bpfilename = "vpp-boilerplate.h"
 classmarker = "/* CLASS BODY GOES HERE */"
 implmarker = "/* IMPLEMENTATION BODY GOES HERE */"
 includeplaceholder = "UPSTREAM_INCLUDE_FILENAME"
+versionplaceholder = "UPSTREAM_VERSION_GOES_HERE"
 
 virtcontextmember = "_vc"
 
@@ -50,6 +52,18 @@ virtcontextmember = "_vc"
 defaultoutputfilename = 'vpp.h'
 
 translateArg = lambda x: argTrans.get(x, x)
+
+
+def getVersionStringFromHeader(fn):
+	infile = open(fn, 'r')
+	indata = infile.read()
+	infile.close()
+	m = re.search('Version number:[^0-9]*(?P<ver>[0-9]+\.[0-9]+)', indata)
+	if m:
+		return m.group('ver') # named match group
+	else:
+		return "Unknown"
+	
 
 class TypeVisitor(c_ast.NodeVisitor):
 	def __init__(self):
@@ -247,6 +261,7 @@ def wrap_virtuose_api(filenames):
 			print("Cannot continue: no valid input file found!")
 			os.exit()
 
+		apiVer = getVersionStringFromHeader(filename)
 		ast = parse_file(filename, use_cpp=True, cpp_args=r'-Iutils/fake_libc_include')
 
 		v = FuncDefVisitor()
@@ -268,7 +283,7 @@ def wrap_virtuose_api(filenames):
 		implbody = "\n\n".join(impllines)
 
 		boilerplatefile = open(bpfilename, 'r')
-		boilerplate = string.replace(boilerplatefile.read(), includeplaceholder, os.path.basename(filename))
+		boilerplate = boilerplatefile.read().replace(includeplaceholder, os.path.basename(filename)).replace(versionplaceholder, apiVer)
 		boilerplatefile.close()
 
 
@@ -286,11 +301,11 @@ def wrap_virtuose_api(filenames):
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        filename  = [sys.argv[1]]
+        filenames  = [sys.argv[1]]
     else:
-        filename = defaultapifilenames
+        filenames = defaultapifilenames
 
-    output = wrap_virtuose_api(filename)
+    output = wrap_virtuose_api(filenames)
     #print output
 
     if len(sys.argv) > 2:
