@@ -54,8 +54,9 @@ class Virtuose {
 #ifdef VPP_VERBOSE
 			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Constructing a new Virtuose object, device named " << _name << ", VirtContext=" << _vc << std::endl;
 #endif
-			if (!_vc) {
-				throw std::runtime_error("Failed opening Virtuose " + _name);
+			if (_vc == NULL) {
+				_weOpened = false;
+				throw std::runtime_error("Failed opening Virtuose " + _name + getErrorMessage());
 			}
 		}
 
@@ -90,19 +91,22 @@ class Virtuose {
 #endif
 			} else {
 				// Actual assignment
+				int ret = 0;
 				if (_weOpened) {
 					// Close our existing one first.
 #ifdef VPP_VERBOSE
 					std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In assignment operator, closing existing Virtuose device named " << _name << ", VirtContext=" << _vc << std::endl;
 #endif
-					virtClose(_vc);
+					ret = virtClose(_vc);
 				}
-				_name = other._name;
-				_vc = other._vc;
-				_weOpened = false;
-#ifdef VPP_VERBOSE
-				std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Assignment operator has set ourselves to a device named " << _name << ", VirtContext=" << _vc << std::endl;
-#endif
+				if (!checkForError(ret, __FILE__, __LINE__, __FUNCTION__)) {
+					_name = other._name;
+					_vc = other._vc;
+					_weOpened = false;
+	#ifdef VPP_VERBOSE
+					std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Assignment operator has set ourselves to a device named " << _name << ", VirtContext=" << _vc << std::endl;
+	#endif
+				}
 			}
 			return *this;
 		}
@@ -115,7 +119,8 @@ class Virtuose {
 #ifdef VPP_VERBOSE
 			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In destructor for device named " << _name << ", VirtContext=" << _vc << ", closing because _weOpened flag is set" << std::endl;
 #endif
-				virtClose(_vc);
+				int ret = virtClose(_vc);
+				checkForError(ret, __FILE__, __LINE__, __FUNCTION__);
 			} else {
 #ifdef VPP_VERBOSE
 				std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": In destructor for device named " << _name << ", VirtContext=" << _vc << ", NOT closing because _weOpened flag is not set" << std::endl;
@@ -227,6 +232,21 @@ class Virtuose {
 		/* Static Methods */
 		static int APIVersion(int * major, int * minor);
 		
+		// Use like:
+		// if (virt.checkForError(ret, __FILE__, __LINE__, __FUNCTION__)) {
+		//   // handle error
+		// }
+		bool checkForError(int returnValue, std::string const& 
+file = "", int const line = -1, std::string const& 
+func 
+= "") {
+			if (returnValue == 0) {
+				return false; // no error
+			} else {
+				std::cerr << file << ":" << line << " (" << func << ")" << "Got error from Virtuose: " << getErrorMessage() << std::endl;
+				return true; // error
+			}
+		}
 		std::string getErrorMessage() {
 			return std::string(virtGetErrorMessage(virtGetErrorCode(_vc)));
 		}
