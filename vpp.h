@@ -71,7 +71,7 @@ class Virtuose {
 		{
 #ifdef VPP_VERBOSE
 			std::cout << __FILE__ << ":" << __LINE__ << " (" << __FUNCTION__ << ")" << ": Constructing a Virtuose object from existing VirtContext " << _vc << std::endl;
-#endif		
+#endif
 		}
 
 		/// @brief Copy constructor
@@ -234,14 +234,14 @@ class Virtuose {
 		int addForce(float * force);
 		/* Static Methods */
 		static int APIVersion(int * major, int * minor);
-		
+
 		// Use like:
 		// if (virt.checkForError(ret, __FILE__, __LINE__, __FUNCTION__)) {
 		//   // handle error
 		// }
-		bool checkForError(int returnValue, std::string const& 
-file = "", int const line = -1, std::string const& 
-func 
+		bool checkForError(int returnValue, std::string const&
+file = "", int const line = -1, std::string const&
+func
 = "") {
 			if (returnValue == 0) {
 				return false; // no error
@@ -253,7 +253,7 @@ func
 		std::string getErrorMessage() {
 			return std::string(virtGetErrorMessage(virtGetErrorCode(_vc)));
 		}
-		
+
 		static std::string getErrorMessage(int code) {
 			return std::string(virtGetErrorMessage(code));
 		}
