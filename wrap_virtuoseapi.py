@@ -296,23 +296,24 @@ def wrap_virtuose_api(filenames):
 			print "COULD NOT FIND PLACEHOLDER!"
 			fullfile = None
 
-		return fullfile
+		return fullfile, apiVer
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        filenames  = [sys.argv[1]]
-    else:
-        filenames = defaultapifilenames
+	if len(sys.argv) > 1:
+		filenames  = [sys.argv[1]]
+		if len(sys.argv) > 2:
+			outfile = sys.argv[2]
+		else:
+			outfile = "vpp-VER.h"
+	else:
+		filenames = defaultapifilenames
+		outfile = defaultoutputfilename
 
-    output = wrap_virtuose_api(filenames)
-    #print output
+	output, ver = wrap_virtuose_api(filenames)
+	outfile = outfile.replace("VER", ver)
 
-    if len(sys.argv) > 2:
-    	outfile = sys.argv[2]
-    else:
-    	outfile = defaultoutputfilename
-
-  	out = open(outfile, 'w')
-  	out.write(output)
-  	out.close()
+	print "Writing to file ", outfile
+	out = open(outfile, 'w')
+	out.write(output)
+	out.close()
