@@ -22,7 +22,7 @@
 // Library/third-party includes
 /// @todo use namespace
 //namespace _VAPI {
-#include <VirtuoseAPI.h>
+#include <UPSTREAM_INCLUDE_FILENAME>
 //}
 
 // Standard includes

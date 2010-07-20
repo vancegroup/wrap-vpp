@@ -14,10 +14,12 @@
 # License: LGPL
 #-----------------------------------------------------------------
 import sys
+import os
+import string
 
 from pycparser import c_parser, c_ast, parse_file
 
-defaultapifilename = 'VirtuoseAPI.h'
+defaultapifilenames = ['virtuoseAPI.h', 'VirtuoseAPI.h']
 
 structtype = ["VirtContext"]
 apicallqualifier = ""; #"_VAPI::"
@@ -40,6 +42,7 @@ argTrans = {	'fichier':		'fh',
 bpfilename = "vpp-boilerplate.h"
 classmarker = "/* CLASS BODY GOES HERE */"
 implmarker = "/* IMPLEMENTATION BODY GOES HERE */"
+includeplaceholder = "UPSTREAM_INCLUDE_FILENAME"
 
 virtcontextmember = "_vc"
 
@@ -231,10 +234,19 @@ class FuncDefVisitor(c_ast.NodeVisitor):
 		method = Method(node)
 		self.wrapped_methods.append(method.generateWrapper())
 
-def wrap_virtuose_api(filename):
+def wrap_virtuose_api(filenames):
 		# Note that cpp is used. Provide a path to your own cpp or
 		# make sure one exists in PATH.
 		#
+		filename = None
+		for fn in filenames:
+			if os.path.exists(fn):
+				filename = fn
+				break
+		if filename is None:
+			print("Cannot continue: no valid input file found!")
+			os.exit()
+
 		ast = parse_file(filename, use_cpp=True, cpp_args=r'-Iutils/fake_libc_include')
 
 		v = FuncDefVisitor()
@@ -256,7 +268,7 @@ def wrap_virtuose_api(filename):
 		implbody = "\n\n".join(impllines)
 
 		boilerplatefile = open(bpfilename, 'r')
-		boilerplate = boilerplatefile.read()
+		boilerplate = string.replace(boilerplatefile.read(), includeplaceholder, os.path.basename(filename))
 		boilerplatefile.close()
 
 
@@ -274,9 +286,9 @@ def wrap_virtuose_api(filename):
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        filename  = sys.argv[1]
+        filename  = [sys.argv[1]]
     else:
-        filename = defaultapifilename
+        filename = defaultapifilenames
 
     output = wrap_virtuose_api(filename)
     #print output
