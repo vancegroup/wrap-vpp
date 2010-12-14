@@ -246,7 +246,9 @@ func
 			if (returnValue == 0) {
 				return false; // no error
 			} else {
+#ifdef VPP_VERBOSE
 				std::cerr << file << ":" << line << " (" << func << ")" << "Got error from Virtuose: " << getErrorMessage() << std::endl;
+#endif
 				return true; // error
 			}
 		}
