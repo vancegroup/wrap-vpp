@@ -40,6 +40,10 @@
 class Virtuose {
 	public:
 		//using _VAPI::VirtContext;
+		
+		struct VirtuoseAPIError : public std::runtime_error {
+			VirtuoseAPIError(std::string const& what) : std::runtime_error(what) {}
+		};
 
 		/** @brief constructor
 
@@ -47,7 +51,7 @@ class Virtuose {
 
 			@param name Name of Virtuose device to connect to.
 
-			@throws std::runtime_error if opening the device failed.
+			@throws VirtuoseAPIError if opening the device failed.
 		*/
 		Virtuose(const std::string & name) :
 			_name(name),
@@ -59,7 +63,7 @@ class Virtuose {
 #endif
 			if (_vc == NULL) {
 				_weOpened = false;
-				throw std::runtime_error("Failed opening Virtuose " + _name + getErrorMessage());
+				throw VirtuoseAPIError("Failed opening Virtuose " + _name + getErrorMessage());
 			}
 		}
 
@@ -154,6 +158,7 @@ func
 				return true; // error
 			}
 		}
+
 		std::string getErrorMessage() {
 			return std::string(virtGetErrorMessage(virtGetErrorCode(_vc)));
 		}

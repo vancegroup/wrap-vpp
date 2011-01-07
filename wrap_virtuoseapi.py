@@ -191,6 +191,18 @@ class Method:
 	def explain(self):
 		print '%s: %s returns %s, takes:' % (context.location, context.name, context.retType)
 		return
+	
+	def callWrappedFunction(self):
+		forwardCall = apicallqualifier + self.name + "("
+
+		callargs = []
+		if not self.static:
+			callargs.append(virtcontextmember)
+
+		callargs.extend([x.getNameOnly() for x in self.args])
+		forwardCall += ", ".join(callargs)
+		forwardCall += ")"
+		return forwardCall
 
 	def generateWrapper(self):
 		# Static designation if needed
@@ -220,15 +232,21 @@ class Method:
 		declaration += ( ", ".join([typestring(x) for x in self.args]) + ")")
 
 		# Basic implementation - call original function
-		body = "return "+ apicallqualifier + self.name + "("
-
-		callargs = []
-		if not self.static:
-			callargs.append(virtcontextmember)
-
-		callargs.extend([x.getNameOnly() for x in self.args])
-		body += ", ".join(callargs)
-		body += ");"
+		
+		body = ""
+		if returntype == "int":
+			# Convert return codes into exceptions
+			body = """
+			int ret = """ + self.callWrappedFunction() + """;
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;"""
+		else:
+			# Doesn't return a return code.
+			body = "return " + self.callWrappedFunction() + ";"
 
 		return (qualifiers, returntype, declaration, body)
 
