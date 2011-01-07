@@ -40,6 +40,10 @@
 class Virtuose {
 	public:
 		//using _VAPI::VirtContext;
+		
+		struct VirtuoseAPIError : public std::runtime_error {
+			VirtuoseAPIError(std::string const& what) : std::runtime_error(what) {}
+		};
 
 		/** @brief constructor
 
@@ -47,7 +51,7 @@ class Virtuose {
 
 			@param name Name of Virtuose device to connect to.
 
-			@throws std::runtime_error if opening the device failed.
+			@throws VirtuoseAPIError if opening the device failed.
 		*/
 		Virtuose(const std::string & name) :
 			_name(name),
@@ -59,7 +63,7 @@ class Virtuose {
 #endif
 			if (_vc == NULL) {
 				_weOpened = false;
-				throw std::runtime_error("Failed opening Virtuose " + _name + getErrorMessage());
+				throw VirtuoseAPIError("Failed opening Virtuose " + _name + getErrorMessage());
 			}
 		}
 
@@ -258,6 +262,7 @@ func
 				return true; // error
 			}
 		}
+
 		std::string getErrorMessage() {
 			return std::string(virtGetErrorMessage(virtGetErrorCode(_vc)));
 		}
@@ -279,415 +284,1136 @@ inline int Virtuose::APIVersion(int * major, int * minor) {
 }
 
 inline int Virtuose::attachVO(float mass, float * mxmymz) {
-	return virtAttachVO(_vc, mass, mxmymz);
+	
+			int ret = virtAttachVO(_vc, mass, mxmymz);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::attachQSVO(float * Ks, float * Bs) {
-	return virtAttachQSVO(_vc, Ks, Bs);
+	
+			int ret = virtAttachQSVO(_vc, Ks, Bs);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::attachVOAvatar(float mass, float * mxmymz) {
-	return virtAttachVOAvatar(_vc, mass, mxmymz);
+	
+			int ret = virtAttachVOAvatar(_vc, mass, mxmymz);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::detachVO() {
-	return virtDetachVO(_vc);
+	
+			int ret = virtDetachVO(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::detachVOAvatar() {
-	return virtDetachVOAvatar(_vc);
+	
+			int ret = virtDetachVOAvatar(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::displayHardwareStatus(FILE * fh) {
-	return virtDisplayHardwareStatus(_vc, fh);
+	
+			int ret = virtDisplayHardwareStatus(_vc, fh);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getBaseFrame(float * base) {
-	return virtGetBaseFrame(_vc, base);
+	
+			int ret = virtGetBaseFrame(_vc, base);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getButton(int button_number, int * state) {
-	return virtGetButton(_vc, button_number, state);
+	
+			int ret = virtGetButton(_vc, button_number, state);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getCommandType(VirtCommandType * type) {
-	return virtGetCommandType(_vc, type);
+	
+			int ret = virtGetCommandType(_vc, type);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getDeadMan(int * dead_man) {
-	return virtGetDeadMan(_vc, dead_man);
+	
+			int ret = virtGetDeadMan(_vc, dead_man);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getEmergencyStop(int * emergency_stop) {
-	return virtGetEmergencyStop(_vc, emergency_stop);
+	
+			int ret = virtGetEmergencyStop(_vc, emergency_stop);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getError(int * error) {
-	return virtGetError(_vc, error);
+	
+			int ret = virtGetError(_vc, error);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getErrorCode() {
-	return virtGetErrorCode(_vc);
+	
+			int ret = virtGetErrorCode(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getForce(float * force) {
-	return virtGetForce(_vc, force);
+	
+			int ret = virtGetForce(_vc, force);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getForceFactor(float * force_factor) {
-	return virtGetForceFactor(_vc, force_factor);
+	
+			int ret = virtGetForceFactor(_vc, force_factor);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getIndexingMode(VirtIndexingType * indexing_mode) {
-	return virtGetIndexingMode(_vc, indexing_mode);
+	
+			int ret = virtGetIndexingMode(_vc, indexing_mode);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getLimitTorque(float * torque) {
-	return virtGetLimitTorque(_vc, torque);
+	
+			int ret = virtGetLimitTorque(_vc, torque);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getObservationFrame(float * obs) {
-	return virtGetObservationFrame(_vc, obs);
+	
+			int ret = virtGetObservationFrame(_vc, obs);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getPosition(float * pos) {
-	return virtGetPosition(_vc, pos);
+	
+			int ret = virtGetPosition(_vc, pos);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getPowerOn(int * power) {
-	return virtGetPowerOn(_vc, power);
+	
+			int ret = virtGetPowerOn(_vc, power);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getSpeed(float * speed) {
-	return virtGetSpeed(_vc, speed);
+	
+			int ret = virtGetSpeed(_vc, speed);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getSpeedFactor(float * speed_factor) {
-	return virtGetSpeedFactor(_vc, speed_factor);
+	
+			int ret = virtGetSpeedFactor(_vc, speed_factor);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getTimeLastUpdate(int unsigned * time) {
-	return virtGetTimeLastUpdate(_vc, time);
+	
+			int ret = virtGetTimeLastUpdate(_vc, time);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getTimeoutValue(float * time_value) {
-	return virtGetTimeoutValue(_vc, time_value);
+	
+			int ret = virtGetTimeoutValue(_vc, time_value);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setBaseFrame(float * base) {
-	return virtSetBaseFrame(_vc, base);
+	
+			int ret = virtSetBaseFrame(_vc, base);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setCommandType(VirtCommandType type) {
-	return virtSetCommandType(_vc, type);
+	
+			int ret = virtSetCommandType(_vc, type);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setDebugFlags(short unsigned flag) {
-	return virtSetDebugFlags(_vc, flag);
+	
+			int ret = virtSetDebugFlags(_vc, flag);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setForce(float * force) {
-	return virtSetForce(_vc, force);
+	
+			int ret = virtSetForce(_vc, force);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setForceFactor(float force_factor) {
-	return virtSetForceFactor(_vc, force_factor);
+	
+			int ret = virtSetForceFactor(_vc, force_factor);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setIndexingMode(VirtIndexingType indexing_mode) {
-	return virtSetIndexingMode(_vc, indexing_mode);
+	
+			int ret = virtSetIndexingMode(_vc, indexing_mode);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setLimitTorque(float torque) {
-	return virtSetLimitTorque(_vc, torque);
+	
+			int ret = virtSetLimitTorque(_vc, torque);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setObservationFrame(float * obs) {
-	return virtSetObservationFrame(_vc, obs);
+	
+			int ret = virtSetObservationFrame(_vc, obs);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setObservationFrameSpeed(float * speed) {
-	return virtSetObservationFrameSpeed(_vc, speed);
+	
+			int ret = virtSetObservationFrameSpeed(_vc, speed);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setOutputFile(char * name) {
-	return virtSetOutputFile(_vc, name);
+	
+			int ret = virtSetOutputFile(_vc, name);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setPeriodicFunction(void (* fn ) (VirtContext, void *), float * period, void * arg) {
-	return virtSetPeriodicFunction(_vc, fn, period, arg);
+	
+			int ret = virtSetPeriodicFunction(_vc, fn, period, arg);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setPosition(float * pos) {
-	return virtSetPosition(_vc, pos);
+	
+			int ret = virtSetPosition(_vc, pos);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setPowerOn(int power) {
-	return virtSetPowerOn(_vc, power);
+	
+			int ret = virtSetPowerOn(_vc, power);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setSpeed(float * speed) {
-	return virtSetSpeed(_vc, speed);
+	
+			int ret = virtSetSpeed(_vc, speed);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setSpeedFactor(float speed_factor) {
-	return virtSetSpeedFactor(_vc, speed_factor);
+	
+			int ret = virtSetSpeedFactor(_vc, speed_factor);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setTexture(float * position, float * intensity, int reinit) {
-	return virtSetTexture(_vc, position, intensity, reinit);
+	
+			int ret = virtSetTexture(_vc, position, intensity, reinit);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setTextureForce(float * texture_force) {
-	return virtSetTextureForce(_vc, texture_force);
+	
+			int ret = virtSetTextureForce(_vc, texture_force);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setTimeStep(float step) {
-	return virtSetTimeStep(_vc, step);
+	
+			int ret = virtSetTimeStep(_vc, step);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setTimeoutValue(float time_value) {
-	return virtSetTimeoutValue(_vc, time_value);
+	
+			int ret = virtSetTimeoutValue(_vc, time_value);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::startLoop() {
-	return virtStartLoop(_vc);
+	
+			int ret = virtStartLoop(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::stopLoop() {
-	return virtStopLoop(_vc);
+	
+			int ret = virtStopLoop(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::waitForSynch() {
-	return virtWaitForSynch(_vc);
+	
+			int ret = virtWaitForSynch(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::trajRecordStart() {
-	return virtTrajRecordStart(_vc);
+	
+			int ret = virtTrajRecordStart(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::trajRecordStop() {
-	return virtTrajRecordStop(_vc);
+	
+			int ret = virtTrajRecordStop(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::trajSetSamplingTimeStep(float timeStep, int unsigned * recordTime) {
-	return virtTrajSetSamplingTimeStep(_vc, timeStep, recordTime);
+	
+			int ret = virtTrajSetSamplingTimeStep(_vc, timeStep, recordTime);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmStartTrajSampling(int unsigned nbSamples) {
-	return virtVmStartTrajSampling(_vc, nbSamples);
+	
+			int ret = virtVmStartTrajSampling(_vc, nbSamples);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmGetTrajSamples(float * samples) {
-	return virtVmGetTrajSamples(_vc, samples);
+	
+			int ret = virtVmGetTrajSamples(_vc, samples);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmSetType(VirtVmType type) {
-	return virtVmSetType(_vc, type);
+	
+			int ret = virtVmSetType(_vc, type);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmSetParameter(VirtVmParameter * param) {
-	return virtVmSetParameter(_vc, param);
+	
+			int ret = virtVmSetParameter(_vc, param);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmActivate() {
-	return virtVmActivate(_vc);
+	
+			int ret = virtVmActivate(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmDeactivate() {
-	return virtVmDeactivate(_vc);
+	
+			int ret = virtVmDeactivate(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmSetBaseFrame(float * base) {
-	return virtVmSetBaseFrame(_vc, base);
+	
+			int ret = virtVmSetBaseFrame(_vc, base);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmSetMaxArtiBounds(float * bounds) {
-	return virtVmSetMaxArtiBounds(_vc, bounds);
+	
+			int ret = virtVmSetMaxArtiBounds(_vc, bounds);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmSetMinArtiBounds(float * bounds) {
-	return virtVmSetMinArtiBounds(_vc, bounds);
+	
+			int ret = virtVmSetMinArtiBounds(_vc, bounds);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getPhysicalPosition(float * pos) {
-	return virtGetPhysicalPosition(_vc, pos);
+	
+			int ret = virtGetPhysicalPosition(_vc, pos);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getAvatarPosition(float * pos) {
-	return virtGetAvatarPosition(_vc, pos);
+	
+			int ret = virtGetAvatarPosition(_vc, pos);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::saturateTorque(float forceThreshold, float momentThreshold) {
-	return virtSaturateTorque(_vc, forceThreshold, momentThreshold);
+	
+			int ret = virtSaturateTorque(_vc, forceThreshold, momentThreshold);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmSetDefaultToTransparentMode() {
-	return virtVmSetDefaultToTransparentMode(_vc);
+	
+			int ret = virtVmSetDefaultToTransparentMode(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmSetDefaultToCartesianPosition() {
-	return virtVmSetDefaultToCartesianPosition(_vc);
+	
+			int ret = virtVmSetDefaultToCartesianPosition(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmSetBaseFrameToCurrentFrame() {
-	return virtVmSetBaseFrameToCurrentFrame(_vc);
+	
+			int ret = virtVmSetBaseFrameToCurrentFrame(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::convertRGBToGrayscale(float * rgb, float * gray) {
-	return virtConvertRGBToGrayscale(_vc, rgb, gray);
+	
+			int ret = virtConvertRGBToGrayscale(_vc, rgb, gray);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmGetBaseFrame(float * base) {
-	return virtVmGetBaseFrame(_vc, base);
+	
+			int ret = virtVmGetBaseFrame(_vc, base);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::waitPressButton(int button_number) {
-	return virtWaitPressButton(_vc, button_number);
+	
+			int ret = virtWaitPressButton(_vc, button_number);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getTimeStep(float * step) {
-	return virtGetTimeStep(_vc, step);
+	
+			int ret = virtGetTimeStep(_vc, step);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmSetRobotMode(int OnOff) {
-	return virtVmSetRobotMode(_vc, OnOff);
+	
+			int ret = virtVmSetRobotMode(_vc, OnOff);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmSaveCurrentSpline(char * file_name) {
-	return virtVmSaveCurrentSpline(_vc, file_name);
+	
+			int ret = virtVmSaveCurrentSpline(_vc, file_name);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmLoadSpline(char * file_name) {
-	return virtVmLoadSpline(_vc, file_name);
+	
+			int ret = virtVmLoadSpline(_vc, file_name);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmDeleteSpline(char * file_name) {
-	return virtVmDeleteSpline(_vc, file_name);
+	
+			int ret = virtVmDeleteSpline(_vc, file_name);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::vmWaitUpperBound() {
-	return virtVmWaitUpperBound(_vc);
+	
+			int ret = virtVmWaitUpperBound(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::disableControlConnexion(int disable) {
-	return virtDisableControlConnexion(_vc, disable);
+	
+			int ret = virtDisableControlConnexion(_vc, disable);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::isInBounds(int unsigned * bounds) {
-	return virtIsInBounds(_vc, bounds);
+	
+			int ret = virtIsInBounds(_vc, bounds);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getAlarm(int unsigned * alarm) {
-	return virtGetAlarm(_vc, alarm);
+	
+			int ret = virtGetAlarm(_vc, alarm);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getCatchFrame(float * frame) {
-	return virtGetCatchFrame(_vc, frame);
+	
+			int ret = virtGetCatchFrame(_vc, frame);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setCatchFrame(float * frame) {
-	return virtSetCatchFrame(_vc, frame);
+	
+			int ret = virtSetCatchFrame(_vc, frame);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::activeSpeedControl(float radius, float speedFactor) {
-	return virtActiveSpeedControl(_vc, radius, speedFactor);
+	
+			int ret = virtActiveSpeedControl(_vc, radius, speedFactor);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::deactiveSpeedControl() {
-	return virtDeactiveSpeedControl(_vc);
+	
+			int ret = virtDeactiveSpeedControl(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::isInShiftPosition(int * shift) {
-	return virtIsInShiftPosition(_vc, shift);
+	
+			int ret = virtIsInShiftPosition(_vc, shift);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setFrictionForce(float fx, float fy, float fz) {
-	return virtSetFrictionForce(_vc, fx, fy, fz);
+	
+			int ret = virtSetFrictionForce(_vc, fx, fy, fz);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getMouseState(int * active, int * left_click, int * right_click) {
-	return virtGetMouseState(_vc, active, left_click, right_click);
+	
+			int ret = virtGetMouseState(_vc, active, left_click, right_click);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::generateDebugFile() {
-	return virtGenerateDebugFile(_vc);
+	
+			int ret = virtGenerateDebugFile(_vc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getCenterSphere(float * pos) {
-	return virtGetCenterSphere(_vc, pos);
+	
+			int ret = virtGetCenterSphere(_vc, pos);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getAxisOfRotation(float * axis) {
-	return virtGetAxisOfRotation(_vc, axis);
+	
+			int ret = virtGetAxisOfRotation(_vc, axis);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getADC(int line, float * adc) {
-	return virtGetADC(_vc, line, adc);
+	
+			int ret = virtGetADC(_vc, line, adc);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::convertDeplToHomogeneMatrix(float * d, float * m) {
-	return virtConvertDeplToHomogeneMatrix(_vc, d, m);
+	
+			int ret = virtConvertDeplToHomogeneMatrix(_vc, d, m);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::convertHomogeneMatrixToDepl(float * d, float * m) {
-	return virtConvertHomogeneMatrixToDepl(_vc, d, m);
+	
+			int ret = virtConvertHomogeneMatrixToDepl(_vc, d, m);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getTrackball(int * x_move, int * y_move) {
-	return virtGetTrackball(_vc, x_move, y_move);
+	
+			int ret = virtGetTrackball(_vc, x_move, y_move);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getTrackballButton(int * active, int * left_btn, int * middle_btn, int * right_btn) {
-	return virtGetTrackballButton(_vc, active, left_btn, middle_btn, right_btn);
+	
+			int ret = virtGetTrackballButton(_vc, active, left_btn, middle_btn, right_btn);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setAbsolutePosition(float * pos) {
-	return virtSetAbsolutePosition(_vc, pos);
+	
+			int ret = virtSetAbsolutePosition(_vc, pos);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::beepOnLimit(int enable) {
-	return virtBeepOnLimit(_vc, enable);
+	
+			int ret = virtBeepOnLimit(_vc, enable);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::enableForceFeedback(int enable) {
-	return virtEnableForceFeedback(_vc, enable);
+	
+			int ret = virtEnableForceFeedback(_vc, enable);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getPhysicalSpeed(float * speed) {
-	return virtGetPhysicalSpeed(_vc, speed);
+	
+			int ret = virtGetPhysicalSpeed(_vc, speed);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::forceShiftButton(int forceShiftButton) {
-	return virtForceShiftButton(_vc, forceShiftButton);
+	
+			int ret = virtForceShiftButton(_vc, forceShiftButton);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::addForce(float * force) {
-	return virtAddForce(_vc, force);
+	
+			int ret = virtAddForce(_vc, force);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getFailure(int unsigned * error) {
-	return virtGetFailure(_vc, error);
+	
+			int ret = virtGetFailure(_vc, error);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getArticularPositionOfAdditionalAxe(float * pos) {
-	return virtGetArticularPositionOfAdditionalAxe(_vc, pos);
+	
+			int ret = virtGetArticularPositionOfAdditionalAxe(_vc, pos);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setArticularPositionOfAdditionalAxe(float * pos) {
-	return virtSetArticularPositionOfAdditionalAxe(_vc, pos);
+	
+			int ret = virtSetArticularPositionOfAdditionalAxe(_vc, pos);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::getArticularSpeedOfAdditionalAxe(float * speed) {
-	return virtGetArticularSpeedOfAdditionalAxe(_vc, speed);
+	
+			int ret = virtGetArticularSpeedOfAdditionalAxe(_vc, speed);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setArticularSpeedOfAdditionalAxe(float * speed) {
-	return virtSetArticularSpeedOfAdditionalAxe(_vc, speed);
+	
+			int ret = virtSetArticularSpeedOfAdditionalAxe(_vc, speed);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 inline int Virtuose::setArticularForceOfAdditionalAxe(float * effort) {
-	return virtSetArticularForceOfAdditionalAxe(_vc, effort);
+	
+			int ret = virtSetArticularForceOfAdditionalAxe(_vc, effort);
+		#ifndef VPP_DISABLE_ERROR_CHECK
+			if (! ret ) {
+				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
+			}
+		#endif
+			return ret;
 }
 
 #endif // INCLUDED_vpp_h_GUID_0d0a89d6_fd37_447c_aa27_ebc289ddb935
