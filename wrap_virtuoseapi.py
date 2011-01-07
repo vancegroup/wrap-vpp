@@ -234,7 +234,7 @@ class Method:
 		# Basic implementation - call original function
 		
 		body = ""
-		if returntype == "int":
+		if returntype == "int" and not self.static:
 			# Convert return codes into exceptions
 			body = """
 			int ret = """ + self.callWrappedFunction() + """;
