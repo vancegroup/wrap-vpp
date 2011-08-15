@@ -237,12 +237,8 @@ class Method:
 		if returntype == "int" and not self.static:
 			# Convert return codes into exceptions
 			body = """
-			int ret = """ + self.callWrappedFunction() + """;
-		#ifndef VPP_DISABLE_ERROR_CHECK
-			if (! ret ) {
-				throw VirtuoseAPIError(std::string(__FUNCTION__) + getErrorMessage());
-			}
-		#endif
+			int ret;
+			VPP_CHECKED_CALL(ret = """ + self.callWrappedFunction() + """);
 			return ret;"""
 		else:
 			# Doesn't return a return code.
