@@ -125,6 +125,8 @@ class Virtuose {
 			}
 		}
 
+		/** @brief Conversion operator to type VirtContext.
+		*/
 		operator VirtContext() {
 			return _vc;
 		}
