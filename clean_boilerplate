@@ -1,0 +1,3 @@
+#!/bin/sh
+# Astyle 2.x required
+astyle -n --options=$(dirname $0)/astylerc $(dirname $0)/vpp-boilerplate.h
