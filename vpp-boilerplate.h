@@ -29,10 +29,7 @@
 // none
 
 // Library/third-party includes
-/// @todo use namespace
-//namespace _VAPI {
 #include <UPSTREAM_INCLUDE_FILENAME>
-//}
 
 // Standard includes
 #include <exception>
@@ -48,8 +45,6 @@
 
 class Virtuose {
 	public:
-		//using _VAPI::VirtContext;
-
 		struct VirtuoseAPIError : public std::runtime_error {
 			VirtuoseAPIError(std::string const& what) : std::runtime_error(what) {}
 		};
