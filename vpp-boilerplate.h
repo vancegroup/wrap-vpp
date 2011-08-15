@@ -43,11 +43,33 @@
 #	define VPP_VERBOSE_MESSAGE(_MSG)
 #endif
 
+#ifndef VPP_DISABLE_ERROR_CHECK
+#	include <sstream>
+#endif
+
 class Virtuose {
 	public:
 		struct VirtuoseAPIError : public std::runtime_error {
 			VirtuoseAPIError(std::string const& what) : std::runtime_error(what) {}
 		};
+
+
+	private:
+#ifndef VPP_DISABLE_ERROR_CHECK
+		void _checkReturnCode(int returnValue, const char * call, const char * file,
+		                      int const line, const char * func = "") {
+			if (returnValue != 0) {
+				std::ostringstream s;
+				s << "VirtuoseAPI Error (in call '" << call << "' in " << func << "@" << file << ":" << line << "): " << getErrorMessage();
+				throw VirtuoseAPIError(s.str());
+			}
+		}
+#	define VPP_CHECKED_CALL(_CALL) _checkReturnCode(_CALL, #_CALL, __FILE__, __LINE__, __FUNCTION__)
+#else
+#	define VPP_CHECKED_CALL(_CALL)
+#endif
+
+	public:
 
 		/** @brief constructor
 
@@ -91,18 +113,15 @@ class Virtuose {
 				VPP_VERBOSE_MESSAGE("Self-assignment is a no-op");
 			} else {
 				// Actual assignment
-				int ret = 0;
 				if (_weOpened) {
 					// Close our existing one first.
 					VPP_VERBOSE_MESSAGE("In assignment operator, closing existing Virtuose device named " << _name << ", VirtContext=" << _vc);
-					ret = virtClose(_vc);
+					VPP_CHECKED_CALL(virtClose(_vc));
 				}
-				if (!checkForError(ret, __FILE__, __LINE__, __FUNCTION__)) {
-					_name = other._name;
-					_vc = other._vc;
-					_weOpened = false;
-					VPP_VERBOSE_MESSAGE("Assignment operator has set ourselves to a device named " << _name << ", VirtContext=" << _vc);
-				}
+				_name = other._name;
+				_vc = other._vc;
+				_weOpened = false;
+				VPP_VERBOSE_MESSAGE("Assignment operator has set ourselves to a device named " << _name << ", VirtContext=" << _vc);
 			}
 			return *this;
 		}
@@ -113,8 +132,7 @@ class Virtuose {
 		~Virtuose() {
 			if (_weOpened) {
 				VPP_VERBOSE_MESSAGE("In destructor for device named " << _name << ", VirtContext=" << _vc << ", closing because _weOpened flag is set");
-				int ret = virtClose(_vc);
-				checkForError(ret, __FILE__, __LINE__, __FUNCTION__);
+				VPP_CHECKED_CALL(virtClose(_vc));
 			} else {
 				VPP_VERBOSE_MESSAGE("In destructor for device named " << _name << ", VirtContext=" << _vc << ", NOT closing because _weOpened flag is not set");
 			}
@@ -161,6 +179,7 @@ class Virtuose {
 /* IMPLEMENTATION BODY GOES HERE */
 
 #undef VPP_VERBOSE_MESSAGE
+#undef VPP_CHECKED_CALL
 
 #endif // INCLUDED_vpp_h_GUID_0d0a89d6_fd37_447c_aa27_ebc289ddb935
 
