@@ -150,10 +150,8 @@ class Virtuose {
 		// if (virt.checkForError(ret, __FILE__, __LINE__, __FUNCTION__)) {
 		//   // handle error
 		// }
-		bool checkForError(int returnValue, std::string const&
-		                   file = "", int const line = -1, std::string const&
-		                   func
-		                   = "") {
+		bool checkForError(int returnValue, const char * file = "",
+		                   int const line = -1, const char * func = "") {
 			if (returnValue == 0) {
 				return false; // no error
 			} else {
