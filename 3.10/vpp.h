@@ -251,6 +251,10 @@ class Virtuose {
 		bool checkForError(int returnValue, const char * file = "",
 		                   int const line = -1, const char * func = "") {
 			if (returnValue == 0) {
+				// Silence unused variable warning when VPP_VERBOSE not defined
+				(void) file;
+				(void) line;
+				(void) func;
 				return false; // no error
 			} else {
 				VPP_VERBOSE_MESSAGE("Got error from Virtuose (in " << func << "@" << file << ":" << line << "): "  << getErrorMessage());
