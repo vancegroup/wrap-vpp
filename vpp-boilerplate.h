@@ -160,5 +160,7 @@ func
 
 /* IMPLEMENTATION BODY GOES HERE */
 
+#undef VPP_VERBOSE_MESSAGE
+
 #endif // INCLUDED_vpp_h_GUID_0d0a89d6_fd37_447c_aa27_ebc289ddb935
 
