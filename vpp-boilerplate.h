@@ -155,7 +155,7 @@ class Virtuose {
 			if (returnValue == 0) {
 				return false; // no error
 			} else {
-				VPP_VERBOSE_MESSAGE("Got error from Virtuose: " << getErrorMessage());
+				VPP_VERBOSE_MESSAGE("Got error from Virtuose (in " << func << "@" << file << ":" << line << "): "  << getErrorMessage());
 				return true; // error
 			}
 		}
