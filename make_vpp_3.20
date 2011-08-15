@@ -1,2 +1,0 @@
-#!/bin/sh
-./wrap_virtuoseapi.py 3.20/virtuoseAPI.h 3.20/vpp.h
