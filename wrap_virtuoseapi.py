@@ -39,6 +39,7 @@ argTrans = {	'fichier':		'fh',
 										'decalage':		'shift'
 									}
 
+methodTrans = { 'GetControlerVersion' : 'GetControllerVersion' }
 
 bpfilename = "vpp-boilerplate.h"
 classmarker = "/* CLASS BODY GOES HERE */"
@@ -53,7 +54,7 @@ virtcontextmember = "_vc"
 defaultoutputfilename = 'vpp.h'
 
 translateArg = lambda x: argTrans.get(x, x)
-
+translateMethod = lambda x: methodTrans.get(x, x)
 
 def getVersionStringFromHeader(fn):
 	infile = open(fn, 'r')
@@ -147,7 +148,7 @@ class TypeVisitor(c_ast.NodeVisitor):
 		return ret
 
 def renameFunctionToMethod(funcname):
-	name = funcname[4:]
+	name = translateMethod(funcname[4:])
 	if name[1:2].lower() == name[1:2]:
 		# then this is title case - lowercase the first letter
 		return name[0:1].lower() + name[1:]
