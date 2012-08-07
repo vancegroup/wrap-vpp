@@ -47,6 +47,8 @@
 #	include <sstream>
 #endif
 
+#define VIRTUOSEAPI_VERSION INTEGER_UPSTREAM_VERSION_GOES_HERE
+
 class Virtuose {
 	public:
 		struct VirtuoseAPIError : public std::runtime_error {

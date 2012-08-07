@@ -45,6 +45,7 @@ classmarker = "/* CLASS BODY GOES HERE */"
 implmarker = "/* IMPLEMENTATION BODY GOES HERE */"
 includeplaceholder = "UPSTREAM_INCLUDE_FILENAME"
 versionplaceholder = "UPSTREAM_VERSION_GOES_HERE"
+intversionplaceholder = "INTEGER_UPSTREAM_VERSION_GOES_HERE"
 
 virtcontextmember = "_vc"
 
@@ -63,7 +64,7 @@ def getVersionStringFromHeader(fn):
 		return m.group('ver') # named match group
 	else:
 		return "Unknown"
-	
+
 
 class TypeVisitor(c_ast.NodeVisitor):
 	def __init__(self):
@@ -191,7 +192,7 @@ class Method:
 	def explain(self):
 		print '%s: %s returns %s, takes:' % (context.location, context.name, context.retType)
 		return
-	
+
 	def callWrappedFunction(self):
 		forwardCall = apicallqualifier + self.name + "("
 
@@ -232,7 +233,7 @@ class Method:
 		declaration += ( ", ".join([typestring(x) for x in self.args]) + ")")
 
 		# Basic implementation - call original function
-		
+
 		body = ""
 		if returntype == "int" and not self.static:
 			# Convert return codes into exceptions
@@ -276,6 +277,10 @@ def wrap_virtuose_api(filenames):
 			os.exit()
 
 		apiVer = getVersionStringFromHeader(filename)
+		intVer = reduce(lambda prev, newest: prev + newest[0] * newest[1],
+         zip([int(x) for x in apiVer.split(".")],
+            [100000, 1000, 1])
+
 		ast = parse_file(filename, use_cpp=True, cpp_args=r'-Iutils/fake_libc_include')
 
 		v = FuncDefVisitor()
@@ -297,7 +302,7 @@ def wrap_virtuose_api(filenames):
 		implbody = "\n\n".join(impllines)
 
 		boilerplatefile = open(bpfilename, 'r')
-		boilerplate = boilerplatefile.read().replace(includeplaceholder, os.path.basename(filename)).replace(versionplaceholder, apiVer)
+		boilerplate = boilerplatefile.read().replace(includeplaceholder, os.path.basename(filename)).replace(versionplaceholder, apiVer).replace(intversionplaceholder, intVer)
 		boilerplatefile.close()
 
 
