@@ -47,6 +47,10 @@
 #	include <sstream>
 #endif
 
+#define VIRTUOSEAPI_VERSION 3010
+
+#define VIRTUOSEAPI_VERSION_CHECK(MAJOR, MINOR) (VIRTUOSEAPI_VERSION >= (MAJOR * 1000 + MINOR))
+
 class Virtuose {
 	public:
 		struct VirtuoseAPIError : public std::runtime_error {

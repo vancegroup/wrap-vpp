@@ -47,6 +47,10 @@
 #	include <sstream>
 #endif
 
+#define VIRTUOSEAPI_VERSION 3060
+
+#define VIRTUOSEAPI_VERSION_CHECK(MAJOR, MINOR) (VIRTUOSEAPI_VERSION >= (MAJOR * 1000 + MINOR))
+
 class Virtuose {
 	public:
 		struct VirtuoseAPIError : public std::runtime_error {
@@ -258,7 +262,7 @@ class Virtuose {
 		int setArticularForce(float * force);
 		int activeRotationSpeedControl(float angle, float speedFactor);
 		int deactiveRotationSpeedControl();
-		int getControlerVersion(int * major, int * minor);
+		int getControllerVersion(int * major, int * minor);
 		int isInSpeedControl(int * translation, int * rotation);
 		int setForceInSpeedControl(float force);
 		int setTorqueInSpeedControl(float torque);
@@ -1073,7 +1077,7 @@ inline int Virtuose::deactiveRotationSpeedControl() {
 			return ret;
 }
 
-inline int Virtuose::getControlerVersion(int * major, int * minor) {
+inline int Virtuose::getControllerVersion(int * major, int * minor) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetControlerVersion(_vc, major, minor));
