@@ -124,6 +124,18 @@ class Virtuose {
 			return _vc;
 		}
 
+		/** @brief Retrieve name used to create device context, if available.
+		*/
+		std::string const& getName() const {
+			return _name;
+		}
+
+		/** @brief Did the constructor of this object open the device?
+		*/
+		bool didThisClassPerformOpen() const {
+			return _weOpened;
+		}
+
 		int attachVO(float mass, float * mxmymz);
 		int attachQSVO(float * Ks, float * Bs);
 		int attachVOAvatar(float mass, float * mxmymz);
