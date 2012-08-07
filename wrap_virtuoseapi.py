@@ -45,7 +45,7 @@ classmarker = "/* CLASS BODY GOES HERE */"
 implmarker = "/* IMPLEMENTATION BODY GOES HERE */"
 includeplaceholder = "UPSTREAM_INCLUDE_FILENAME"
 versionplaceholder = "UPSTREAM_VERSION_GOES_HERE"
-intversionplaceholder = "INTEGER_UPSTREAM_VERSION_GOES_HERE"
+intversionplaceholder = "UPSTREAM_INTEGER_VERSION_GOES_HERE"
 
 virtcontextmember = "_vc"
 
@@ -277,14 +277,17 @@ def wrap_virtuose_api(filenames):
 			os.exit()
 
 		apiVer = getVersionStringFromHeader(filename)
-		intVer = reduce(lambda prev, newest: prev + newest[0] * newest[1],
-         zip([int(x) for x in apiVer.split(".")],
-            [100000, 1000, 1])
-
 		ast = parse_file(filename, use_cpp=True, cpp_args=r'-Iutils/fake_libc_include')
 
 		v = FuncDefVisitor()
 		v.visit(ast)
+
+		intVer = str(
+			reduce(
+				lambda prev, newest: prev * 1000 + newest,
+				[int(x) for x in apiVer.split(".")]
+			)
+		)
 
 		# Combined declaration and definition.
 		#bodylines = [ " ".join([qualifiers, returntype, declaration, "{ " + body + " }"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods]
