@@ -102,34 +102,6 @@ class Virtuose {
 			VPP_VERBOSE_MESSAGE("Constructing a Virtuose object from existing VirtContext " << _vc);
 		}
 
-		/// @brief Copy constructor
-		Virtuose(Virtuose const& other)
-			: _name(other._name)
-			, _vc(other._vc)
-			, _weOpened(false) {
-			VPP_VERBOSE_MESSAGE("Copy-constructing a Virtuose object from existing Virtuose object, named " << _name << ", VirtContext=" << _vc);
-		}
-
-		/// @brief Assignment operator
-		Virtuose & operator=(Virtuose const& other) {
-			if (&other == this) {
-				// Self assignment - no-op
-				VPP_VERBOSE_MESSAGE("Self-assignment is a no-op");
-			} else {
-				// Actual assignment
-				if (_weOpened) {
-					// Close our existing one first.
-					VPP_VERBOSE_MESSAGE("In assignment operator, closing existing Virtuose device named " << _name << ", VirtContext=" << _vc);
-					VPP_CHECKED_CALL(virtClose(_vc));
-				}
-				_name = other._name;
-				_vc = other._vc;
-				_weOpened = false;
-				VPP_VERBOSE_MESSAGE("Assignment operator has set ourselves to a device named " << _name << ", VirtContext=" << _vc);
-			}
-			return *this;
-		}
-
 		/** @brief destructor that closes the connection to the Virtuose
 			device.
 		*/
@@ -282,6 +254,14 @@ class Virtuose {
 		std::string _name;
 		VirtContext _vc;
 		bool _weOpened;
+
+	private:
+		/// @brief Copy constructor forbidden
+		Virtuose(Virtuose const&);
+
+		/// @brief Assignment operator forbidden
+		Virtuose & operator=(Virtuose const&);
+
 };
 
 /* Wrapper Implementation Details Follow */
