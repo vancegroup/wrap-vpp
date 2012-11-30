@@ -191,6 +191,26 @@ class Virtuose {
 
 };
 
+/// @brief Equality between a Virtuose object and a raw VirtContext.
+inline bool operator==(Virtuose const& v, VirtContext const vc) {
+	return (v.getVirtContext() == vc);
+}
+
+/// @brief Equality between a raw VirtContext and a Virtuose object.
+inline bool operator==(VirtContext const vc, Virtuose const& v) {
+	return (v.getVirtContext() == vc);
+}
+
+/// @brief Equality between two Virtuose objects - this should always be false!
+inline bool operator==(Virtuose const& v1, Virtuose const& v2) {
+	return (v1.getVirtContext() == v2.getVirtContext());
+}
+
+/// @brief Less-than comparison between Virtuose objects
+inline bool operator<(Virtuose const& v1, Virtuose const& v2) {
+	return (v1.getVirtContext() < v2.getVirtContext());
+}
+
 /* IMPLEMENTATION BODY GOES HERE */
 
 #undef VPP_VERBOSE_MESSAGE
