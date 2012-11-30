@@ -166,6 +166,16 @@ class Virtuose {
 			return (virtGetErrorCode(_vc) != VIRT_E_NO_ERROR);
 		}
 
+		/** @brief Returns the latest error message, or if none, an empty string.
+		*/
+		std::string getErrorOrEmpty() {
+			std::string ret;
+			int code = virtGetErrorCode(_vc);
+			if (virtGetErrorCode(_vc) != VIRT_E_NO_ERROR) {
+				ret = getErrorMessage(code);
+			}
+			return ret;
+		}
 
 		/** @brief Returns the latest error message.
 		*/
