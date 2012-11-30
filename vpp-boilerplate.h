@@ -71,27 +71,16 @@
 
 class Virtuose {
 	public:
-		struct VirtuoseAPIError : public std::runtime_error {
-			VirtuoseAPIError(std::string const& what) : std::runtime_error(what) {}
-		};
 
-
-	private:
 #ifndef VPP_DISABLE_ERROR_CHECK
-		void _checkReturnCode(int returnValue, const char * call, const char * file,
-		                      int const line, const char * func = "") {
-			if (returnValue != 0) {
-				std::ostringstream s;
-				s << "VirtuoseAPI Error (in call '" << call << "' in " << func << "@" << file << ":" << line << "): " << getErrorMessage();
-				throw VirtuoseAPIError(s.str());
-			}
-		}
 #	define VPP_CHECKED_CALL(_CALL) _checkReturnCode(_CALL, #_CALL, __FILE__, __LINE__, __FUNCTION__)
 #else
 #	define VPP_CHECKED_CALL(_CALL)
 #endif
 
-	public:
+		struct VirtuoseAPIError : public std::runtime_error {
+			VirtuoseAPIError(std::string const& what) : std::runtime_error(what) {}
+		};
 
 		/** @brief constructor
 
@@ -199,6 +188,16 @@ class Virtuose {
 		/// @brief Assignment operator forbidden
 		Virtuose & operator=(Virtuose const&);
 
+#ifndef VPP_DISABLE_ERROR_CHECK
+		void _checkReturnCode(int returnValue, const char * call, const char * file,
+		                      int const line, const char * func = "") {
+			if (returnValue != 0) {
+				std::ostringstream s;
+				s << "VirtuoseAPI Error (in call '" << call << "' in " << func << "@" << file << ":" << line << "): " << getErrorMessage();
+				throw VirtuoseAPIError(s.str());
+			}
+		}
+#endif
 };
 
 /// @brief Equality between a Virtuose object and a raw VirtContext.
