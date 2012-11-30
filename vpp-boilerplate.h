@@ -112,6 +112,12 @@ class Virtuose {
 			return _vc;
 		}
 
+		/** @brief Returns the managed VirtContext.
+		*/
+		VirtContext getVirtContext() const {
+			return _vc;
+		}
+
 		/** @brief Retrieve name used to create device context, if available.
 		*/
 		std::string const& getName() const {
