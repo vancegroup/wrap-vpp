@@ -16,7 +16,7 @@
 	Human-Computer Interaction Graduate Program
 */
 
-//          Copyright Iowa State University 2010-2011.
+//          Copyright Iowa State University 2010-2012.
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
@@ -47,33 +47,40 @@
 #	include <sstream>
 #endif
 
+/** @brief Preprocessor definition containing an integer version of the
+	VirtuoseAPI this header was generated from, with the major version
+	multiplied by 1000 and added to the minor version.
+*/
 #define VIRTUOSEAPI_VERSION 3020
 
+/** @brief Pass arguments like 3, 60 to get a preprocessor expression
+	that evaluates to true if the API used is at least that version.
+*/
 #define VIRTUOSEAPI_VERSION_CHECK(MAJOR, MINOR) (VIRTUOSEAPI_VERSION >= (MAJOR * 1000 + MINOR))
+
+/** @brief Object representing a VirtuoseAPI device.
+
+	It encapsulates and manages the lifetime of the VirtContext,
+	and provides methods with names and signatures similar to the
+	C API (generated from it, with minor automated modifications).
+
+	This object is non-copyable and non-assignable: you may manage it
+	with a scoped_ptr or shared_ptr and allocate it on the heap if
+	those restrictions are a problem for you.
+*/
 
 class Virtuose {
 	public:
-		struct VirtuoseAPIError : public std::runtime_error {
-			VirtuoseAPIError(std::string const& what) : std::runtime_error(what) {}
-		};
 
-
-	private:
 #ifndef VPP_DISABLE_ERROR_CHECK
-		void _checkReturnCode(int returnValue, const char * call, const char * file,
-		                      int const line, const char * func = "") {
-			if (returnValue != 0) {
-				std::ostringstream s;
-				s << "VirtuoseAPI Error (in call '" << call << "' in " << func << "@" << file << ":" << line << "): " << getErrorMessage();
-				throw VirtuoseAPIError(s.str());
-			}
-		}
 #	define VPP_CHECKED_CALL(_CALL) _checkReturnCode(_CALL, #_CALL, __FILE__, __LINE__, __FUNCTION__)
 #else
 #	define VPP_CHECKED_CALL(_CALL)
 #endif
 
-	public:
+		struct VirtuoseAPIError : public std::runtime_error {
+			VirtuoseAPIError(std::string const& what) : std::runtime_error(what) {}
+		};
 
 		/** @brief constructor
 
@@ -85,36 +92,24 @@ class Virtuose {
 		*/
 		Virtuose(const std::string & name)
 			: _name(name)
-			, _vc(virtOpen(_name.c_str()))
-			, _weOpened(true) {
+			, _vc(virtOpen(_name.c_str())) {
 			VPP_VERBOSE_MESSAGE("Constructing a new Virtuose object, device named " << _name << ", VirtContext=" << _vc);
 			if (_vc == NULL) {
-				_weOpened = false;
 				throw VirtuoseAPIError("Failed opening Virtuose " + _name + getErrorMessage());
 			}
-		}
-
-		/// @brief Constructor from an existing Virtuose
-		Virtuose(VirtContext vc)
-			: _name("n/a")
-			, _vc(vc)
-			, _weOpened(false) {
-			VPP_VERBOSE_MESSAGE("Constructing a Virtuose object from existing VirtContext " << _vc);
 		}
 
 		/** @brief destructor that closes the connection to the Virtuose
 			device.
 		*/
 		~Virtuose() {
-			if (_weOpened) {
-				VPP_VERBOSE_MESSAGE("In destructor for device named " << _name << ", VirtContext=" << _vc << ", closing because _weOpened flag is set");
+			VPP_VERBOSE_MESSAGE("In destructor for device named " << _name << ", VirtContext=" << _vc);
+			if (_vc != NULL) {
 				try {
 					VPP_CHECKED_CALL(virtClose(_vc));
 				} catch (VirtuoseAPIError & e) {
 					VPP_VERBOSE_MESSAGE("Exception in destructor, ignoring: " << e.what());
 				}
-			} else {
-				VPP_VERBOSE_MESSAGE("In destructor for device named " << _name << ", VirtContext=" << _vc << ", NOT closing because _weOpened flag is not set");
 			}
 		}
 
@@ -124,16 +119,16 @@ class Virtuose {
 			return _vc;
 		}
 
+		/** @brief Returns the managed VirtContext.
+		*/
+		VirtContext getVirtContext() const {
+			return _vc;
+		}
+
 		/** @brief Retrieve name used to create device context, if available.
 		*/
 		std::string const& getName() const {
 			return _name;
-		}
-
-		/** @brief Did the constructor of this object open the device?
-		*/
-		bool didThisClassPerformOpen() const {
-			return _weOpened;
 		}
 
 		int attachVO(float mass, float * mxmymz);
@@ -260,27 +255,74 @@ class Virtuose {
 			}
 		}
 
+		bool hasError() {
+			return (virtGetErrorCode(_vc) != VIRT_E_NO_ERROR);
+		}
+
+		/** @brief Returns the latest error message, or if none, an empty string.
+		*/
+		std::string getErrorOrEmpty() {
+			std::string ret;
+			int code = virtGetErrorCode(_vc);
+			if (virtGetErrorCode(_vc) != VIRT_E_NO_ERROR) {
+				ret = getErrorMessage(code);
+			}
+			return ret;
+		}
+
+		/** @brief Returns the latest error message.
+		*/
 		std::string getErrorMessage() {
 			return std::string(virtGetErrorMessage(virtGetErrorCode(_vc)));
 		}
 
+		/** @brief Converts an error code into an error message string.
+		*/
 		static std::string getErrorMessage(int code) {
 			return std::string(virtGetErrorMessage(code));
 		}
 
-	protected:
-		std::string _name;
-		VirtContext _vc;
-		bool _weOpened;
-
 	private:
+		std::string const _name;
+		VirtContext _vc;
+
 		/// @brief Copy constructor forbidden
 		Virtuose(Virtuose const&);
 
 		/// @brief Assignment operator forbidden
 		Virtuose & operator=(Virtuose const&);
 
+#ifndef VPP_DISABLE_ERROR_CHECK
+		void _checkReturnCode(int returnValue, const char * call, const char * file,
+		                      int const line, const char * func = "") {
+			if (returnValue != 0) {
+				std::ostringstream s;
+				s << "VirtuoseAPI Error (in call '" << call << "' in " << func << "@" << file << ":" << line << "): " << getErrorMessage();
+				throw VirtuoseAPIError(s.str());
+			}
+		}
+#endif
 };
+
+/// @brief Equality between a Virtuose object and a raw VirtContext.
+inline bool operator==(Virtuose const& v, VirtContext const vc) {
+	return (v.getVirtContext() == vc);
+}
+
+/// @brief Equality between a raw VirtContext and a Virtuose object.
+inline bool operator==(VirtContext const vc, Virtuose const& v) {
+	return (v.getVirtContext() == vc);
+}
+
+/// @brief Equality between two Virtuose objects - this should always be false!
+inline bool operator==(Virtuose const& v1, Virtuose const& v2) {
+	return (v1.getVirtContext() == v2.getVirtContext());
+}
+
+/// @brief Less-than comparison between Virtuose objects
+inline bool operator<(Virtuose const& v1, Virtuose const& v2) {
+	return (v1.getVirtContext() < v2.getVirtContext());
+}
 
 /* Wrapper Implementation Details Follow */
 
