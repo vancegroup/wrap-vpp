@@ -179,11 +179,10 @@ class Virtuose {
 			return std::string(virtGetErrorMessage(code));
 		}
 
-	protected:
-		std::string _name;
+	private:
+		std::string const _name;
 		VirtContext _vc;
 
-	private:
 		/// @brief Copy constructor forbidden
 		Virtuose(Virtuose const&);
 
