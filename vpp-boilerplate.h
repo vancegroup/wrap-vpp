@@ -85,11 +85,9 @@ class Virtuose {
 		*/
 		Virtuose(const std::string & name)
 			: _name(name)
-			, _vc(virtOpen(_name.c_str()))
-			, _weOpened(true) {
+			, _vc(virtOpen(_name.c_str())) {
 			VPP_VERBOSE_MESSAGE("Constructing a new Virtuose object, device named " << _name << ", VirtContext=" << _vc);
 			if (_vc == NULL) {
-				_weOpened = false;
 				throw VirtuoseAPIError("Failed opening Virtuose " + _name + getErrorMessage());
 			}
 		}
@@ -98,15 +96,11 @@ class Virtuose {
 			device.
 		*/
 		~Virtuose() {
-			if (_weOpened) {
-				VPP_VERBOSE_MESSAGE("In destructor for device named " << _name << ", VirtContext=" << _vc << ", closing because _weOpened flag is set");
-				try {
-					VPP_CHECKED_CALL(virtClose(_vc));
-				} catch (VirtuoseAPIError & e) {
-					VPP_VERBOSE_MESSAGE("Exception in destructor, ignoring: " << e.what());
-				}
-			} else {
-				VPP_VERBOSE_MESSAGE("In destructor for device named " << _name << ", VirtContext=" << _vc << ", NOT closing because _weOpened flag is not set");
+			VPP_VERBOSE_MESSAGE("In destructor for device named " << _name << ", VirtContext=" << _vc << ", closing because _weOpened flag is set");
+			try {
+				VPP_CHECKED_CALL(virtClose(_vc));
+			} catch (VirtuoseAPIError & e) {
+				VPP_VERBOSE_MESSAGE("Exception in destructor, ignoring: " << e.what());
 			}
 		}
 
@@ -120,12 +114,6 @@ class Virtuose {
 		*/
 		std::string const& getName() const {
 			return _name;
-		}
-
-		/** @brief Did the constructor of this object open the device?
-		*/
-		bool didThisClassPerformOpen() const {
-			return _weOpened;
 		}
 
 		/* CLASS BODY GOES HERE */
@@ -159,7 +147,6 @@ class Virtuose {
 	protected:
 		std::string _name;
 		VirtContext _vc;
-		bool _weOpened;
 
 	private:
 		/// @brief Copy constructor forbidden
