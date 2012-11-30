@@ -94,14 +94,6 @@ class Virtuose {
 			}
 		}
 
-		/// @brief Constructor from an existing Virtuose
-		Virtuose(VirtContext vc)
-			: _name("n/a")
-			, _vc(vc)
-			, _weOpened(false) {
-			VPP_VERBOSE_MESSAGE("Constructing a Virtuose object from existing VirtContext " << _vc);
-		}
-
 		/** @brief destructor that closes the connection to the Virtuose
 			device.
 		*/
