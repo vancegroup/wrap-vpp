@@ -136,6 +136,10 @@ class Virtuose {
 			}
 		}
 
+		bool hasError() {
+			return (virtGetErrorCode(_vc) != VIRT_E_NO_ERROR);
+		}
+
 		std::string getErrorMessage() {
 			return std::string(virtGetErrorMessage(virtGetErrorCode(_vc)));
 		}
