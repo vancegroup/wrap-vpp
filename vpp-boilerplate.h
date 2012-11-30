@@ -108,6 +108,7 @@ class Virtuose {
 				try {
 					VPP_CHECKED_CALL(virtClose(_vc));
 				} catch (VirtuoseAPIError & e) {
+					(void) e; // silence warning if not in verbose mode.
 					VPP_VERBOSE_MESSAGE("Exception in destructor, ignoring: " << e.what());
 				}
 			}
