@@ -47,9 +47,27 @@
 #	include <sstream>
 #endif
 
+/** @brief Preprocessor definition containing an integer version of the
+	VirtuoseAPI this header was generated from, with the major version
+	multiplied by 1000 and added to the minor version.
+*/
 #define VIRTUOSEAPI_VERSION UPSTREAM_INTEGER_VERSION_GOES_HERE
 
+/** @brief Pass arguments like 3, 60 to get a preprocessor expression
+	that evaluates to true if the API used is at least that version.
+*/
 #define VIRTUOSEAPI_VERSION_CHECK(MAJOR, MINOR) (VIRTUOSEAPI_VERSION >= (MAJOR * 1000 + MINOR))
+
+/** @brief Object representing a VirtuoseAPI device.
+
+	It encapsulates and manages the lifetime of the VirtContext,
+	and provides methods with names and signatures similar to the
+	C API (generated from it, with minor automated modifications).
+
+	This object is non-copyable and non-assignable: you may manage it
+	with a scoped_ptr or shared_ptr and allocate it on the heap if
+	those restrictions are a problem for you.
+*/
 
 class Virtuose {
 	public:
@@ -148,10 +166,15 @@ class Virtuose {
 			return (virtGetErrorCode(_vc) != VIRT_E_NO_ERROR);
 		}
 
+
+		/** @brief Returns the latest error message.
+		*/
 		std::string getErrorMessage() {
 			return std::string(virtGetErrorMessage(virtGetErrorCode(_vc)));
 		}
 
+		/** @brief Converts an error code into an error message string.
+		*/
 		static std::string getErrorMessage(int code) {
 			return std::string(virtGetErrorMessage(code));
 		}
