@@ -96,11 +96,13 @@ class Virtuose {
 			device.
 		*/
 		~Virtuose() {
-			VPP_VERBOSE_MESSAGE("In destructor for device named " << _name << ", VirtContext=" << _vc << ", closing because _weOpened flag is set");
-			try {
-				VPP_CHECKED_CALL(virtClose(_vc));
-			} catch (VirtuoseAPIError & e) {
-				VPP_VERBOSE_MESSAGE("Exception in destructor, ignoring: " << e.what());
+			VPP_VERBOSE_MESSAGE("In destructor for device named " << _name << ", VirtContext=" << _vc);
+			if (_vc != NULL) {
+				try {
+					VPP_CHECKED_CALL(virtClose(_vc));
+				} catch (VirtuoseAPIError & e) {
+					VPP_VERBOSE_MESSAGE("Exception in destructor, ignoring: " << e.what());
+				}
 			}
 		}
 
