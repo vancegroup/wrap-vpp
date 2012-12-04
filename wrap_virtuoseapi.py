@@ -242,6 +242,10 @@ class Method:
 		for c_name, arg in node.decl.type.args.children():
 			self.args.append(TypeWrapper(arg))
 
+		if not self.static:
+			# Drop the VC parameter
+			self.args.pop(0)
+
 		retType = TypeVisitor()
 		retType.visit(node.decl.type.type)
 		self.retType = retType.getTypeOnly() #getFullType(node.decl.type)
@@ -277,9 +281,6 @@ class Method:
 
 		# Method arguments
 		### todo: must also include the type of the arguments!
-		if not self.static:
-			# Drop the VC parameter
-			self.args.pop(0)
 
 		for x in self.args:
 			debugPrint(x.getFullType())
