@@ -264,6 +264,40 @@ class FuncDefVisitor(c_ast.NodeVisitor):
 		method = Method(node)
 		self.wrapped_methods.append(method.generateWrapper())
 
+class VirtuoseAPI:
+	def __init__(self, fn):
+		self.filename = fn
+		self.apiVersion = getVersionStringFromHeader(self.filename)
+		self.methods = None
+		self.wrapped_methods = None
+
+	def getApiVersion(self):
+		return self.apiVersion
+
+	def getApiVersionInteger(self):
+		return reduce(
+				lambda prev, newest: prev * 1000 + newest,
+				[int(x) for x in self.getApiVersion().split(".")]
+			)
+
+	def parseFile(self):
+		ast = parse_file(self.filename, use_cpp=True, cpp_args=r'-Iutils/fake_libc_include')
+
+		v = FuncDefVisitor()
+		v.visit(ast)
+		self.methods = v.methods
+		self.wrapped_methods = v.wrapped_methods
+
+	def getMethods(self):
+		if self.methods is None:
+			self.parseFile()
+		return self.methods
+
+	def getWrappedMethods(self):
+		if self.wrapped_methods is None:
+			self.wrapped_methods = [ method.generateWrapper() for method in self.getMethods() ]
+		return self.wrapped_methods
+
 def wrap_virtuose_api(filenames):
 		# Note that cpp is used. Provide a path to your own cpp or
 		# make sure one exists in PATH.
@@ -277,18 +311,10 @@ def wrap_virtuose_api(filenames):
 			print("Cannot continue: no valid input file found!")
 			os.exit()
 
-		apiVer = getVersionStringFromHeader(filename)
-		ast = parse_file(filename, use_cpp=True, cpp_args=r'-Iutils/fake_libc_include')
+		API = VirtuoseAPI(filename)
+		apiVer = API.getApiVersion()
 
-		v = FuncDefVisitor()
-		v.visit(ast)
-
-		intVer = str(
-			reduce(
-				lambda prev, newest: prev * 1000 + newest,
-				[int(x) for x in apiVer.split(".")]
-			)
-		)
+		intVer = str(API.getApiVersionInteger())
 
 		# Combined declaration and definition.
 		#bodylines = [ " ".join([qualifiers, returntype, declaration, "{ " + body + " }"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods]
@@ -296,13 +322,13 @@ def wrap_virtuose_api(filenames):
 		#implbody = ""
 
 		# separated declarations and definitions
-		classlines = [ " ".join([returntype, declaration + ";"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods if qualifiers == ""]
+		classlines = [ " ".join([returntype, declaration + ";"]) for (qualifiers, returntype, declaration, body) in API.getWrappedMethods() if qualifiers == ""]
 		classlines.append("/* Static Methods */")
-		classlines.extend([ " ".join([qualifiers, returntype, declaration + ";"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods if not qualifiers == ""])
+		classlines.extend([ " ".join([qualifiers, returntype, declaration + ";"]) for (qualifiers, returntype, declaration, body) in API.getWrappedMethods() if not qualifiers == ""])
 
 		classbody = "\n\t\t".join(classlines)
 		impllines = ["/* Wrapper Implementation Details Follow */"]
-		impllines.extend([ " ".join(["inline", returntype, classname+"::"+declaration, "{\n\t" + body + "\n}"]) for (qualifiers, returntype, declaration, body) in v.wrapped_methods])
+		impllines.extend([ " ".join(["inline", returntype, classname+"::"+declaration, "{\n\t" + body + "\n}"]) for (qualifiers, returntype, declaration, body) in API.getWrappedMethods()])
 		implbody = "\n\n".join(impllines)
 
 		boilerplatefile = open(bpfilename, 'r')
