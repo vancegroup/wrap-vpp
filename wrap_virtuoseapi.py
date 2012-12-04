@@ -20,8 +20,7 @@ import sys
 import os
 import string
 import re
-
-from pycparser import c_parser, c_ast, parse_file
+from pycparser import c_parser, c_ast, parse_file, c_generator
 
 defaultapifilenames = ['virtuoseAPI.h', 'VirtuoseAPI.h']
 
@@ -135,7 +134,7 @@ class TypeVisitor(c_ast.NodeVisitor):
 		debugPrint("after visit_Decl:", self.type)
 
 	def getTypeOnly(self):
-		return self.type
+		return " ".join(self.type)
 
 	def getNameOnly(self):
 		return self.name
@@ -154,6 +153,59 @@ class TypeVisitor(c_ast.NodeVisitor):
 			# Didn't fill in a placeholder, so stick it on the end.
 			ret.append(self.name)
 		return ret
+
+class ChangeNameVisitor(c_ast.NodeVisitor):
+	def __init__(self, nameFunctor):
+		self.functor = nameFunctor
+
+	def doTranslation(self, node):
+		for attr in ["name", "declname"]:
+			val = getattr(node, attr, None)
+			if val is not None:
+				newval = self.functor(val)
+				if newval != val:
+					setattr(node, attr, newval)
+
+		if hasattr(node, "children"):
+			self.generic_visit(node)
+
+		# Must be sure to recurse Types
+		if hasattr(node, "type"):
+			self.doTranslation(node.type)
+
+
+	def visit_Typename(self, node):
+		self.doTranslation(node)
+
+	def visit_Decl(self, node):
+		self.doTranslation(node)
+
+class TypeWrapper(object):
+	def __init__(self, t):
+		self.contained = t
+		changer = ChangeNameVisitor(translateArg)
+		changer.visit(self.contained)
+		if verbose:
+			self.contained.show(attrnames=True, nodenames=True)
+
+	def getTypeOnly(self):
+		generator = c_generator.CGenerator()
+		return generator.visit(self.contained)
+
+	def getNameOnly(self):
+		if hasattr(self.contained, "name"):
+			return self.contained.name if self.contained.name else ''
+		elif hasattr(self.contained.type, "declname"):
+			return self.contained.type.declname
+
+	def changeName(self, oldName, name):
+		functor = lambda x: name if x == oldName else x
+		changer = ChangeNameVisitor(functor)
+		changer.visit(self.contained)
+
+	def getFullType(self):
+		generator = c_generator.CGenerator()
+		return generator.visit(self.contained)
 
 def renameFunctionToMethod(funcname):
 	name = translateMethod(funcname[4:])
@@ -179,7 +231,7 @@ class Method:
 		debugPrint("-- method --")
 		statvisit = IsStaticVisitor(node)
 		if verbose:
-			node.show(attrnames=True)
+			node.show(attrnames=True, nodenames=True)
 		self.static = statvisit.isStatic #isStatic(node.decl.type)
 		self.retType = None
 		self.params = None
@@ -187,17 +239,12 @@ class Method:
 		self.methodName = renameFunctionToMethod(self.name)
 		self.location = node.decl.coord
 		self.args = []
-		for arg in node.decl.type.args.children():
-			fullarg = TypeVisitor()
-			fullarg.visit(arg)
-			debugPrint("Argument:", fullarg.getFullType())
-			self.args.append(fullarg)
+		for c_name, arg in node.decl.type.args.children():
+			self.args.append(TypeWrapper(arg))
 
 		retType = TypeVisitor()
 		retType.visit(node.decl.type.type)
 		self.retType = retType.getTypeOnly() #getFullType(node.decl.type)
-
-
 
 	def explain(self):
 		print('%s: %s returns %s, takes:' % (context.location, context.name, context.retType))
@@ -223,13 +270,12 @@ class Method:
 
 		# Return type
 		### todo: handle pointer types correctly
-		returntype = " ".join([str(x) for x in self.retType])
+		returntype = self.retType
 
 		# Method name
 		declaration = self.methodName + "("
 
 		# Method arguments
-		typestring = lambda x: " ".join(x.getFullType())
 		### todo: must also include the type of the arguments!
 		if not self.static:
 			# Drop the VC parameter
@@ -239,7 +285,7 @@ class Method:
 			debugPrint(x.getFullType())
 
 		# Forward the remaining parameters
-		declaration += ( ", ".join([typestring(x) for x in self.args]) + ")")
+		declaration += ( ", ".join([x.getFullType() for x in self.args]) + ")")
 
 		# Basic implementation - call original function
 
@@ -256,7 +302,7 @@ class Method:
 
 		return (qualifiers, returntype, declaration, body)
 
-class FuncDefVisitor(c_ast.NodeVisitor):
+class AccumulateFuncDefsAsMethods(c_ast.NodeVisitor):
 	def __init__(self):
 		self.methods = []
 
@@ -284,7 +330,7 @@ class VirtuoseAPI:
 	def parseFile(self):
 		ast = parse_file(self.filename, use_cpp=True, cpp_args=r'-Iutils/fake_libc_include')
 
-		v = FuncDefVisitor()
+		v = AccumulateFuncDefsAsMethods()
 		v.visit(ast)
 		self.methods = v.methods
 
