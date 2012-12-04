@@ -257,9 +257,6 @@ class FuncDefVisitor(c_ast.NodeVisitor):
 			# manually wrapped, skip it.
 			return
 
-		## TODO - remove this debug output code
-		#node.show(attrnames=True)
-
 		# So, we need to wrap this method
 		method = Method(node)
 		self.wrapped_methods.append(method.generateWrapper())
