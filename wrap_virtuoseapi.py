@@ -234,7 +234,7 @@ class Method:
 			self.args.pop(0)
 
 		for x in self.args:
-			print x.getFullType()
+			debugPrint(x.getFullType())
 
 		# Forward the remaining parameters
 		declaration += ( ", ".join([typestring(x) for x in self.args]) + ")")
