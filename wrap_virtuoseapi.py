@@ -28,16 +28,15 @@ manuallywrapped = ("virtOpen", "virtClose", "virtGetErrorMessage")
 
 classname = "Virtuose"
 argTrans = {	'fichier':		'fh',
-										'intensite':	'intensity',
-										'clic_gauche':'left_click',
-										'clic_droit':	'right_click',
-										'btn_gauche': 'left_btn',
-										'btn_droit':	'right_btn',
-										'btn_milieu':	'middle_btn',
-										'actif':			'active',		# questionable
-										'axe':				'axis',
-										'decalage':		'shift'
-									}
+				'intensite':	'intensity',
+				'clic_gauche':'left_click',
+				'clic_droit':	'right_click',
+				'btn_gauche': 'left_btn',
+				'btn_droit':	'right_btn',
+				'btn_milieu':	'middle_btn',
+				'actif':			'active',		# questionable
+				'axe':				'axis',
+				'decalage':		'shift'
 
 methodTrans = { 'GetControlerVersion' : 'GetControllerVersion' }
 
