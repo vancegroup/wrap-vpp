@@ -1,0 +1,4552 @@
+FuncDef: 
+  Decl <decl>: name=virtAPIVersion, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=major, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=major, quals=[]
+              IdentifierType <type>: names=['int']
+        Decl <params[1]>: name=minor, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=minor, quals=[]
+              IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtAPIVersion, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=APIVERSION
+          ID <exprs[1]>: name=major
+          ID <exprs[2]>: name=minor
+major -> major
+major -> major
+Decl: name=major, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=major, quals=[]
+      IdentifierType <type>: names=['int']
+minor -> minor
+minor -> minor
+Decl: name=minor, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=minor, quals=[]
+      IdentifierType <type>: names=['int']
+TypeDecl: virtAPIVersion, []
+  IdentifierType: ['int']
+virtAPIVersion -> virtAPIVersion
+Typename: quals=[]
+  TypeDecl <type>: declname=virtAPIVersion, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtAttachVO, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=mass, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=mass, quals=[]
+            IdentifierType <type>: names=['float']
+        Decl <params[2]>: name=mxmymz, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=mxmymz, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtAttachVO, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=ATTACHVO
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=mass
+          ID <exprs[3]>: name=mxmymz
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+mass -> mass
+mass -> mass
+Decl: name=mass, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=mass, quals=[]
+    IdentifierType <type>: names=['float']
+mxmymz -> mxmymz
+mxmymz -> mxmymz
+Decl: name=mxmymz, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=mxmymz, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtAttachVO, []
+  IdentifierType: ['int']
+virtAttachVO -> virtAttachVO
+Typename: quals=[]
+  TypeDecl <type>: declname=virtAttachVO, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtAttachQSVO, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=Ks, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=Ks, quals=[]
+              IdentifierType <type>: names=['float']
+        Decl <params[2]>: name=Bs, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=Bs, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtAttachQSVO, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=ATTACHQSVO
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=Ks
+          ID <exprs[3]>: name=Bs
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+Ks -> Ks
+Ks -> Ks
+Decl: name=Ks, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=Ks, quals=[]
+      IdentifierType <type>: names=['float']
+Bs -> Bs
+Bs -> Bs
+Decl: name=Bs, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=Bs, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtAttachQSVO, []
+  IdentifierType: ['int']
+virtAttachQSVO -> virtAttachQSVO
+Typename: quals=[]
+  TypeDecl <type>: declname=virtAttachQSVO, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtAttachVOAvatar, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=mass, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=mass, quals=[]
+            IdentifierType <type>: names=['float']
+        Decl <params[2]>: name=mxmymz, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=mxmymz, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtAttachVOAvatar, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=ATTACHVOAVATAR
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=mass
+          ID <exprs[3]>: name=mxmymz
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+mass -> mass
+mass -> mass
+Decl: name=mass, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=mass, quals=[]
+    IdentifierType <type>: names=['float']
+mxmymz -> mxmymz
+mxmymz -> mxmymz
+Decl: name=mxmymz, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=mxmymz, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtAttachVOAvatar, []
+  IdentifierType: ['int']
+virtAttachVOAvatar -> virtAttachVOAvatar
+Typename: quals=[]
+  TypeDecl <type>: declname=virtAttachVOAvatar, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtClose, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtClose, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=CLOSE
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtClose, []
+  IdentifierType: ['int']
+virtClose -> virtClose
+Typename: quals=[]
+  TypeDecl <type>: declname=virtClose, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtDetachVO, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtDetachVO, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=DETACHVO
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtDetachVO, []
+  IdentifierType: ['int']
+virtDetachVO -> virtDetachVO
+Typename: quals=[]
+  TypeDecl <type>: declname=virtDetachVO, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtDetachVOAvatar, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtDetachVOAvatar, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=DETACHVOAVATAR
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtDetachVOAvatar, []
+  IdentifierType: ['int']
+virtDetachVOAvatar -> virtDetachVOAvatar
+Typename: quals=[]
+  TypeDecl <type>: declname=virtDetachVOAvatar, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtDisplayHardwareStatus, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=fichier, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=fichier, quals=[]
+              IdentifierType <type>: names=['FILE']
+      TypeDecl <type>: declname=virtDisplayHardwareStatus, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=DISPLAYHARDWARESTATUS
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=fichier
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+fichier -> fh
+fichier -> fh
+Decl: name=fh, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=fh, quals=[]
+      IdentifierType <type>: names=['FILE']
+TypeDecl: virtDisplayHardwareStatus, []
+  IdentifierType: ['int']
+virtDisplayHardwareStatus -> virtDisplayHardwareStatus
+Typename: quals=[]
+  TypeDecl <type>: declname=virtDisplayHardwareStatus, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetBaseFrame, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=base, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=base, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetBaseFrame, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETBASEFRAME
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=base
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+base -> base
+base -> base
+Decl: name=base, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=base, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetBaseFrame, []
+  IdentifierType: ['int']
+virtGetBaseFrame -> virtGetBaseFrame
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetBaseFrame, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetButton, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=button_number, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=button_number, quals=[]
+            IdentifierType <type>: names=['int']
+        Decl <params[2]>: name=state, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=state, quals=[]
+              IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtGetButton, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETBUTTON
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=button_number
+          ID <exprs[3]>: name=state
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+button_number -> button_number
+button_number -> button_number
+Decl: name=button_number, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=button_number, quals=[]
+    IdentifierType <type>: names=['int']
+state -> state
+state -> state
+Decl: name=state, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=state, quals=[]
+      IdentifierType <type>: names=['int']
+TypeDecl: virtGetButton, []
+  IdentifierType: ['int']
+virtGetButton -> virtGetButton
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetButton, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetCommandType, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=type, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=type, quals=[]
+              IdentifierType <type>: names=['VirtCommandType']
+      TypeDecl <type>: declname=virtGetCommandType, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETCOMMANDTYPE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=type
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+type -> type
+type -> type
+Decl: name=type, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=type, quals=[]
+      IdentifierType <type>: names=['VirtCommandType']
+TypeDecl: virtGetCommandType, []
+  IdentifierType: ['int']
+virtGetCommandType -> virtGetCommandType
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetCommandType, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetDeadMan, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=dead_man, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=dead_man, quals=[]
+              IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtGetDeadMan, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETDEADMAN
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=dead_man
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+dead_man -> dead_man
+dead_man -> dead_man
+Decl: name=dead_man, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=dead_man, quals=[]
+      IdentifierType <type>: names=['int']
+TypeDecl: virtGetDeadMan, []
+  IdentifierType: ['int']
+virtGetDeadMan -> virtGetDeadMan
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetDeadMan, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetEmergencyStop, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=emergency_stop, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=emergency_stop, quals=[]
+              IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtGetEmergencyStop, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETEMERGENCYSTOP
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=emergency_stop
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+emergency_stop -> emergency_stop
+emergency_stop -> emergency_stop
+Decl: name=emergency_stop, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=emergency_stop, quals=[]
+      IdentifierType <type>: names=['int']
+TypeDecl: virtGetEmergencyStop, []
+  IdentifierType: ['int']
+virtGetEmergencyStop -> virtGetEmergencyStop
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetEmergencyStop, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetError, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=error, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=error, quals=[]
+              IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtGetError, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETERROR
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=error
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+error -> error
+error -> error
+Decl: name=error, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=error, quals=[]
+      IdentifierType <type>: names=['int']
+TypeDecl: virtGetError, []
+  IdentifierType: ['int']
+virtGetError -> virtGetError
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetError, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetErrorCode, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtGetErrorCode, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETERRORCODE
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtGetErrorCode, []
+  IdentifierType: ['int']
+virtGetErrorCode -> virtGetErrorCode
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetErrorCode, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetErrorMessage, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=code, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=code, quals=[]
+            IdentifierType <type>: names=['int']
+      PtrDecl <type>: quals=[]
+        TypeDecl <type>: declname=virtGetErrorMessage, quals=[]
+          IdentifierType <type>: names=['char']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      Cast <expr>: 
+        Typename <to_type>: quals=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=None, quals=[]
+              IdentifierType <type>: names=['char']
+        FuncCall <expr>: 
+          ID <name>: name=virtCallDLL
+          ExprList <args>: 
+            ID <exprs[0]>: name=GETERRORMESSAGE
+            UnaryOp <exprs[1]>: op=&
+              ID <expr>: name=code
+code -> code
+code -> code
+Decl: name=code, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=code, quals=[]
+    IdentifierType <type>: names=['int']
+PtrDecl: []
+  TypeDecl: virtGetErrorMessage, []
+    IdentifierType: ['char']
+virtGetErrorMessage -> virtGetErrorMessage
+Typename: quals=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=virtGetErrorMessage, quals=[]
+      IdentifierType <type>: names=['char']
+FuncDef: 
+  Decl <decl>: name=virtGetForce, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=force, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=force, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetForce, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETFORCE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=force
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+force -> force
+force -> force
+Decl: name=force, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=force, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetForce, []
+  IdentifierType: ['int']
+virtGetForce -> virtGetForce
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetForce, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetForceFactor, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=force_factor, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=force_factor, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetForceFactor, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETFORCEFACTOR
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=force_factor
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+force_factor -> force_factor
+force_factor -> force_factor
+Decl: name=force_factor, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=force_factor, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetForceFactor, []
+  IdentifierType: ['int']
+virtGetForceFactor -> virtGetForceFactor
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetForceFactor, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetIndexingMode, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=indexing_mode, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=indexing_mode, quals=[]
+              IdentifierType <type>: names=['VirtIndexingType']
+      TypeDecl <type>: declname=virtGetIndexingMode, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETINDEXINGMODE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=indexing_mode
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+indexing_mode -> indexing_mode
+indexing_mode -> indexing_mode
+Decl: name=indexing_mode, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=indexing_mode, quals=[]
+      IdentifierType <type>: names=['VirtIndexingType']
+TypeDecl: virtGetIndexingMode, []
+  IdentifierType: ['int']
+virtGetIndexingMode -> virtGetIndexingMode
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetIndexingMode, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetLimitTorque, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=torque, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=torque, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetLimitTorque, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETLIMITTORQUE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=torque
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+torque -> torque
+torque -> torque
+Decl: name=torque, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=torque, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetLimitTorque, []
+  IdentifierType: ['int']
+virtGetLimitTorque -> virtGetLimitTorque
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetLimitTorque, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetObservationFrame, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=obs, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=obs, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetObservationFrame, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETOBSERVATIONFRAME
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=obs
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+obs -> obs
+obs -> obs
+Decl: name=obs, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=obs, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetObservationFrame, []
+  IdentifierType: ['int']
+virtGetObservationFrame -> virtGetObservationFrame
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetObservationFrame, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetPosition, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=pos, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=pos, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetPosition, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETPOSITION
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=pos
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+pos -> pos
+pos -> pos
+Decl: name=pos, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=pos, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetPosition, []
+  IdentifierType: ['int']
+virtGetPosition -> virtGetPosition
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetPosition, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetPowerOn, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=power, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=power, quals=[]
+              IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtGetPowerOn, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETPOWERON
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=power
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+power -> power
+power -> power
+Decl: name=power, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=power, quals=[]
+      IdentifierType <type>: names=['int']
+TypeDecl: virtGetPowerOn, []
+  IdentifierType: ['int']
+virtGetPowerOn -> virtGetPowerOn
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetPowerOn, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetSpeed, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=speed, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=speed, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetSpeed, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETSPEED
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=speed
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+speed -> speed
+speed -> speed
+Decl: name=speed, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=speed, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetSpeed, []
+  IdentifierType: ['int']
+virtGetSpeed -> virtGetSpeed
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetSpeed, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetSpeedFactor, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=speed_factor, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=speed_factor, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetSpeedFactor, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETSPEEDFACTOR
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=speed_factor
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+speed_factor -> speed_factor
+speed_factor -> speed_factor
+Decl: name=speed_factor, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=speed_factor, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetSpeedFactor, []
+  IdentifierType: ['int']
+virtGetSpeedFactor -> virtGetSpeedFactor
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetSpeedFactor, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetTimeLastUpdate, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=time, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=time, quals=[]
+              IdentifierType <type>: names=['unsigned', 'int']
+      TypeDecl <type>: declname=virtGetTimeLastUpdate, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETTIMELASTUPDATE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=time
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+time -> time
+time -> time
+Decl: name=time, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=time, quals=[]
+      IdentifierType <type>: names=['unsigned', 'int']
+TypeDecl: virtGetTimeLastUpdate, []
+  IdentifierType: ['int']
+virtGetTimeLastUpdate -> virtGetTimeLastUpdate
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetTimeLastUpdate, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetTimeoutValue, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=time_value, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=time_value, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetTimeoutValue, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETTIMEOUTVALUE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=time_value
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+time_value -> time_value
+time_value -> time_value
+Decl: name=time_value, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=time_value, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetTimeoutValue, []
+  IdentifierType: ['int']
+virtGetTimeoutValue -> virtGetTimeoutValue
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetTimeoutValue, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtOpen, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=nom, quals=['const'], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=nom, quals=['const']
+              IdentifierType <type>: names=['char']
+      TypeDecl <type>: declname=virtOpen, quals=[]
+        IdentifierType <type>: names=['VirtContext']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      Cast <expr>: 
+        Typename <to_type>: quals=[]
+          TypeDecl <type>: declname=None, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        FuncCall <expr>: 
+          ID <name>: name=virtCallDLL
+          ExprList <args>: 
+            ID <exprs[0]>: name=OPEN
+            ID <exprs[1]>: name=nom
+nom -> nom
+nom -> nom
+Decl: name=nom, quals=['const'], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=nom, quals=['const']
+      IdentifierType <type>: names=['char']
+TypeDecl: virtOpen, []
+  IdentifierType: ['VirtContext']
+virtOpen -> virtOpen
+Typename: quals=[]
+  TypeDecl <type>: declname=virtOpen, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+FuncDef: 
+  Decl <decl>: name=virtSetBaseFrame, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=base, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=base, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetBaseFrame, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETBASEFRAME
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=base
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+base -> base
+base -> base
+Decl: name=base, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=base, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetBaseFrame, []
+  IdentifierType: ['int']
+virtSetBaseFrame -> virtSetBaseFrame
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetBaseFrame, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetCommandType, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=type, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=type, quals=[]
+            IdentifierType <type>: names=['VirtCommandType']
+      TypeDecl <type>: declname=virtSetCommandType, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETCOMMANDTYPE
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=type
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+type -> type
+type -> type
+Decl: name=type, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=type, quals=[]
+    IdentifierType <type>: names=['VirtCommandType']
+TypeDecl: virtSetCommandType, []
+  IdentifierType: ['int']
+virtSetCommandType -> virtSetCommandType
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetCommandType, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetDebugFlags, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=flag, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=flag, quals=[]
+            IdentifierType <type>: names=['unsigned', 'short']
+      TypeDecl <type>: declname=virtSetDebugFlags, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETDEBUGFLAGS
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=flag
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+flag -> flag
+flag -> flag
+Decl: name=flag, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=flag, quals=[]
+    IdentifierType <type>: names=['unsigned', 'short']
+TypeDecl: virtSetDebugFlags, []
+  IdentifierType: ['int']
+virtSetDebugFlags -> virtSetDebugFlags
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetDebugFlags, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetForce, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=force, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=force, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetForce, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETFORCE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=force
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+force -> force
+force -> force
+Decl: name=force, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=force, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetForce, []
+  IdentifierType: ['int']
+virtSetForce -> virtSetForce
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetForce, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetForceFactor, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=force_factor, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=force_factor, quals=[]
+            IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetForceFactor, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETFORCEFACTOR
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=force_factor
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+force_factor -> force_factor
+force_factor -> force_factor
+Decl: name=force_factor, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=force_factor, quals=[]
+    IdentifierType <type>: names=['float']
+TypeDecl: virtSetForceFactor, []
+  IdentifierType: ['int']
+virtSetForceFactor -> virtSetForceFactor
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetForceFactor, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetIndexingMode, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=indexing_mode, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=indexing_mode, quals=[]
+            IdentifierType <type>: names=['VirtIndexingType']
+      TypeDecl <type>: declname=virtSetIndexingMode, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETINDEXINGMODE
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=indexing_mode
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+indexing_mode -> indexing_mode
+indexing_mode -> indexing_mode
+Decl: name=indexing_mode, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=indexing_mode, quals=[]
+    IdentifierType <type>: names=['VirtIndexingType']
+TypeDecl: virtSetIndexingMode, []
+  IdentifierType: ['int']
+virtSetIndexingMode -> virtSetIndexingMode
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetIndexingMode, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetLimitTorque, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=torque, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=torque, quals=[]
+            IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetLimitTorque, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETLIMITTORQUE
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=torque
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+torque -> torque
+torque -> torque
+Decl: name=torque, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=torque, quals=[]
+    IdentifierType <type>: names=['float']
+TypeDecl: virtSetLimitTorque, []
+  IdentifierType: ['int']
+virtSetLimitTorque -> virtSetLimitTorque
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetLimitTorque, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetObservationFrame, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=obs, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=obs, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetObservationFrame, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETOBSERVATIONFRAME
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=obs
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+obs -> obs
+obs -> obs
+Decl: name=obs, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=obs, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetObservationFrame, []
+  IdentifierType: ['int']
+virtSetObservationFrame -> virtSetObservationFrame
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetObservationFrame, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetObservationFrameSpeed, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=speed, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=speed, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetObservationFrameSpeed, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETOBSERVATIONFRAMESPEED
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=speed
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+speed -> speed
+speed -> speed
+Decl: name=speed, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=speed, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetObservationFrameSpeed, []
+  IdentifierType: ['int']
+virtSetObservationFrameSpeed -> virtSetObservationFrameSpeed
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetObservationFrameSpeed, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetOutputFile, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=name, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=name, quals=[]
+              IdentifierType <type>: names=['char']
+      TypeDecl <type>: declname=virtSetOutputFile, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETOUTPUTFILE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=name
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+name -> name
+name -> name
+Decl: name=name, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=name, quals=[]
+      IdentifierType <type>: names=['char']
+TypeDecl: virtSetOutputFile, []
+  IdentifierType: ['int']
+virtSetOutputFile -> virtSetOutputFile
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetOutputFile, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetPeriodicFunction, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=fn, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            FuncDecl <type>: 
+              ParamList <args>: 
+                Typename <params[0]>: quals=[]
+                  TypeDecl <type>: declname=None, quals=[]
+                    IdentifierType <type>: names=['VirtContext']
+                Typename <params[1]>: quals=[]
+                  PtrDecl <type>: quals=[]
+                    TypeDecl <type>: declname=None, quals=[]
+                      IdentifierType <type>: names=['void']
+              TypeDecl <type>: declname=fn, quals=[]
+                IdentifierType <type>: names=['void']
+        Decl <params[2]>: name=period, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=period, quals=[]
+              IdentifierType <type>: names=['float']
+        Decl <params[3]>: name=arg, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=arg, quals=[]
+              IdentifierType <type>: names=['void']
+      TypeDecl <type>: declname=virtSetPeriodicFunction, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETPERIODICFUNCTION
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=fn
+          ID <exprs[3]>: name=period
+          ID <exprs[4]>: name=arg
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+fn -> fn
+fn -> fn
+Decl: name=fn, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Typename <params[0]>: quals=[]
+          TypeDecl <type>: declname=None, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Typename <params[1]>: quals=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=None, quals=[]
+              IdentifierType <type>: names=['void']
+      TypeDecl <type>: declname=fn, quals=[]
+        IdentifierType <type>: names=['void']
+period -> period
+period -> period
+Decl: name=period, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=period, quals=[]
+      IdentifierType <type>: names=['float']
+arg -> arg
+arg -> arg
+Decl: name=arg, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=arg, quals=[]
+      IdentifierType <type>: names=['void']
+TypeDecl: virtSetPeriodicFunction, []
+  IdentifierType: ['int']
+virtSetPeriodicFunction -> virtSetPeriodicFunction
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetPeriodicFunction, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetPosition, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=pos, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=pos, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetPosition, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETPOSITION
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=pos
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+pos -> pos
+pos -> pos
+Decl: name=pos, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=pos, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetPosition, []
+  IdentifierType: ['int']
+virtSetPosition -> virtSetPosition
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetPosition, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetPowerOn, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=power, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=power, quals=[]
+            IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtSetPowerOn, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETPOWERON
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=power
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+power -> power
+power -> power
+Decl: name=power, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=power, quals=[]
+    IdentifierType <type>: names=['int']
+TypeDecl: virtSetPowerOn, []
+  IdentifierType: ['int']
+virtSetPowerOn -> virtSetPowerOn
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetPowerOn, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetSpeed, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=speed, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=speed, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetSpeed, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETSPEED
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=speed
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+speed -> speed
+speed -> speed
+Decl: name=speed, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=speed, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetSpeed, []
+  IdentifierType: ['int']
+virtSetSpeed -> virtSetSpeed
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetSpeed, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetSpeedFactor, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=speed_factor, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=speed_factor, quals=[]
+            IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetSpeedFactor, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETSPEEDFACTOR
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=speed_factor
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+speed_factor -> speed_factor
+speed_factor -> speed_factor
+Decl: name=speed_factor, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=speed_factor, quals=[]
+    IdentifierType <type>: names=['float']
+TypeDecl: virtSetSpeedFactor, []
+  IdentifierType: ['int']
+virtSetSpeedFactor -> virtSetSpeedFactor
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetSpeedFactor, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetTexture, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=position, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=position, quals=[]
+              IdentifierType <type>: names=['float']
+        Decl <params[2]>: name=intensite, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=intensite, quals=[]
+              IdentifierType <type>: names=['float']
+        Decl <params[3]>: name=reinit, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=reinit, quals=[]
+            IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtSetTexture, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETTEXTURE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=position
+          ID <exprs[3]>: name=intensite
+          UnaryOp <exprs[4]>: op=&
+            ID <expr>: name=reinit
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+position -> position
+position -> position
+Decl: name=position, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=position, quals=[]
+      IdentifierType <type>: names=['float']
+intensite -> intensity
+intensite -> intensity
+Decl: name=intensity, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=intensity, quals=[]
+      IdentifierType <type>: names=['float']
+reinit -> reinit
+reinit -> reinit
+Decl: name=reinit, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=reinit, quals=[]
+    IdentifierType <type>: names=['int']
+TypeDecl: virtSetTexture, []
+  IdentifierType: ['int']
+virtSetTexture -> virtSetTexture
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetTexture, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetTextureForce, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=texture_force, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=texture_force, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetTextureForce, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETTEXTUREFORCE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=texture_force
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+texture_force -> texture_force
+texture_force -> texture_force
+Decl: name=texture_force, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=texture_force, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetTextureForce, []
+  IdentifierType: ['int']
+virtSetTextureForce -> virtSetTextureForce
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetTextureForce, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetTimeStep, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=step, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=step, quals=[]
+            IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetTimeStep, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETTIMESTEP
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=step
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+step -> step
+step -> step
+Decl: name=step, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=step, quals=[]
+    IdentifierType <type>: names=['float']
+TypeDecl: virtSetTimeStep, []
+  IdentifierType: ['int']
+virtSetTimeStep -> virtSetTimeStep
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetTimeStep, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetTimeoutValue, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=time_value, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=time_value, quals=[]
+            IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetTimeoutValue, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETTIMEOUTVALUE
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=time_value
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+time_value -> time_value
+time_value -> time_value
+Decl: name=time_value, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=time_value, quals=[]
+    IdentifierType <type>: names=['float']
+TypeDecl: virtSetTimeoutValue, []
+  IdentifierType: ['int']
+virtSetTimeoutValue -> virtSetTimeoutValue
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetTimeoutValue, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtStartLoop, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtStartLoop, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=STARTLOOP
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtStartLoop, []
+  IdentifierType: ['int']
+virtStartLoop -> virtStartLoop
+Typename: quals=[]
+  TypeDecl <type>: declname=virtStartLoop, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtStopLoop, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtStopLoop, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=STOPLOOP
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtStopLoop, []
+  IdentifierType: ['int']
+virtStopLoop -> virtStopLoop
+Typename: quals=[]
+  TypeDecl <type>: declname=virtStopLoop, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtWaitForSynch, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtWaitForSynch, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=WAITFORSYNCH
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtWaitForSynch, []
+  IdentifierType: ['int']
+virtWaitForSynch -> virtWaitForSynch
+Typename: quals=[]
+  TypeDecl <type>: declname=virtWaitForSynch, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtTrajRecordStart, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtTrajRecordStart, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=TRAJRECORDSTART
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtTrajRecordStart, []
+  IdentifierType: ['int']
+virtTrajRecordStart -> virtTrajRecordStart
+Typename: quals=[]
+  TypeDecl <type>: declname=virtTrajRecordStart, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtTrajRecordStop, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtTrajRecordStop, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=TRAJRECORDSTOP
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtTrajRecordStop, []
+  IdentifierType: ['int']
+virtTrajRecordStop -> virtTrajRecordStop
+Typename: quals=[]
+  TypeDecl <type>: declname=virtTrajRecordStop, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtTrajSetSamplingTimeStep, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=timeStep, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=timeStep, quals=[]
+            IdentifierType <type>: names=['float']
+        Decl <params[2]>: name=recordTime, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=recordTime, quals=[]
+              IdentifierType <type>: names=['unsigned', 'int']
+      TypeDecl <type>: declname=virtTrajSetSamplingTimeStep, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=TRAJTIMESTEP
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=timeStep
+          ID <exprs[3]>: name=recordTime
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+timeStep -> timeStep
+timeStep -> timeStep
+Decl: name=timeStep, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=timeStep, quals=[]
+    IdentifierType <type>: names=['float']
+recordTime -> recordTime
+recordTime -> recordTime
+Decl: name=recordTime, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=recordTime, quals=[]
+      IdentifierType <type>: names=['unsigned', 'int']
+TypeDecl: virtTrajSetSamplingTimeStep, []
+  IdentifierType: ['int']
+virtTrajSetSamplingTimeStep -> virtTrajSetSamplingTimeStep
+Typename: quals=[]
+  TypeDecl <type>: declname=virtTrajSetSamplingTimeStep, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmStartTrajSampling, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=nbSamples, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=nbSamples, quals=[]
+            IdentifierType <type>: names=['unsigned', 'int']
+      TypeDecl <type>: declname=virtVmStartTrajSampling, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=STARTTRAJSAMPLING
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=nbSamples
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+nbSamples -> nbSamples
+nbSamples -> nbSamples
+Decl: name=nbSamples, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=nbSamples, quals=[]
+    IdentifierType <type>: names=['unsigned', 'int']
+TypeDecl: virtVmStartTrajSampling, []
+  IdentifierType: ['int']
+virtVmStartTrajSampling -> virtVmStartTrajSampling
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmStartTrajSampling, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmGetTrajSamples, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=samples, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=samples, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtVmGetTrajSamples, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=TRAJSAMPLES
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=samples
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+samples -> samples
+samples -> samples
+Decl: name=samples, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=samples, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtVmGetTrajSamples, []
+  IdentifierType: ['int']
+virtVmGetTrajSamples -> virtVmGetTrajSamples
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmGetTrajSamples, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmSetType, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=type, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=type, quals=[]
+            IdentifierType <type>: names=['VirtVmType']
+      TypeDecl <type>: declname=virtVmSetType, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMSETTYPE
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=type
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+type -> type
+type -> type
+Decl: name=type, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=type, quals=[]
+    IdentifierType <type>: names=['VirtVmType']
+TypeDecl: virtVmSetType, []
+  IdentifierType: ['int']
+virtVmSetType -> virtVmSetType
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmSetType, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmSetParameter, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=param, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=param, quals=[]
+              IdentifierType <type>: names=['VirtVmParameter']
+      TypeDecl <type>: declname=virtVmSetParameter, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMPARAMETERTYPE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=param
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+param -> param
+param -> param
+Decl: name=param, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=param, quals=[]
+      IdentifierType <type>: names=['VirtVmParameter']
+TypeDecl: virtVmSetParameter, []
+  IdentifierType: ['int']
+virtVmSetParameter -> virtVmSetParameter
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmSetParameter, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmActivate, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtVmActivate, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMACTIVATE
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtVmActivate, []
+  IdentifierType: ['int']
+virtVmActivate -> virtVmActivate
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmActivate, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmDeactivate, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtVmDeactivate, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMDEACTIVATE
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtVmDeactivate, []
+  IdentifierType: ['int']
+virtVmDeactivate -> virtVmDeactivate
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmDeactivate, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmSetBaseFrame, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=base, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=base, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtVmSetBaseFrame, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMSETBASEFRAME
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=base
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+base -> base
+base -> base
+Decl: name=base, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=base, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtVmSetBaseFrame, []
+  IdentifierType: ['int']
+virtVmSetBaseFrame -> virtVmSetBaseFrame
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmSetBaseFrame, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmSetMaxArtiBounds, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=bounds, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=bounds, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtVmSetMaxArtiBounds, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMSETMAXBOUNDS
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=bounds
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+bounds -> bounds
+bounds -> bounds
+Decl: name=bounds, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=bounds, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtVmSetMaxArtiBounds, []
+  IdentifierType: ['int']
+virtVmSetMaxArtiBounds -> virtVmSetMaxArtiBounds
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmSetMaxArtiBounds, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmSetMinArtiBounds, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=bounds, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=bounds, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtVmSetMinArtiBounds, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMSETMINBOUNDS
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=bounds
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+bounds -> bounds
+bounds -> bounds
+Decl: name=bounds, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=bounds, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtVmSetMinArtiBounds, []
+  IdentifierType: ['int']
+virtVmSetMinArtiBounds -> virtVmSetMinArtiBounds
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmSetMinArtiBounds, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetPhysicalPosition, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=pos, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=pos, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetPhysicalPosition, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=PHYSICALPOSITION
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=pos
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+pos -> pos
+pos -> pos
+Decl: name=pos, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=pos, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetPhysicalPosition, []
+  IdentifierType: ['int']
+virtGetPhysicalPosition -> virtGetPhysicalPosition
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetPhysicalPosition, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetAvatarPosition, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=pos, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=pos, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetAvatarPosition, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=AVATARPOSITION
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=pos
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+pos -> pos
+pos -> pos
+Decl: name=pos, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=pos, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetAvatarPosition, []
+  IdentifierType: ['int']
+virtGetAvatarPosition -> virtGetAvatarPosition
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetAvatarPosition, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSaturateTorque, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=forceThreshold, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=forceThreshold, quals=[]
+            IdentifierType <type>: names=['float']
+        Decl <params[2]>: name=momentThreshold, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=momentThreshold, quals=[]
+            IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSaturateTorque, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SATURATETORQUE
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=forceThreshold
+          UnaryOp <exprs[3]>: op=&
+            ID <expr>: name=momentThreshold
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+forceThreshold -> forceThreshold
+forceThreshold -> forceThreshold
+Decl: name=forceThreshold, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=forceThreshold, quals=[]
+    IdentifierType <type>: names=['float']
+momentThreshold -> momentThreshold
+momentThreshold -> momentThreshold
+Decl: name=momentThreshold, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=momentThreshold, quals=[]
+    IdentifierType <type>: names=['float']
+TypeDecl: virtSaturateTorque, []
+  IdentifierType: ['int']
+virtSaturateTorque -> virtSaturateTorque
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSaturateTorque, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmSetDefaultToTransparentMode, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtVmSetDefaultToTransparentMode, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMSETTRANSPARENTMODE
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtVmSetDefaultToTransparentMode, []
+  IdentifierType: ['int']
+virtVmSetDefaultToTransparentMode -> virtVmSetDefaultToTransparentMode
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmSetDefaultToTransparentMode, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmSetDefaultToCartesianPosition, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtVmSetDefaultToCartesianPosition, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMSETCARTESIANPOSITION
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtVmSetDefaultToCartesianPosition, []
+  IdentifierType: ['int']
+virtVmSetDefaultToCartesianPosition -> virtVmSetDefaultToCartesianPosition
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmSetDefaultToCartesianPosition, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmSetBaseFrameToCurrentFrame, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtVmSetBaseFrameToCurrentFrame, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMSETBASEFRAMETOCURRENTFRAME
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtVmSetBaseFrameToCurrentFrame, []
+  IdentifierType: ['int']
+virtVmSetBaseFrameToCurrentFrame -> virtVmSetBaseFrameToCurrentFrame
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmSetBaseFrameToCurrentFrame, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtConvertRGBToGrayscale, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=rgb, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=rgb, quals=[]
+              IdentifierType <type>: names=['float']
+        Decl <params[2]>: name=gray, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=gray, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtConvertRGBToGrayscale, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=RGBTOGRAYSCALE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=rgb
+          ID <exprs[3]>: name=gray
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+rgb -> rgb
+rgb -> rgb
+Decl: name=rgb, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=rgb, quals=[]
+      IdentifierType <type>: names=['float']
+gray -> gray
+gray -> gray
+Decl: name=gray, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=gray, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtConvertRGBToGrayscale, []
+  IdentifierType: ['int']
+virtConvertRGBToGrayscale -> virtConvertRGBToGrayscale
+Typename: quals=[]
+  TypeDecl <type>: declname=virtConvertRGBToGrayscale, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmGetBaseFrame, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=base, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=base, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtVmGetBaseFrame, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMGETBASEFRAME
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=base
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+base -> base
+base -> base
+Decl: name=base, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=base, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtVmGetBaseFrame, []
+  IdentifierType: ['int']
+virtVmGetBaseFrame -> virtVmGetBaseFrame
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmGetBaseFrame, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtWaitPressButton, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=button_number, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=button_number, quals=[]
+            IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtWaitPressButton, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=WAITBUTTON
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=button_number
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+button_number -> button_number
+button_number -> button_number
+Decl: name=button_number, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=button_number, quals=[]
+    IdentifierType <type>: names=['int']
+TypeDecl: virtWaitPressButton, []
+  IdentifierType: ['int']
+virtWaitPressButton -> virtWaitPressButton
+Typename: quals=[]
+  TypeDecl <type>: declname=virtWaitPressButton, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetTimeStep, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=step, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=step, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetTimeStep, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETTIMESTEP
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=step
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+step -> step
+step -> step
+Decl: name=step, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=step, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetTimeStep, []
+  IdentifierType: ['int']
+virtGetTimeStep -> virtGetTimeStep
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetTimeStep, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmSetRobotMode, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=OnOff, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=OnOff, quals=[]
+            IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtVmSetRobotMode, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMSETROBOTMODE
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=OnOff
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+OnOff -> OnOff
+OnOff -> OnOff
+Decl: name=OnOff, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=OnOff, quals=[]
+    IdentifierType <type>: names=['int']
+TypeDecl: virtVmSetRobotMode, []
+  IdentifierType: ['int']
+virtVmSetRobotMode -> virtVmSetRobotMode
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmSetRobotMode, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmSaveCurrentSpline, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=file_name, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=file_name, quals=[]
+              IdentifierType <type>: names=['char']
+      TypeDecl <type>: declname=virtVmSaveCurrentSpline, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMSAVESPLINE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=file_name
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+file_name -> file_name
+file_name -> file_name
+Decl: name=file_name, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=file_name, quals=[]
+      IdentifierType <type>: names=['char']
+TypeDecl: virtVmSaveCurrentSpline, []
+  IdentifierType: ['int']
+virtVmSaveCurrentSpline -> virtVmSaveCurrentSpline
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmSaveCurrentSpline, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmLoadSpline, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=file_name, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=file_name, quals=[]
+              IdentifierType <type>: names=['char']
+      TypeDecl <type>: declname=virtVmLoadSpline, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMLOADSPLINE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=file_name
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+file_name -> file_name
+file_name -> file_name
+Decl: name=file_name, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=file_name, quals=[]
+      IdentifierType <type>: names=['char']
+TypeDecl: virtVmLoadSpline, []
+  IdentifierType: ['int']
+virtVmLoadSpline -> virtVmLoadSpline
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmLoadSpline, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmDeleteSpline, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=file_name, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=file_name, quals=[]
+              IdentifierType <type>: names=['char']
+      TypeDecl <type>: declname=virtVmDeleteSpline, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMDELETESPLINE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=file_name
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+file_name -> file_name
+file_name -> file_name
+Decl: name=file_name, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=file_name, quals=[]
+      IdentifierType <type>: names=['char']
+TypeDecl: virtVmDeleteSpline, []
+  IdentifierType: ['int']
+virtVmDeleteSpline -> virtVmDeleteSpline
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmDeleteSpline, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtVmWaitUpperBound, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtVmWaitUpperBound, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=VMUPPERBOUND
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtVmWaitUpperBound, []
+  IdentifierType: ['int']
+virtVmWaitUpperBound -> virtVmWaitUpperBound
+Typename: quals=[]
+  TypeDecl <type>: declname=virtVmWaitUpperBound, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtDisableControlConnexion, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=disable, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=disable, quals=[]
+            IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtDisableControlConnexion, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=DISABLECONTROLCONNEXION
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=disable
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+disable -> disable
+disable -> disable
+Decl: name=disable, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=disable, quals=[]
+    IdentifierType <type>: names=['int']
+TypeDecl: virtDisableControlConnexion, []
+  IdentifierType: ['int']
+virtDisableControlConnexion -> virtDisableControlConnexion
+Typename: quals=[]
+  TypeDecl <type>: declname=virtDisableControlConnexion, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtIsInBounds, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=bounds, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=bounds, quals=[]
+              IdentifierType <type>: names=['unsigned', 'int']
+      TypeDecl <type>: declname=virtIsInBounds, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=BOUNDS
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=bounds
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+bounds -> bounds
+bounds -> bounds
+Decl: name=bounds, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=bounds, quals=[]
+      IdentifierType <type>: names=['unsigned', 'int']
+TypeDecl: virtIsInBounds, []
+  IdentifierType: ['int']
+virtIsInBounds -> virtIsInBounds
+Typename: quals=[]
+  TypeDecl <type>: declname=virtIsInBounds, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetAlarm, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=alarm, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=alarm, quals=[]
+              IdentifierType <type>: names=['unsigned', 'int']
+      TypeDecl <type>: declname=virtGetAlarm, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=ALARM
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=alarm
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+alarm -> alarm
+alarm -> alarm
+Decl: name=alarm, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=alarm, quals=[]
+      IdentifierType <type>: names=['unsigned', 'int']
+TypeDecl: virtGetAlarm, []
+  IdentifierType: ['int']
+virtGetAlarm -> virtGetAlarm
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetAlarm, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetCatchFrame, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=frame, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=frame, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetCatchFrame, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETCATCHFRAME
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=frame
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+frame -> frame
+frame -> frame
+Decl: name=frame, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=frame, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetCatchFrame, []
+  IdentifierType: ['int']
+virtGetCatchFrame -> virtGetCatchFrame
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetCatchFrame, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetCatchFrame, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=frame, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=frame, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetCatchFrame, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETCATCHFRAME
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=frame
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+frame -> frame
+frame -> frame
+Decl: name=frame, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=frame, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetCatchFrame, []
+  IdentifierType: ['int']
+virtSetCatchFrame -> virtSetCatchFrame
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetCatchFrame, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtActiveSpeedControl, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=radius, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=radius, quals=[]
+            IdentifierType <type>: names=['float']
+        Decl <params[2]>: name=speedFactor, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=speedFactor, quals=[]
+            IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtActiveSpeedControl, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=ACTIVESPEEDCONTROL
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=radius
+          UnaryOp <exprs[3]>: op=&
+            ID <expr>: name=speedFactor
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+radius -> radius
+radius -> radius
+Decl: name=radius, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=radius, quals=[]
+    IdentifierType <type>: names=['float']
+speedFactor -> speedFactor
+speedFactor -> speedFactor
+Decl: name=speedFactor, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=speedFactor, quals=[]
+    IdentifierType <type>: names=['float']
+TypeDecl: virtActiveSpeedControl, []
+  IdentifierType: ['int']
+virtActiveSpeedControl -> virtActiveSpeedControl
+Typename: quals=[]
+  TypeDecl <type>: declname=virtActiveSpeedControl, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtDeactiveSpeedControl, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtDeactiveSpeedControl, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=DESACTIVESPEEDCONTROL
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtDeactiveSpeedControl, []
+  IdentifierType: ['int']
+virtDeactiveSpeedControl -> virtDeactiveSpeedControl
+Typename: quals=[]
+  TypeDecl <type>: declname=virtDeactiveSpeedControl, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtIsInShiftPosition, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=decalage, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=decalage, quals=[]
+              IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtIsInShiftPosition, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SHIFTPOSITION
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=decalage
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+decalage -> shift
+decalage -> shift
+Decl: name=shift, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=shift, quals=[]
+      IdentifierType <type>: names=['int']
+TypeDecl: virtIsInShiftPosition, []
+  IdentifierType: ['int']
+virtIsInShiftPosition -> virtIsInShiftPosition
+Typename: quals=[]
+  TypeDecl <type>: declname=virtIsInShiftPosition, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetFrictionForce, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=fx, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=fx, quals=[]
+            IdentifierType <type>: names=['float']
+        Decl <params[2]>: name=fy, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=fy, quals=[]
+            IdentifierType <type>: names=['float']
+        Decl <params[3]>: name=fz, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=fz, quals=[]
+            IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetFrictionForce, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=FRICTION
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=fx
+          UnaryOp <exprs[3]>: op=&
+            ID <expr>: name=fy
+          UnaryOp <exprs[4]>: op=&
+            ID <expr>: name=fz
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+fx -> fx
+fx -> fx
+Decl: name=fx, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=fx, quals=[]
+    IdentifierType <type>: names=['float']
+fy -> fy
+fy -> fy
+Decl: name=fy, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=fy, quals=[]
+    IdentifierType <type>: names=['float']
+fz -> fz
+fz -> fz
+Decl: name=fz, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=fz, quals=[]
+    IdentifierType <type>: names=['float']
+TypeDecl: virtSetFrictionForce, []
+  IdentifierType: ['int']
+virtSetFrictionForce -> virtSetFrictionForce
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetFrictionForce, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetMouseState, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=actif, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=actif, quals=[]
+              IdentifierType <type>: names=['int']
+        Decl <params[2]>: name=clic_gauche, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=clic_gauche, quals=[]
+              IdentifierType <type>: names=['int']
+        Decl <params[3]>: name=clic_droit, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=clic_droit, quals=[]
+              IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtGetMouseState, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=MOUSE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=actif
+          ID <exprs[3]>: name=clic_gauche
+          ID <exprs[4]>: name=clic_droit
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+actif -> active
+actif -> active
+Decl: name=active, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=active, quals=[]
+      IdentifierType <type>: names=['int']
+clic_gauche -> left_click
+clic_gauche -> left_click
+Decl: name=left_click, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=left_click, quals=[]
+      IdentifierType <type>: names=['int']
+clic_droit -> right_click
+clic_droit -> right_click
+Decl: name=right_click, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=right_click, quals=[]
+      IdentifierType <type>: names=['int']
+TypeDecl: virtGetMouseState, []
+  IdentifierType: ['int']
+virtGetMouseState -> virtGetMouseState
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetMouseState, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGenerateDebugFile, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtGenerateDebugFile, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=DEBUGFILE
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtGenerateDebugFile, []
+  IdentifierType: ['int']
+virtGenerateDebugFile -> virtGenerateDebugFile
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGenerateDebugFile, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetCenterSphere, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=pos, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=pos, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetCenterSphere, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=CENTERSPEEDCONTROL
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=pos
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+pos -> pos
+pos -> pos
+Decl: name=pos, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=pos, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetCenterSphere, []
+  IdentifierType: ['int']
+virtGetCenterSphere -> virtGetCenterSphere
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetCenterSphere, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetAxisOfRotation, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=axe, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=axe, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetAxisOfRotation, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=AXEROTATION
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=axe
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+axe -> axis
+axe -> axis
+Decl: name=axis, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=axis, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetAxisOfRotation, []
+  IdentifierType: ['int']
+virtGetAxisOfRotation -> virtGetAxisOfRotation
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetAxisOfRotation, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetADC, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=line, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=line, quals=[]
+            IdentifierType <type>: names=['int']
+        Decl <params[2]>: name=adc, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=adc, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetADC, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETADC
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=line
+          ID <exprs[3]>: name=adc
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+line -> line
+line -> line
+Decl: name=line, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=line, quals=[]
+    IdentifierType <type>: names=['int']
+adc -> adc
+adc -> adc
+Decl: name=adc, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=adc, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetADC, []
+  IdentifierType: ['int']
+virtGetADC -> virtGetADC
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetADC, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtConvertDeplToHomogeneMatrix, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=d, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=d, quals=[]
+              IdentifierType <type>: names=['float']
+        Decl <params[2]>: name=m, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=m, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtConvertDeplToHomogeneMatrix, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=DEPLTOMATRIX
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=d
+          ID <exprs[3]>: name=m
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+d -> d
+d -> d
+Decl: name=d, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=d, quals=[]
+      IdentifierType <type>: names=['float']
+m -> m
+m -> m
+Decl: name=m, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=m, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtConvertDeplToHomogeneMatrix, []
+  IdentifierType: ['int']
+virtConvertDeplToHomogeneMatrix -> virtConvertDeplToHomogeneMatrix
+Typename: quals=[]
+  TypeDecl <type>: declname=virtConvertDeplToHomogeneMatrix, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtConvertHomogeneMatrixToDepl, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=d, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=d, quals=[]
+              IdentifierType <type>: names=['float']
+        Decl <params[2]>: name=m, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=m, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtConvertHomogeneMatrixToDepl, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=MATRIXTODEPL
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=d
+          ID <exprs[3]>: name=m
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+d -> d
+d -> d
+Decl: name=d, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=d, quals=[]
+      IdentifierType <type>: names=['float']
+m -> m
+m -> m
+Decl: name=m, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=m, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtConvertHomogeneMatrixToDepl, []
+  IdentifierType: ['int']
+virtConvertHomogeneMatrixToDepl -> virtConvertHomogeneMatrixToDepl
+Typename: quals=[]
+  TypeDecl <type>: declname=virtConvertHomogeneMatrixToDepl, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetTrackball, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=x_move, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=x_move, quals=[]
+              IdentifierType <type>: names=['int']
+        Decl <params[2]>: name=y_move, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=y_move, quals=[]
+              IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtGetTrackball, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETTRACKBALL
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=x_move
+          ID <exprs[3]>: name=y_move
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+x_move -> x_move
+x_move -> x_move
+Decl: name=x_move, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=x_move, quals=[]
+      IdentifierType <type>: names=['int']
+y_move -> y_move
+y_move -> y_move
+Decl: name=y_move, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=y_move, quals=[]
+      IdentifierType <type>: names=['int']
+TypeDecl: virtGetTrackball, []
+  IdentifierType: ['int']
+virtGetTrackball -> virtGetTrackball
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetTrackball, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetTrackballButton, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=actif, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=actif, quals=[]
+              IdentifierType <type>: names=['int']
+        Decl <params[2]>: name=btn_gauche, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=btn_gauche, quals=[]
+              IdentifierType <type>: names=['int']
+        Decl <params[3]>: name=btn_milieu, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=btn_milieu, quals=[]
+              IdentifierType <type>: names=['int']
+        Decl <params[4]>: name=btn_droit, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=btn_droit, quals=[]
+              IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtGetTrackballButton, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETTRACKBALLBUTTON
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=actif
+          ID <exprs[3]>: name=btn_gauche
+          ID <exprs[4]>: name=btn_milieu
+          ID <exprs[5]>: name=btn_droit
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+actif -> active
+actif -> active
+Decl: name=active, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=active, quals=[]
+      IdentifierType <type>: names=['int']
+btn_gauche -> left_btn
+btn_gauche -> left_btn
+Decl: name=left_btn, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=left_btn, quals=[]
+      IdentifierType <type>: names=['int']
+btn_milieu -> middle_btn
+btn_milieu -> middle_btn
+Decl: name=middle_btn, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=middle_btn, quals=[]
+      IdentifierType <type>: names=['int']
+btn_droit -> right_btn
+btn_droit -> right_btn
+Decl: name=right_btn, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=right_btn, quals=[]
+      IdentifierType <type>: names=['int']
+TypeDecl: virtGetTrackballButton, []
+  IdentifierType: ['int']
+virtGetTrackballButton -> virtGetTrackballButton
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetTrackballButton, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetAbsolutePosition, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=pos, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=pos, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetAbsolutePosition, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETABSOLUTEPOSITION
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=pos
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+pos -> pos
+pos -> pos
+Decl: name=pos, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=pos, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetAbsolutePosition, []
+  IdentifierType: ['int']
+virtSetAbsolutePosition -> virtSetAbsolutePosition
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetAbsolutePosition, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtBeepOnLimit, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=enable, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=enable, quals=[]
+            IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtBeepOnLimit, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=BEEPONLIMIT
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=enable
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+enable -> enable
+enable -> enable
+Decl: name=enable, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=enable, quals=[]
+    IdentifierType <type>: names=['int']
+TypeDecl: virtBeepOnLimit, []
+  IdentifierType: ['int']
+virtBeepOnLimit -> virtBeepOnLimit
+Typename: quals=[]
+  TypeDecl <type>: declname=virtBeepOnLimit, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtEnableForceFeedback, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=enable, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=enable, quals=[]
+            IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtEnableForceFeedback, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=ENABLEFORCEFEEDBACK
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=enable
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+enable -> enable
+enable -> enable
+Decl: name=enable, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=enable, quals=[]
+    IdentifierType <type>: names=['int']
+TypeDecl: virtEnableForceFeedback, []
+  IdentifierType: ['int']
+virtEnableForceFeedback -> virtEnableForceFeedback
+Typename: quals=[]
+  TypeDecl <type>: declname=virtEnableForceFeedback, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetPhysicalSpeed, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=speed, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=speed, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetPhysicalSpeed, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=PHYSICALSPEED
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=speed
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+speed -> speed
+speed -> speed
+Decl: name=speed, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=speed, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetPhysicalSpeed, []
+  IdentifierType: ['int']
+virtGetPhysicalSpeed -> virtGetPhysicalSpeed
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetPhysicalSpeed, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtForceShiftButton, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=forceShiftButton, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=forceShiftButton, quals=[]
+            IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtForceShiftButton, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=FORCESHIFTBUTTON
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=forceShiftButton
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+forceShiftButton -> forceShiftButton
+forceShiftButton -> forceShiftButton
+Decl: name=forceShiftButton, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=forceShiftButton, quals=[]
+    IdentifierType <type>: names=['int']
+TypeDecl: virtForceShiftButton, []
+  IdentifierType: ['int']
+virtForceShiftButton -> virtForceShiftButton
+Typename: quals=[]
+  TypeDecl <type>: declname=virtForceShiftButton, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtAddForce, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=force, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=force, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtAddForce, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=ADDPHYSICALFORCE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=force
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+force -> force
+force -> force
+Decl: name=force, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=force, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtAddForce, []
+  IdentifierType: ['int']
+virtAddForce -> virtAddForce
+Typename: quals=[]
+  TypeDecl <type>: declname=virtAddForce, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetFailure, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=error, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=error, quals=[]
+              IdentifierType <type>: names=['unsigned', 'int']
+      TypeDecl <type>: declname=virtGetFailure, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=BREAKDOWN
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=error
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+error -> error
+error -> error
+Decl: name=error, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=error, quals=[]
+      IdentifierType <type>: names=['unsigned', 'int']
+TypeDecl: virtGetFailure, []
+  IdentifierType: ['int']
+virtGetFailure -> virtGetFailure
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetFailure, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetArticularPositionOfAdditionalAxe, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=pos, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=pos, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetArticularPositionOfAdditionalAxe, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETARTICULARPOSITIONOFADDITIONALAXE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=pos
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+pos -> pos
+pos -> pos
+Decl: name=pos, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=pos, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetArticularPositionOfAdditionalAxe, []
+  IdentifierType: ['int']
+virtGetArticularPositionOfAdditionalAxe -> virtGetArticularPositionOfAdditionalAxe
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetArticularPositionOfAdditionalAxe, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetArticularPositionOfAdditionalAxe, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=pos, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=pos, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetArticularPositionOfAdditionalAxe, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETARTICULARPOSITIONOFADDITIONALAXE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=pos
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+pos -> pos
+pos -> pos
+Decl: name=pos, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=pos, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetArticularPositionOfAdditionalAxe, []
+  IdentifierType: ['int']
+virtSetArticularPositionOfAdditionalAxe -> virtSetArticularPositionOfAdditionalAxe
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetArticularPositionOfAdditionalAxe, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetArticularSpeedOfAdditionalAxe, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=speed, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=speed, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetArticularSpeedOfAdditionalAxe, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETARTICULARSPEEDOFADDITIONALAXE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=speed
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+speed -> speed
+speed -> speed
+Decl: name=speed, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=speed, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetArticularSpeedOfAdditionalAxe, []
+  IdentifierType: ['int']
+virtGetArticularSpeedOfAdditionalAxe -> virtGetArticularSpeedOfAdditionalAxe
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetArticularSpeedOfAdditionalAxe, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetArticularSpeedOfAdditionalAxe, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=speed, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=speed, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetArticularSpeedOfAdditionalAxe, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETARTICULARSPEEDOFADDITIONALAXE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=speed
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+speed -> speed
+speed -> speed
+Decl: name=speed, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=speed, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetArticularSpeedOfAdditionalAxe, []
+  IdentifierType: ['int']
+virtSetArticularSpeedOfAdditionalAxe -> virtSetArticularSpeedOfAdditionalAxe
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetArticularSpeedOfAdditionalAxe, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetArticularForceOfAdditionalAxe, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=effort, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=effort, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetArticularForceOfAdditionalAxe, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETARTICULARFORCEOFADDITIONALAXE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=effort
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+effort -> effort
+effort -> effort
+Decl: name=effort, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=effort, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetArticularForceOfAdditionalAxe, []
+  IdentifierType: ['int']
+virtSetArticularForceOfAdditionalAxe -> virtSetArticularForceOfAdditionalAxe
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetArticularForceOfAdditionalAxe, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetArticularPosition, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=pos, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=pos, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetArticularPosition, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETARTICULARPOSITION
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=pos
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+pos -> pos
+pos -> pos
+Decl: name=pos, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=pos, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetArticularPosition, []
+  IdentifierType: ['int']
+virtGetArticularPosition -> virtGetArticularPosition
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetArticularPosition, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetArticularPosition, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=pos, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=pos, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetArticularPosition, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETARTICULARPOSITION
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=pos
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+pos -> pos
+pos -> pos
+Decl: name=pos, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=pos, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetArticularPosition, []
+  IdentifierType: ['int']
+virtSetArticularPosition -> virtSetArticularPosition
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetArticularPosition, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetArticularSpeed, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=speed, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=speed, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtGetArticularSpeed, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=GETARTICULARSPEED
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=speed
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+speed -> speed
+speed -> speed
+Decl: name=speed, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=speed, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtGetArticularSpeed, []
+  IdentifierType: ['int']
+virtGetArticularSpeed -> virtGetArticularSpeed
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetArticularSpeed, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetArticularSpeed, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=speed, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=speed, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetArticularSpeed, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETARTICULARSPEED
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=speed
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+speed -> speed
+speed -> speed
+Decl: name=speed, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=speed, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetArticularSpeed, []
+  IdentifierType: ['int']
+virtSetArticularSpeed -> virtSetArticularSpeed
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetArticularSpeed, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetArticularForce, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=force, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=force, quals=[]
+              IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetArticularForce, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=SETARTICULARFORCE
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=force
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+force -> force
+force -> force
+Decl: name=force, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=force, quals=[]
+      IdentifierType <type>: names=['float']
+TypeDecl: virtSetArticularForce, []
+  IdentifierType: ['int']
+virtSetArticularForce -> virtSetArticularForce
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetArticularForce, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtActiveRotationSpeedControl, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=angle, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=angle, quals=[]
+            IdentifierType <type>: names=['float']
+        Decl <params[2]>: name=speedFactor, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=speedFactor, quals=[]
+            IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtActiveRotationSpeedControl, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=ACTIVEROTATIONSPEEDCONTROL
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=angle
+          UnaryOp <exprs[3]>: op=&
+            ID <expr>: name=speedFactor
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+angle -> angle
+angle -> angle
+Decl: name=angle, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=angle, quals=[]
+    IdentifierType <type>: names=['float']
+speedFactor -> speedFactor
+speedFactor -> speedFactor
+Decl: name=speedFactor, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=speedFactor, quals=[]
+    IdentifierType <type>: names=['float']
+TypeDecl: virtActiveRotationSpeedControl, []
+  IdentifierType: ['int']
+virtActiveRotationSpeedControl -> virtActiveRotationSpeedControl
+Typename: quals=[]
+  TypeDecl <type>: declname=virtActiveRotationSpeedControl, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtDeactiveRotationSpeedControl, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+      TypeDecl <type>: declname=virtDeactiveRotationSpeedControl, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=DESACTIVEROTATIONSPEEDCONTROL
+          ID <exprs[1]>: name=VC
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+TypeDecl: virtDeactiveRotationSpeedControl, []
+  IdentifierType: ['int']
+virtDeactiveRotationSpeedControl -> virtDeactiveRotationSpeedControl
+Typename: quals=[]
+  TypeDecl <type>: declname=virtDeactiveRotationSpeedControl, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtGetControlerVersion, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=major, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=major, quals=[]
+              IdentifierType <type>: names=['int']
+        Decl <params[2]>: name=minor, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=minor, quals=[]
+              IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtGetControlerVersion, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=CONTROLERVERSION
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=major
+          ID <exprs[3]>: name=minor
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+major -> major
+major -> major
+Decl: name=major, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=major, quals=[]
+      IdentifierType <type>: names=['int']
+minor -> minor
+minor -> minor
+Decl: name=minor, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=minor, quals=[]
+      IdentifierType <type>: names=['int']
+TypeDecl: virtGetControlerVersion, []
+  IdentifierType: ['int']
+virtGetControlerVersion -> virtGetControlerVersion
+Typename: quals=[]
+  TypeDecl <type>: declname=virtGetControlerVersion, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtIsInSpeedControl, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=translation, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=translation, quals=[]
+              IdentifierType <type>: names=['int']
+        Decl <params[2]>: name=rotation, quals=[], storage=[], funcspec=[]
+          PtrDecl <type>: quals=[]
+            TypeDecl <type>: declname=rotation, quals=[]
+              IdentifierType <type>: names=['int']
+      TypeDecl <type>: declname=virtIsInSpeedControl, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=ISINSPEEDCONTROL
+          ID <exprs[1]>: name=VC
+          ID <exprs[2]>: name=translation
+          ID <exprs[3]>: name=rotation
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+translation -> translation
+translation -> translation
+Decl: name=translation, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=translation, quals=[]
+      IdentifierType <type>: names=['int']
+rotation -> rotation
+rotation -> rotation
+Decl: name=rotation, quals=[], storage=[], funcspec=[]
+  PtrDecl <type>: quals=[]
+    TypeDecl <type>: declname=rotation, quals=[]
+      IdentifierType <type>: names=['int']
+TypeDecl: virtIsInSpeedControl, []
+  IdentifierType: ['int']
+virtIsInSpeedControl -> virtIsInSpeedControl
+Typename: quals=[]
+  TypeDecl <type>: declname=virtIsInSpeedControl, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetForceInSpeedControl, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=force, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=force, quals=[]
+            IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetForceInSpeedControl, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=FORCEINSPEEDCONTROL
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=force
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+force -> force
+force -> force
+Decl: name=force, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=force, quals=[]
+    IdentifierType <type>: names=['float']
+TypeDecl: virtSetForceInSpeedControl, []
+  IdentifierType: ['int']
+virtSetForceInSpeedControl -> virtSetForceInSpeedControl
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetForceInSpeedControl, quals=[]
+    IdentifierType <type>: names=['int']
+FuncDef: 
+  Decl <decl>: name=virtSetTorqueInSpeedControl, quals=[], storage=['extern'], funcspec=[]
+    FuncDecl <type>: 
+      ParamList <args>: 
+        Decl <params[0]>: name=VC, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=VC, quals=[]
+            IdentifierType <type>: names=['VirtContext']
+        Decl <params[1]>: name=torque, quals=[], storage=[], funcspec=[]
+          TypeDecl <type>: declname=torque, quals=[]
+            IdentifierType <type>: names=['float']
+      TypeDecl <type>: declname=virtSetTorqueInSpeedControl, quals=[]
+        IdentifierType <type>: names=['int']
+  Compound <body>: 
+    Return <block_items[0]>: 
+      FuncCall <expr>: 
+        ID <name>: name=virtCallDLL
+        ExprList <args>: 
+          ID <exprs[0]>: name=TORQUEINSPEEDCONTROL
+          ID <exprs[1]>: name=VC
+          UnaryOp <exprs[2]>: op=&
+            ID <expr>: name=torque
+VC -> VC
+VC -> VC
+Decl: name=VC, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=VC, quals=[]
+    IdentifierType <type>: names=['VirtContext']
+torque -> torque
+torque -> torque
+Decl: name=torque, quals=[], storage=[], funcspec=[]
+  TypeDecl <type>: declname=torque, quals=[]
+    IdentifierType <type>: names=['float']
+TypeDecl: virtSetTorqueInSpeedControl, []
+  IdentifierType: ['int']
+virtSetTorqueInSpeedControl -> virtSetTorqueInSpeedControl
+Typename: quals=[]
+  TypeDecl <type>: declname=virtSetTorqueInSpeedControl, quals=[]
+    IdentifierType <type>: names=['int']
+Writing to file  vpp-3.60.h

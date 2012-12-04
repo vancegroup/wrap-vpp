@@ -1,10 +1,9 @@
-#-----------------------------------------------------------------
-# pycparser: clex.py
+# pycparser: c_lexer.py
 #
 # CLexer class: lexer for the C language
 #
-# Copyright (C) 2008, Eli Bendersky
-# License: LGPL
+# Copyright (C) 2008-2011, Eli Bendersky
+# License: BSD
 #-----------------------------------------------------------------
 
 import re
@@ -44,6 +43,8 @@ class CLexer(object):
         # cpp output
         #
         self.line_pattern = re.compile('([ \t]*line\W)|([ \t]*\d+)')
+
+        self.pragma_pattern = re.compile('[ \t]*pragma\W')
 
     def build(self, **kwargs):
         """ Builds the lexer from the specification. Must be
@@ -91,17 +92,22 @@ class CLexer(object):
     ## Reserved keywords
     ##
     keywords = (
-        'AUTO', 'BREAK', 'CASE', 'CHAR', 'CONST', 'CONTINUE', 
-        'DEFAULT', 'DO', 'DOUBLE', 'ELSE', 'ENUM', 'EXTERN', 
-        'FLOAT', 'FOR', 'GOTO', 'IF', 'INT', 'LONG', 'REGISTER',
-        'RETURN', 'SHORT', 'SIGNED', 'SIZEOF', 'STATIC', 'STRUCT', 
-        'SWITCH', 'TYPEDEF', 'UNION', 'UNSIGNED', 'VOID', 
+        '_BOOL', '_COMPLEX', 'AUTO', 'BREAK', 'CASE', 'CHAR', 'CONST',
+        'CONTINUE', 'DEFAULT', 'DO', 'DOUBLE', 'ELSE', 'ENUM', 'EXTERN',
+        'FLOAT', 'FOR', 'GOTO', 'IF', 'INLINE', 'INT', 'LONG', 'REGISTER',
+        'RESTRICT', 'RETURN', 'SHORT', 'SIGNED', 'SIZEOF', 'STATIC', 'STRUCT',
+        'SWITCH', 'TYPEDEF', 'UNION', 'UNSIGNED', 'VOID',
         'VOLATILE', 'WHILE',
     )
 
     keyword_map = {}
-    for r in keywords:
-        keyword_map[r.lower()] = r
+    for keyword in keywords:
+        if keyword == '_BOOL':
+            keyword_map['_Bool'] = keyword
+        elif keyword == '_COMPLEX':
+            keyword_map['_Complex'] = keyword
+        else:
+            keyword_map[keyword.lower()] = keyword
 
     ##
     ## All the tokens recognized by the lexer
@@ -116,7 +122,7 @@ class CLexer(object):
         
         # constants 
         'INT_CONST_DEC', 'INT_CONST_OCT', 'INT_CONST_HEX',
-        'FLOAT_CONST', 
+        'FLOAT_CONST', 'HEX_FLOAT_CONST',
         'CHAR_CONST',
         'WCHAR_CONST',
         
@@ -167,24 +173,30 @@ class CLexer(object):
     # valid C identifiers (K&R2: A.2.3)
     identifier = r'[a-zA-Z_][0-9a-zA-Z_]*'
 
+    hex_prefix = '0[xX]'
+    hex_digits = '[0-9a-fA-F]+'
+
     # integer constants (K&R2: A.2.5.1)
-    integer_suffix_opt = r'(([uU][lL])|([lL][uU])|[uU]|[lL])?'
+    integer_suffix_opt = r'(u?ll|U?LL|([uU][lL])|([lL][uU])|[uU]|[lL])?'
     decimal_constant = '(0'+integer_suffix_opt+')|([1-9][0-9]*'+integer_suffix_opt+')'
     octal_constant = '0[0-7]*'+integer_suffix_opt
-    hex_constant = '0[xX][0-9a-fA-F]+'+integer_suffix_opt
+    hex_constant = hex_prefix+hex_digits+integer_suffix_opt
     
     bad_octal_constant = '0[0-7]*[89]'
 
     # character constants (K&R2: A.2.5.2)
-    # Note: a-zA-Z are allowed as escape chars to support #line
-    # directives with Windows paths as filenames (\dir\file...)
+    # Note: a-zA-Z and '.-~^_!=&;,' are allowed as escape chars to support #line
+    # directives with Windows paths as filenames (..\..\dir\file)
+    # For the same reason, decimal_escape allows all digit sequences. We want to
+    # parse all correct code, even if it means to sometimes parse incorrect
+    # code.
     #
-    simple_escape = r"""([a-zA-Z\\?'"])"""
-    octal_escape = r"""([0-7]{1,3})"""
+    simple_escape = r"""([a-zA-Z._~!=&\^\-\\?'"])"""
+    decimal_escape = r"""(\d+)"""
     hex_escape = r"""(x[0-9a-fA-F]+)"""
-    bad_escape = r"""([\\][^a-zA-Z\\?'"x0-7])"""
+    bad_escape = r"""([\\][^a-zA-Z._~^!=&\^\-\\?'"x0-7])"""
 
-    escape_sequence = r"""(\\("""+simple_escape+'|'+octal_escape+'|'+hex_escape+'))'
+    escape_sequence = r"""(\\("""+simple_escape+'|'+decimal_escape+'|'+hex_escape+'))'
     cconst_char = r"""([^'\\\n]|"""+escape_sequence+')'    
     char_const = "'"+cconst_char+"'"
     wchar_const = 'L'+char_const
@@ -201,25 +213,30 @@ class CLexer(object):
     exponent_part = r"""([eE][-+]?[0-9]+)"""
     fractional_constant = r"""([0-9]*\.[0-9]+)|([0-9]+\.)"""
     floating_constant = '(((('+fractional_constant+')'+exponent_part+'?)|([0-9]+'+exponent_part+'))[FfLl]?)'
+    binary_exponent_part = r'''([pP][+-]?[0-9]+)'''
+    hex_fractional_constant = '((('+hex_digits+r""")?\."""+hex_digits+')|('+hex_digits+r"""\.))"""
+    hex_floating_constant = '('+hex_prefix+'('+hex_digits+'|'+hex_fractional_constant+')'+binary_exponent_part+'[FfLl]?)'
 
     ##
-    ## Lexer states
+    ## Lexer states: used for preprocessor \n-terminated directives
     ##
     states = (
         # ppline: preprocessor line directives
         # 
         ('ppline', 'exclusive'),
+
+        # pppragma: pragma
+        #
+        ('pppragma', 'exclusive'),
     )
     
     def t_PPHASH(self, t):
         r'[ \t]*\#'
-        m = self.line_pattern.match(
-            t.lexer.lexdata, pos=t.lexer.lexpos)
-        
-        if m:
+        if self.line_pattern.match(t.lexer.lexdata, pos=t.lexer.lexpos):
             t.lexer.begin('ppline')
             self.pp_line = self.pp_filename = None
-            #~ print "ppline starts on line %s" % t.lexer.lineno
+        elif self.pragma_pattern.match(t.lexer.lexdata, pos=t.lexer.lexpos):
+            t.lexer.begin('pppragma')
         else:
             t.type = 'PPHASH'
             return t
@@ -233,7 +250,6 @@ class CLexer(object):
             self._error('filename before line number in #line', t)
         else:
             self.pp_filename = t.value.lstrip('"').rstrip('"')
-            #~ print "PP got filename: ", self.pp_filename
 
     @TOKEN(decimal_constant)
     def t_ppline_LINE_NUMBER(self, t):
@@ -264,8 +280,30 @@ class CLexer(object):
     t_ppline_ignore = ' \t'
 
     def t_ppline_error(self, t):
-        msg = 'invalid #line directive'
-        self._error(msg, t)
+        self._error('invalid #line directive', t)
+
+    ##
+    ## Rules for the pppragma state
+    ##
+    def t_pppragma_NEWLINE(self, t):
+        r'\n'
+        t.lexer.lineno += 1
+        t.lexer.begin('INITIAL')
+
+    def t_pppragma_PPPRAGMA(self, t):
+        r'pragma'
+        pass
+        
+    t_pppragma_ignore = ' \t<>.-{}();+-*/$%@&^~!?:,0123456789'
+
+    @TOKEN(string_literal)
+    def t_pppragma_STR(self, t): pass
+
+    @TOKEN(identifier)
+    def t_pppragma_ID(self, t): pass
+
+    def t_pppragma_error(self, t):
+        self._error('invalid #pragma directive', t)
 
     ##
     ## Rules for the normal state
@@ -310,7 +348,7 @@ class CLexer(object):
     t_RSHIFTEQUAL       = r'>>='
     t_ANDEQUAL          = r'&='
     t_OREQUAL           = r'\|='
-    t_XOREQUAL          = r'^='
+    t_XOREQUAL          = r'\^='
 
     # Increment/decrement
     t_PLUSPLUS          = r'\+\+'
@@ -344,6 +382,10 @@ class CLexer(object):
     #
     @TOKEN(floating_constant)
     def t_FLOAT_CONST(self, t):
+        return t
+
+    @TOKEN(hex_floating_constant)
+    def t_HEX_FLOAT_CONST(self, t):
         return t
 
     @TOKEN(hex_constant)
@@ -398,10 +440,8 @@ class CLexer(object):
     @TOKEN(identifier)
     def t_ID(self, t):
         t.type = self.keyword_map.get(t.value, "ID")
-        
         if t.type == 'ID' and self.type_lookup_func(t.value):
             t.type = "TYPEID"
-            
         return t
     
     def t_error(self, t):
@@ -423,7 +463,7 @@ if __name__ == "__main__":
     """
     
     def errfoo(msg, a, b):
-        print msg
+        sys.write(msg + "\n")
         sys.exit()
     
     def typelookup(namd):
@@ -437,7 +477,6 @@ if __name__ == "__main__":
         tok = clex.token()
         if not tok: break
             
-        #~ print type(tok)
-        print "-", tok.value, tok.type, tok.lineno, clex.filename, tok.lexpos
-        
+        printme([tok.value, tok.type, tok.lineno, clex.filename, tok.lexpos])
 
+        

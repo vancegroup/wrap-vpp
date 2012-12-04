@@ -4,8 +4,8 @@
 # PLYParser class and other utilites for simplifying programming
 # parsers with PLY
 #
-# Copyright (C) 2008-2009, Eli Bendersky
-# License: LGPL
+# Copyright (C) 2008-2012, Eli Bendersky
+# License: BSD
 #-----------------------------------------------------------------
 
 
@@ -43,25 +43,13 @@ class PLYParser(object):
         optrule.__doc__ = '%s : empty\n| %s' % (optname, rulename)
         optrule.__name__ = 'p_%s' % optname
         setattr(self.__class__, optrule.__name__, optrule)
-    
+
     def _coord(self, lineno, column=None):
         return Coord(
-                file=self.clex.filename, 
+                file=self.clex.filename,
                 line=lineno,
                 column=column)
 
     def _parse_error(self, msg, coord):
         raise ParseError("%s: %s" % (coord, msg))
 
-
-if __name__ == '__main__':
-    pp = PLYParser()
-    pp._create_opt_rule('java')
-
-    ar = [4, 6]
-    pp.p_java_opt(ar)
-
-    print ar
-    print pp.p_java_opt.__doc__
-
-    print dir(pp)         

@@ -7,27 +7,21 @@
 # The design of this module was inspired by astgen.py from the
 # Python 2.5 code-base.
 #
-# Copyright (C) 2008-2009, Eli Bendersky
-# License: LGPL
+# Copyright (C) 2008-2012, Eli Bendersky
+# License: BSD
 #-----------------------------------------------------------------
-
 import pprint
 from string import Template
 
-import yaml
-
 
 class ASTCodeGenerator(object):
-    def __init__(self, cfg_filename='_c_ast.yaml'):
+    def __init__(self, cfg_filename='_c_ast.cfg'):
         """ Initialize the code generator from a configuration
             file.
         """
         self.cfg_filename = cfg_filename
-        cfg = yaml.load(open(cfg_filename).read())
-        self.node_cfg = [NodeCfg(name, cfg[name]) for name in cfg]
-
-        #~ pprint.pprint(self.node_cfg)
-        #~ print ''
+        self.node_cfg = [NodeCfg(name, contents) 
+            for (name, contents) in self.parse_cfgfile(cfg_filename)]
 
     def generate(self, file=None):
         """ Generates the code into file, an open file buffer.
@@ -41,15 +35,41 @@ class ASTCodeGenerator(object):
         
         file.write(src)
 
+    def parse_cfgfile(self, filename):
+        """ Parse the configuration file and yield pairs of
+            (name, contents) for each node.
+        """
+        with open(filename, "r") as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith('#'):
+                    continue
+                colon_i = line.find(':')
+                lbracket_i = line.find('[')
+                rbracket_i = line.find(']')
+                if colon_i < 1 or lbracket_i <= colon_i or rbracket_i <= lbracket_i:
+                    raise RuntimeError("Invalid line in %s:\n%s\n" % (filename, line))
+
+                name = line[:colon_i]
+                val = line[lbracket_i + 1:rbracket_i]
+                vallist = [v.strip() for v in val.split(',')] if val else []
+                yield name, vallist
+
 
 class NodeCfg(object):
+    """ Node configuration. 
+
+        name: node name
+        contents: a list of contents - attributes and child nodes 
+        See comment at the top of the configuration file for details.
+    """
     def __init__(self, name, contents):
         self.name = name
         self.all_entries = []
         self.attr = []
         self.child = []
         self.seq_child = []
-        
+
         for entry in contents:
             clean_entry = entry.rstrip('*')
             self.all_entries.append(clean_entry)
@@ -64,7 +84,7 @@ class NodeCfg(object):
     def generate_source(self):
         src = self._gen_init()
         src += '\n' + self._gen_children()
-        src += '\n' + self._gen_show()
+        src += '\n' + self._gen_attr_names()
         return src
     
     def _gen_init(self):
@@ -82,55 +102,33 @@ class NodeCfg(object):
             src += "        self.%s = %s\n" % (name, name)
         
         return src
-    
+
     def _gen_children(self):
         src = '    def children(self):\n'
         
         if self.all_entries:
             src += '        nodelist = []\n'
-            
-            template = ('' +
-                '        if self.%s is not None:' +
-                ' nodelist.%s(self.%s)\n')
-            
+
             for child in self.child:
-                src += template % (
-                    child, 'append', child)
-            
+                src += (
+                    '        if self.%(child)s is not None:' +
+                    ' nodelist.append(("%(child)s", self.%(child)s))\n') % (
+                        dict(child=child))
+                
             for seq_child in self.seq_child:
-                src += template % (
-                    seq_child, 'extend', seq_child)
+                src += (
+                    '        for i, child in enumerate(self.%(child)s or []):\n'
+                    '            nodelist.append(("%(child)s[%%d]" %% i, child))\n') % (
+                        dict(child=seq_child))
                     
             src += '        return tuple(nodelist)\n'
         else:
             src += '        return ()\n'
             
-        return src
+        return src        
 
-    def _gen_show(self):
-        src = '    def show(self, buf=sys.stdout, offset=0, attrnames=False, showcoord=False):\n'
-        src += "        lead = ' ' * offset\n"
-        
-        src += "        buf.write(lead + '%s: ')\n\n" % self.name
-        
-        if self.attr:
-            src += "        if attrnames:\n"
-            src += "            attrstr = ', '.join('%s=%s' % nv for nv in ["
-            src += ', '.join('("%s", repr(%s))' % (nv, 'self.%s' % nv) for nv in self.attr)
-            src += '])\n'
-            src += "        else:\n"
-            src += "            attrstr = ', '.join('%s' % v for v in ["
-            src += ', '.join('self.%s' % v for v in self.attr)
-            src += '])\n'
-            src += "        buf.write(attrstr)\n\n"
-        
-        src += "        if showcoord:\n"
-        src += "            buf.write(' (at %s)' % self.coord)\n"
-        src += "        buf.write('\\n')\n\n"
-        
-        src += "        for c in self.children():\n"
-        src += "            c.show(buf, offset + 2, attrnames, showcoord)\n"
-        
+    def _gen_attr_names(self):
+        src = "    attr_names = (" + ''.join("%r," % nm for nm in self.attr) + ')' 
         return src
 
 
@@ -148,8 +146,8 @@ r'''#-----------------------------------------------------------------
 #
 # AST Node classes.
 #
-# Copyright (C) 2008, Eli Bendersky
-# License: LGPL
+# Copyright (C) 2008-2012, Eli Bendersky
+# License: BSD
 #-----------------------------------------------------------------
 
 '''
@@ -166,11 +164,11 @@ class Node(object):
         """
         pass
 
-    def show(self, buf=sys.stdout, offset=0, attrnames=False, showcoord=False):
+    def show(self, buf=sys.stdout, offset=0, attrnames=False, nodenames=False, showcoord=False, _my_node_name=None):
         """ Pretty print the Node and all its attributes and
             children (recursively) to a buffer.
             
-            file:   
+            buf:   
                 Open IO buffer into which the Node is printed.
             
             offset: 
@@ -179,12 +177,42 @@ class Node(object):
             attrnames:
                 True if you want to see the attribute names in
                 name=value pairs. False to only see the values.
+                
+            nodenames:
+                True if you want to see the actual node names 
+                within their parents.
             
             showcoord:
                 Do you want the coordinates of each Node to be
                 displayed.
         """
-        pass
+        lead = ' ' * offset
+        if nodenames and _my_node_name is not None:
+            buf.write(lead + self.__class__.__name__+ ' <' + _my_node_name + '>: ')
+        else:
+            buf.write(lead + self.__class__.__name__+ ': ')
+
+        if self.attr_names:
+            if attrnames:
+                nvlist = [(n, getattr(self,n)) for n in self.attr_names]
+                attrstr = ', '.join('%s=%s' % nv for nv in nvlist)
+            else:
+                vlist = [getattr(self, n) for n in self.attr_names]
+                attrstr = ', '.join('%s' % v for v in vlist)
+            buf.write(attrstr)
+
+        if showcoord:
+            buf.write(' (at %s)' % self.coord)
+        buf.write('\n')
+
+        for (child_name, child) in self.children():
+            child.show(
+                buf,
+                offset=offset + 2,
+                attrnames=attrnames,
+                nodenames=nodenames,
+                showcoord=showcoord,
+                _my_node_name=child_name)
 
 
 class NodeVisitor(object):
@@ -231,19 +259,15 @@ class NodeVisitor(object):
         """ Called if no explicit visitor function exists for a 
             node. Implements preorder visiting of the node.
         """
-        for c in node.children():
+        for c_name, c in node.children():
             self.visit(c)
 
 
 '''
 
 
-
 if __name__ == "__main__":
     import sys
-    
-    ast_gen = ASTCodeGenerator('_c_ast.yaml')
+    ast_gen = ASTCodeGenerator('_c_ast.cfg')
     ast_gen.generate(open('c_ast.py', 'w'))
-    
-    
-    
+
