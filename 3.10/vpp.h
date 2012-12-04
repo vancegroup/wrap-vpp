@@ -6,7 +6,7 @@
 	VirtuoseAPI.h
 
 	@date
-	2010-2011
+	2010-2012
 
 	@author
 	Ryan Pavlik
@@ -132,47 +132,47 @@ class Virtuose {
 			return _name;
 		}
 
-		int attachVO(float mass, float * mxmymz);
-		int attachQSVO(float * Ks, float * Bs);
-		int attachVOAvatar(float mass, float * mxmymz);
+		int attachVO(float mass, float *mxmymz);
+		int attachQSVO(float *Ks, float *Bs);
+		int attachVOAvatar(float mass, float *mxmymz);
 		int detachVO();
 		int detachVOAvatar();
-		int displayHardwareStatus(FILE * fh);
-		int getBaseFrame(float * base);
-		int getButton(int button_number, int * state);
-		int getCommandType(VirtCommandType * type);
-		int getDeadMan(int * dead_man);
-		int getEmergencyStop(int * emergency_stop);
-		int getError(int * error);
+		int displayHardwareStatus(FILE *fh);
+		int getBaseFrame(float *base);
+		int getButton(int button_number, int *state);
+		int getCommandType(VirtCommandType *type);
+		int getDeadMan(int *dead_man);
+		int getEmergencyStop(int *emergency_stop);
+		int getError(int *error);
 		int getErrorCode();
-		int getForce(float * force);
-		int getForceFactor(float * force_factor);
-		int getIndexingMode(VirtIndexingType * indexing_mode);
-		int getLimitTorque(float * torque);
-		int getObservationFrame(float * obs);
-		int getPosition(float * pos);
-		int getPowerOn(int * power);
-		int getSpeed(float * speed);
-		int getSpeedFactor(float * speed_factor);
-		int getTimeLastUpdate(int unsigned * time);
-		int getTimeoutValue(float * time_value);
-		int setBaseFrame(float * base);
+		int getForce(float *force);
+		int getForceFactor(float *force_factor);
+		int getIndexingMode(VirtIndexingType *indexing_mode);
+		int getLimitTorque(float *torque);
+		int getObservationFrame(float *obs);
+		int getPosition(float *pos);
+		int getPowerOn(int *power);
+		int getSpeed(float *speed);
+		int getSpeedFactor(float *speed_factor);
+		int getTimeLastUpdate(unsigned int *time);
+		int getTimeoutValue(float *time_value);
+		int setBaseFrame(float *base);
 		int setCommandType(VirtCommandType type);
-		int setDebugFlags(short unsigned flag);
-		int setForce(float * force);
+		int setDebugFlags(unsigned short flag);
+		int setForce(float *force);
 		int setForceFactor(float force_factor);
 		int setIndexingMode(VirtIndexingType indexing_mode);
 		int setLimitTorque(float torque);
-		int setObservationFrame(float * obs);
-		int setObservationFrameSpeed(float * speed);
-		int setOutputFile(char * name);
-		int setPeriodicFunction(void (* fn ) (VirtContext, void *), float * period, void * arg);
-		int setPosition(float * pos);
+		int setObservationFrame(float *obs);
+		int setObservationFrameSpeed(float *speed);
+		int setOutputFile(char *name);
+		int setPeriodicFunction(void (*fn)(VirtContext, void *), float *period, void *arg);
+		int setPosition(float *pos);
 		int setPowerOn(int power);
-		int setSpeed(float * speed);
+		int setSpeed(float *speed);
 		int setSpeedFactor(float speed_factor);
-		int setTexture(float * position, float * intensity, int reinit);
-		int setTextureForce(float * texture_force);
+		int setTexture(float *position, float *intensity, int reinit);
+		int setTextureForce(float *texture_force);
 		int setTimeStep(float step);
 		int setTimeoutValue(float time_value);
 		int startLoop();
@@ -180,57 +180,57 @@ class Virtuose {
 		int waitForSynch();
 		int trajRecordStart();
 		int trajRecordStop();
-		int trajSetSamplingTimeStep(float timeStep, int unsigned * recordTime);
-		int vmStartTrajSampling(int unsigned nbSamples);
-		int vmGetTrajSamples(float * samples);
+		int trajSetSamplingTimeStep(float timeStep, unsigned int *recordTime);
+		int vmStartTrajSampling(unsigned int nbSamples);
+		int vmGetTrajSamples(float *samples);
 		int vmSetType(VirtVmType type);
-		int vmSetParameter(VirtVmParameter * param);
+		int vmSetParameter(VirtVmParameter *param);
 		int vmActivate();
 		int vmDeactivate();
-		int vmSetBaseFrame(float * base);
-		int vmSetMaxArtiBounds(float * bounds);
-		int vmSetMinArtiBounds(float * bounds);
-		int getPhysicalPosition(float * pos);
-		int getAvatarPosition(float * pos);
+		int vmSetBaseFrame(float *base);
+		int vmSetMaxArtiBounds(float *bounds);
+		int vmSetMinArtiBounds(float *bounds);
+		int getPhysicalPosition(float *pos);
+		int getAvatarPosition(float *pos);
 		int saturateTorque(float forceThreshold, float momentThreshold);
 		int vmSetDefaultToTransparentMode();
 		int vmSetDefaultToCartesianPosition();
 		int vmSetBaseFrameToCurrentFrame();
-		int convertRGBToGrayscale(float * rgb, float * gray);
-		int vmGetBaseFrame(float * base);
+		int convertRGBToGrayscale(float *rgb, float *gray);
+		int vmGetBaseFrame(float *base);
 		int waitPressButton(int button_number);
-		int getTimeStep(float * step);
+		int getTimeStep(float *step);
 		int vmSetRobotMode(int OnOff);
-		int vmSaveCurrentSpline(char * file_name);
-		int vmLoadSpline(char * file_name);
-		int vmDeleteSpline(char * file_name);
+		int vmSaveCurrentSpline(char *file_name);
+		int vmLoadSpline(char *file_name);
+		int vmDeleteSpline(char *file_name);
 		int vmWaitUpperBound();
 		int disableControlConnexion(int disable);
-		int isInBounds(int unsigned * bounds);
-		int getAlarm(int unsigned * alarm);
-		int getCatchFrame(float * frame);
-		int setCatchFrame(float * frame);
+		int isInBounds(unsigned int *bounds);
+		int getAlarm(unsigned int *alarm);
+		int getCatchFrame(float *frame);
+		int setCatchFrame(float *frame);
 		int activeSpeedControl(float radius, float speedFactor);
 		int deactiveSpeedControl();
-		int isInShiftPosition(int * shift);
+		int isInShiftPosition(int *shift);
 		int setFrictionForce(float fx, float fy, float fz);
-		int getMouseState(int * active, int * left_click, int * right_click);
+		int getMouseState(int *active, int *left_click, int *right_click);
 		int generateDebugFile();
-		int getCenterSphere(float * pos);
-		int getAxisOfRotation(float * axis);
-		int getADC(int line, float * adc);
-		int convertDeplToHomogeneMatrix(float * d, float * m);
-		int convertHomogeneMatrixToDepl(float * d, float * m);
-		int getTrackball(int * x_move, int * y_move);
-		int getTrackballButton(int * active, int * left_btn, int * middle_btn, int * right_btn);
-		int setAbsolutePosition(float * pos);
+		int getCenterSphere(float *pos);
+		int getAxisOfRotation(float *axis);
+		int getADC(int line, float *adc);
+		int convertDeplToHomogeneMatrix(float *d, float *m);
+		int convertHomogeneMatrixToDepl(float *d, float *m);
+		int getTrackball(int *x_move, int *y_move);
+		int getTrackballButton(int *active, int *left_btn, int *middle_btn, int *right_btn);
+		int setAbsolutePosition(float *pos);
 		int beepOnLimit(int enable);
 		int enableForceFeedback(int enable);
-		int getPhysicalSpeed(float * speed);
+		int getPhysicalSpeed(float *speed);
 		int forceShiftButton(int forceShiftButton);
-		int addForce(float * force);
+		int addForce(float *force);
 		/* Static Methods */
-		static int APIVersion(int * major, int * minor);
+		static int APIVersion(int *major, int *minor);
 
 		// Use like:
 		// if (virt.checkForError(ret, __FILE__, __LINE__, __FUNCTION__)) {
@@ -321,25 +321,25 @@ inline bool operator<(Virtuose const& v1, Virtuose const& v2) {
 
 /* Wrapper Implementation Details Follow */
 
-inline int Virtuose::APIVersion(int * major, int * minor) {
+inline int Virtuose::APIVersion(int *major, int *minor) {
 	return virtAPIVersion(major, minor);
 }
 
-inline int Virtuose::attachVO(float mass, float * mxmymz) {
+inline int Virtuose::attachVO(float mass, float *mxmymz) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtAttachVO(_vc, mass, mxmymz));
 			return ret;
 }
 
-inline int Virtuose::attachQSVO(float * Ks, float * Bs) {
+inline int Virtuose::attachQSVO(float *Ks, float *Bs) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtAttachQSVO(_vc, Ks, Bs));
 			return ret;
 }
 
-inline int Virtuose::attachVOAvatar(float mass, float * mxmymz) {
+inline int Virtuose::attachVOAvatar(float mass, float *mxmymz) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtAttachVOAvatar(_vc, mass, mxmymz));
@@ -360,49 +360,49 @@ inline int Virtuose::detachVOAvatar() {
 			return ret;
 }
 
-inline int Virtuose::displayHardwareStatus(FILE * fh) {
+inline int Virtuose::displayHardwareStatus(FILE *fh) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtDisplayHardwareStatus(_vc, fh));
 			return ret;
 }
 
-inline int Virtuose::getBaseFrame(float * base) {
+inline int Virtuose::getBaseFrame(float *base) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetBaseFrame(_vc, base));
 			return ret;
 }
 
-inline int Virtuose::getButton(int button_number, int * state) {
+inline int Virtuose::getButton(int button_number, int *state) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetButton(_vc, button_number, state));
 			return ret;
 }
 
-inline int Virtuose::getCommandType(VirtCommandType * type) {
+inline int Virtuose::getCommandType(VirtCommandType *type) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetCommandType(_vc, type));
 			return ret;
 }
 
-inline int Virtuose::getDeadMan(int * dead_man) {
+inline int Virtuose::getDeadMan(int *dead_man) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetDeadMan(_vc, dead_man));
 			return ret;
 }
 
-inline int Virtuose::getEmergencyStop(int * emergency_stop) {
+inline int Virtuose::getEmergencyStop(int *emergency_stop) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetEmergencyStop(_vc, emergency_stop));
 			return ret;
 }
 
-inline int Virtuose::getError(int * error) {
+inline int Virtuose::getError(int *error) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetError(_vc, error));
@@ -416,84 +416,84 @@ inline int Virtuose::getErrorCode() {
 			return ret;
 }
 
-inline int Virtuose::getForce(float * force) {
+inline int Virtuose::getForce(float *force) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetForce(_vc, force));
 			return ret;
 }
 
-inline int Virtuose::getForceFactor(float * force_factor) {
+inline int Virtuose::getForceFactor(float *force_factor) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetForceFactor(_vc, force_factor));
 			return ret;
 }
 
-inline int Virtuose::getIndexingMode(VirtIndexingType * indexing_mode) {
+inline int Virtuose::getIndexingMode(VirtIndexingType *indexing_mode) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetIndexingMode(_vc, indexing_mode));
 			return ret;
 }
 
-inline int Virtuose::getLimitTorque(float * torque) {
+inline int Virtuose::getLimitTorque(float *torque) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetLimitTorque(_vc, torque));
 			return ret;
 }
 
-inline int Virtuose::getObservationFrame(float * obs) {
+inline int Virtuose::getObservationFrame(float *obs) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetObservationFrame(_vc, obs));
 			return ret;
 }
 
-inline int Virtuose::getPosition(float * pos) {
+inline int Virtuose::getPosition(float *pos) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetPosition(_vc, pos));
 			return ret;
 }
 
-inline int Virtuose::getPowerOn(int * power) {
+inline int Virtuose::getPowerOn(int *power) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetPowerOn(_vc, power));
 			return ret;
 }
 
-inline int Virtuose::getSpeed(float * speed) {
+inline int Virtuose::getSpeed(float *speed) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetSpeed(_vc, speed));
 			return ret;
 }
 
-inline int Virtuose::getSpeedFactor(float * speed_factor) {
+inline int Virtuose::getSpeedFactor(float *speed_factor) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetSpeedFactor(_vc, speed_factor));
 			return ret;
 }
 
-inline int Virtuose::getTimeLastUpdate(int unsigned * time) {
+inline int Virtuose::getTimeLastUpdate(unsigned int *time) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetTimeLastUpdate(_vc, time));
 			return ret;
 }
 
-inline int Virtuose::getTimeoutValue(float * time_value) {
+inline int Virtuose::getTimeoutValue(float *time_value) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetTimeoutValue(_vc, time_value));
 			return ret;
 }
 
-inline int Virtuose::setBaseFrame(float * base) {
+inline int Virtuose::setBaseFrame(float *base) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetBaseFrame(_vc, base));
@@ -507,14 +507,14 @@ inline int Virtuose::setCommandType(VirtCommandType type) {
 			return ret;
 }
 
-inline int Virtuose::setDebugFlags(short unsigned flag) {
+inline int Virtuose::setDebugFlags(unsigned short flag) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetDebugFlags(_vc, flag));
 			return ret;
 }
 
-inline int Virtuose::setForce(float * force) {
+inline int Virtuose::setForce(float *force) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetForce(_vc, force));
@@ -542,35 +542,35 @@ inline int Virtuose::setLimitTorque(float torque) {
 			return ret;
 }
 
-inline int Virtuose::setObservationFrame(float * obs) {
+inline int Virtuose::setObservationFrame(float *obs) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetObservationFrame(_vc, obs));
 			return ret;
 }
 
-inline int Virtuose::setObservationFrameSpeed(float * speed) {
+inline int Virtuose::setObservationFrameSpeed(float *speed) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetObservationFrameSpeed(_vc, speed));
 			return ret;
 }
 
-inline int Virtuose::setOutputFile(char * name) {
+inline int Virtuose::setOutputFile(char *name) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetOutputFile(_vc, name));
 			return ret;
 }
 
-inline int Virtuose::setPeriodicFunction(void (* fn ) (VirtContext, void *), float * period, void * arg) {
+inline int Virtuose::setPeriodicFunction(void (*fn)(VirtContext, void *), float *period, void *arg) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetPeriodicFunction(_vc, fn, period, arg));
 			return ret;
 }
 
-inline int Virtuose::setPosition(float * pos) {
+inline int Virtuose::setPosition(float *pos) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetPosition(_vc, pos));
@@ -584,7 +584,7 @@ inline int Virtuose::setPowerOn(int power) {
 			return ret;
 }
 
-inline int Virtuose::setSpeed(float * speed) {
+inline int Virtuose::setSpeed(float *speed) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetSpeed(_vc, speed));
@@ -598,14 +598,14 @@ inline int Virtuose::setSpeedFactor(float speed_factor) {
 			return ret;
 }
 
-inline int Virtuose::setTexture(float * position, float * intensity, int reinit) {
+inline int Virtuose::setTexture(float *position, float *intensity, int reinit) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetTexture(_vc, position, intensity, reinit));
 			return ret;
 }
 
-inline int Virtuose::setTextureForce(float * texture_force) {
+inline int Virtuose::setTextureForce(float *texture_force) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetTextureForce(_vc, texture_force));
@@ -661,21 +661,21 @@ inline int Virtuose::trajRecordStop() {
 			return ret;
 }
 
-inline int Virtuose::trajSetSamplingTimeStep(float timeStep, int unsigned * recordTime) {
+inline int Virtuose::trajSetSamplingTimeStep(float timeStep, unsigned int *recordTime) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtTrajSetSamplingTimeStep(_vc, timeStep, recordTime));
 			return ret;
 }
 
-inline int Virtuose::vmStartTrajSampling(int unsigned nbSamples) {
+inline int Virtuose::vmStartTrajSampling(unsigned int nbSamples) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtVmStartTrajSampling(_vc, nbSamples));
 			return ret;
 }
 
-inline int Virtuose::vmGetTrajSamples(float * samples) {
+inline int Virtuose::vmGetTrajSamples(float *samples) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtVmGetTrajSamples(_vc, samples));
@@ -689,7 +689,7 @@ inline int Virtuose::vmSetType(VirtVmType type) {
 			return ret;
 }
 
-inline int Virtuose::vmSetParameter(VirtVmParameter * param) {
+inline int Virtuose::vmSetParameter(VirtVmParameter *param) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtVmSetParameter(_vc, param));
@@ -710,35 +710,35 @@ inline int Virtuose::vmDeactivate() {
 			return ret;
 }
 
-inline int Virtuose::vmSetBaseFrame(float * base) {
+inline int Virtuose::vmSetBaseFrame(float *base) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtVmSetBaseFrame(_vc, base));
 			return ret;
 }
 
-inline int Virtuose::vmSetMaxArtiBounds(float * bounds) {
+inline int Virtuose::vmSetMaxArtiBounds(float *bounds) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtVmSetMaxArtiBounds(_vc, bounds));
 			return ret;
 }
 
-inline int Virtuose::vmSetMinArtiBounds(float * bounds) {
+inline int Virtuose::vmSetMinArtiBounds(float *bounds) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtVmSetMinArtiBounds(_vc, bounds));
 			return ret;
 }
 
-inline int Virtuose::getPhysicalPosition(float * pos) {
+inline int Virtuose::getPhysicalPosition(float *pos) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetPhysicalPosition(_vc, pos));
 			return ret;
 }
 
-inline int Virtuose::getAvatarPosition(float * pos) {
+inline int Virtuose::getAvatarPosition(float *pos) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetAvatarPosition(_vc, pos));
@@ -773,14 +773,14 @@ inline int Virtuose::vmSetBaseFrameToCurrentFrame() {
 			return ret;
 }
 
-inline int Virtuose::convertRGBToGrayscale(float * rgb, float * gray) {
+inline int Virtuose::convertRGBToGrayscale(float *rgb, float *gray) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtConvertRGBToGrayscale(_vc, rgb, gray));
 			return ret;
 }
 
-inline int Virtuose::vmGetBaseFrame(float * base) {
+inline int Virtuose::vmGetBaseFrame(float *base) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtVmGetBaseFrame(_vc, base));
@@ -794,7 +794,7 @@ inline int Virtuose::waitPressButton(int button_number) {
 			return ret;
 }
 
-inline int Virtuose::getTimeStep(float * step) {
+inline int Virtuose::getTimeStep(float *step) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetTimeStep(_vc, step));
@@ -808,21 +808,21 @@ inline int Virtuose::vmSetRobotMode(int OnOff) {
 			return ret;
 }
 
-inline int Virtuose::vmSaveCurrentSpline(char * file_name) {
+inline int Virtuose::vmSaveCurrentSpline(char *file_name) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtVmSaveCurrentSpline(_vc, file_name));
 			return ret;
 }
 
-inline int Virtuose::vmLoadSpline(char * file_name) {
+inline int Virtuose::vmLoadSpline(char *file_name) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtVmLoadSpline(_vc, file_name));
 			return ret;
 }
 
-inline int Virtuose::vmDeleteSpline(char * file_name) {
+inline int Virtuose::vmDeleteSpline(char *file_name) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtVmDeleteSpline(_vc, file_name));
@@ -843,28 +843,28 @@ inline int Virtuose::disableControlConnexion(int disable) {
 			return ret;
 }
 
-inline int Virtuose::isInBounds(int unsigned * bounds) {
+inline int Virtuose::isInBounds(unsigned int *bounds) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtIsInBounds(_vc, bounds));
 			return ret;
 }
 
-inline int Virtuose::getAlarm(int unsigned * alarm) {
+inline int Virtuose::getAlarm(unsigned int *alarm) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetAlarm(_vc, alarm));
 			return ret;
 }
 
-inline int Virtuose::getCatchFrame(float * frame) {
+inline int Virtuose::getCatchFrame(float *frame) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetCatchFrame(_vc, frame));
 			return ret;
 }
 
-inline int Virtuose::setCatchFrame(float * frame) {
+inline int Virtuose::setCatchFrame(float *frame) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetCatchFrame(_vc, frame));
@@ -885,7 +885,7 @@ inline int Virtuose::deactiveSpeedControl() {
 			return ret;
 }
 
-inline int Virtuose::isInShiftPosition(int * shift) {
+inline int Virtuose::isInShiftPosition(int *shift) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtIsInShiftPosition(_vc, shift));
@@ -899,7 +899,7 @@ inline int Virtuose::setFrictionForce(float fx, float fy, float fz) {
 			return ret;
 }
 
-inline int Virtuose::getMouseState(int * active, int * left_click, int * right_click) {
+inline int Virtuose::getMouseState(int *active, int *left_click, int *right_click) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetMouseState(_vc, active, left_click, right_click));
@@ -913,56 +913,56 @@ inline int Virtuose::generateDebugFile() {
 			return ret;
 }
 
-inline int Virtuose::getCenterSphere(float * pos) {
+inline int Virtuose::getCenterSphere(float *pos) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetCenterSphere(_vc, pos));
 			return ret;
 }
 
-inline int Virtuose::getAxisOfRotation(float * axis) {
+inline int Virtuose::getAxisOfRotation(float *axis) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetAxisOfRotation(_vc, axis));
 			return ret;
 }
 
-inline int Virtuose::getADC(int line, float * adc) {
+inline int Virtuose::getADC(int line, float *adc) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetADC(_vc, line, adc));
 			return ret;
 }
 
-inline int Virtuose::convertDeplToHomogeneMatrix(float * d, float * m) {
+inline int Virtuose::convertDeplToHomogeneMatrix(float *d, float *m) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtConvertDeplToHomogeneMatrix(_vc, d, m));
 			return ret;
 }
 
-inline int Virtuose::convertHomogeneMatrixToDepl(float * d, float * m) {
+inline int Virtuose::convertHomogeneMatrixToDepl(float *d, float *m) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtConvertHomogeneMatrixToDepl(_vc, d, m));
 			return ret;
 }
 
-inline int Virtuose::getTrackball(int * x_move, int * y_move) {
+inline int Virtuose::getTrackball(int *x_move, int *y_move) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetTrackball(_vc, x_move, y_move));
 			return ret;
 }
 
-inline int Virtuose::getTrackballButton(int * active, int * left_btn, int * middle_btn, int * right_btn) {
+inline int Virtuose::getTrackballButton(int *active, int *left_btn, int *middle_btn, int *right_btn) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetTrackballButton(_vc, active, left_btn, middle_btn, right_btn));
 			return ret;
 }
 
-inline int Virtuose::setAbsolutePosition(float * pos) {
+inline int Virtuose::setAbsolutePosition(float *pos) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetAbsolutePosition(_vc, pos));
@@ -983,7 +983,7 @@ inline int Virtuose::enableForceFeedback(int enable) {
 			return ret;
 }
 
-inline int Virtuose::getPhysicalSpeed(float * speed) {
+inline int Virtuose::getPhysicalSpeed(float *speed) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetPhysicalSpeed(_vc, speed));
@@ -997,7 +997,7 @@ inline int Virtuose::forceShiftButton(int forceShiftButton) {
 			return ret;
 }
 
-inline int Virtuose::addForce(float * force) {
+inline int Virtuose::addForce(float *force) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtAddForce(_vc, force));
