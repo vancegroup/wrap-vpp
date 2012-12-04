@@ -250,7 +250,6 @@ class Method:
 
 class FuncDefVisitor(c_ast.NodeVisitor):
 	def __init__(self):
-		self.wrapped_methods = []
 		self.methods = []
 
 	def visit_FuncDef(self, node):
@@ -259,9 +258,7 @@ class FuncDefVisitor(c_ast.NodeVisitor):
 			return
 
 		# So, we need to wrap this method
-		method = Method(node)
-		self.methods.append(method)
-		self.wrapped_methods.append(method.generateWrapper())
+		self.methods.append(Method(node))
 
 class VirtuoseAPI:
 	def __init__(self, fn):
@@ -285,7 +282,6 @@ class VirtuoseAPI:
 		v = FuncDefVisitor()
 		v.visit(ast)
 		self.methods = v.methods
-		self.wrapped_methods = v.wrapped_methods
 
 	def getMethods(self):
 		if self.methods is None:
