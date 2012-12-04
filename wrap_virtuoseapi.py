@@ -259,11 +259,8 @@ class FuncDefVisitor(c_ast.NodeVisitor):
 		self.methods = []
 
 	def visit_FuncDef(self, node):
-		if node.decl.name in manuallywrapped:
-			# manually wrapped, skip it.
-			return
-
-		# So, we need to wrap this method
+		# So, we need to wrap this method - manually-wrapped methods are filtered
+		# out later
 		self.methods.append(Method(node))
 
 class VirtuoseAPI:
@@ -296,7 +293,7 @@ class VirtuoseAPI:
 
 	def getWrappedMethods(self):
 		if self.wrapped_methods is None:
-			self.wrapped_methods = [ method.generateWrapper() for method in self.getMethods() ]
+			self.wrapped_methods = [ method.generateWrapper() for method in self.getMethods() if method.name not in manuallywrapped]
 		return self.wrapped_methods
 
 def wrap_virtuose_api(filenames):
