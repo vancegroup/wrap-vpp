@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# -*- coding: latin-1 -*-
 
 # Initially based slightly on:
 #-----------------------------------------------------------------
@@ -13,6 +14,8 @@
 # Copyright (C) 2008-2011, Eli Bendersky
 # License: BSD
 #-----------------------------------------------------------------
+
+from __future__ import print_function
 import sys
 import os
 import string
@@ -37,6 +40,7 @@ argTrans = {	'fichier':		'fh',
 				'actif':			'active',		# questionable
 				'axe':				'axis',
 				'decalage':		'shift'
+			}
 
 methodTrans = { 'GetControlerVersion' : 'GetControllerVersion' }
 
@@ -196,8 +200,7 @@ class Method:
 
 
 	def explain(self):
-		print '%s: %s returns %s, takes:' % (context.location, context.name, context.retType)
-		return
+		print('%s: %s returns %s, takes:' % (context.location, context.name, context.retType))
 
 	def callWrappedFunction(self):
 		forwardCall = apicallqualifier + self.name + "("
@@ -339,7 +342,7 @@ def wrap_virtuose_api(filenames):
 		if classidx != -1 and implidx != -1:
 			fullfile = boilerplate[:classidx] + classbody + boilerplate[classidx+len(classmarker):implidx] + implbody + boilerplate[implidx+len(implmarker):]
 		else:
-			print "COULD NOT FIND PLACEHOLDER!"
+			print("COULD NOT FIND PLACEHOLDER!")
 			fullfile = None
 
 		return fullfile, apiVer
@@ -359,7 +362,7 @@ if __name__ == "__main__":
 	output, ver = wrap_virtuose_api(filenames)
 	outfile = outfile.replace("VER", ver)
 
-	print "Writing to file ", outfile
+	print("Writing to file ", outfile)
 	out = open(outfile, 'w')
 	out.write(output)
 	out.close()
