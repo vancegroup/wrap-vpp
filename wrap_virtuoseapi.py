@@ -251,6 +251,7 @@ class Method:
 class FuncDefVisitor(c_ast.NodeVisitor):
 	def __init__(self):
 		self.wrapped_methods = []
+		self.methods = []
 
 	def visit_FuncDef(self, node):
 		if node.decl.name in manuallywrapped:
@@ -259,6 +260,7 @@ class FuncDefVisitor(c_ast.NodeVisitor):
 
 		# So, we need to wrap this method
 		method = Method(node)
+		self.methods.append(method)
 		self.wrapped_methods.append(method.generateWrapper())
 
 class VirtuoseAPI:
