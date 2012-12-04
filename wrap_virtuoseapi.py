@@ -52,6 +52,7 @@ virtcontextmember = "_vc"
 
 
 defaultoutputfilename = 'vpp.h'
+verbose = False
 
 translateArg = lambda x: argTrans.get(x, x)
 translateMethod = lambda x: methodTrans.get(x, x)
@@ -66,12 +67,16 @@ def getVersionStringFromHeader(fn):
 	else:
 		return "Unknown"
 
+def debugPrint(*args):
+	if verbose:
+		print(args)
+	pass
 
 class TypeVisitor(c_ast.NodeVisitor):
 	def __init__(self):
 		self.type = []
 		self.name = None
-		print "-------------------------"
+		debugPrint("-------------------------")
 
 	def visit_PtrDecl(self, node):
 		# recurse first
@@ -80,7 +85,7 @@ class TypeVisitor(c_ast.NodeVisitor):
 		# add a pointer symbol only if this isn't a function pointer
 		if not "(*" in self.type:
 			self.type.append('*')
-		print "after visit_PtrDecl:", self.type
+		debugPrint("after visit_PtrDecl:", self.type)
 
 	def visit_IdentifierType(self, node):
 		# recurse first
@@ -88,7 +93,7 @@ class TypeVisitor(c_ast.NodeVisitor):
 
 		# add typenames
 		self.type.extend(node.names)
-		print "after visit_IdentifierType:", self.type
+		debugPrint("after visit_IdentifierType:", self.type)
 
 	def visit_FuncDecl(self, node):
 		# for function pointers
@@ -106,25 +111,25 @@ class TypeVisitor(c_ast.NodeVisitor):
 		for arg in node.args.children():
 			fullarg = TypeVisitor()
 			fullarg.visit(arg)
-			print "Argument:", fullarg.getFullType()
+			debugPrint("Argument:", fullarg.getFullType())
 			args.append(" ".join(fullarg.getFullType()))
 
 		# Append it, wrapped in parens
 		self.type.append("(" + ", ".join(args) + ")")
 
-		print "after visit_FuncDecl:", self.type
+		debugPrint("after visit_FuncDecl:", self.type)
 
 	def visit_TypeDecl(self, node):
 		if node.declname is not None:
 			self.name = translateArg(node.declname)
 		self.generic_visit(node)
-		print "after visit_TypeDecl:", self.type
+		debugPrint("after visit_TypeDecl:", self.type)
 
 	def visit_Decl(self, node):
 		if node.name is not None:
 			self.name = translateArg(node.name)
 		self.generic_visit(node)
-		print "after visit_Decl:", self.type
+		debugPrint("after visit_Decl:", self.type)
 
 	def getTypeOnly(self):
 		return self.type
@@ -167,11 +172,11 @@ class IsStaticVisitor(c_ast.NodeVisitor):
 
 class Method:
 	def __init__(self, node):
-
-		print "-------------------------"
-		print "-- method --"
+		debugPrint("-------------------------")
+		debugPrint("-- method --")
 		statvisit = IsStaticVisitor(node)
-		node.show(attrnames=True)
+		if verbose:
+			node.show(attrnames=True)
 		self.static = statvisit.isStatic #isStatic(node.decl.type)
 		self.retType = None
 		self.params = None
@@ -182,12 +187,13 @@ class Method:
 		for arg in node.decl.type.args.children():
 			fullarg = TypeVisitor()
 			fullarg.visit(arg)
-			print "Argument:", fullarg.getFullType()
+			debugPrint("Argument:", fullarg.getFullType())
 			self.args.append(fullarg)
 
 		retType = TypeVisitor()
 		retType.visit(node.decl.type.type)
 		self.retType = retType.getTypeOnly() #getFullType(node.decl.type)
+
 
 
 	def explain(self):
