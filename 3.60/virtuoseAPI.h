@@ -217,7 +217,7 @@ extern "C"
 
   } virtDLLFunction;
 
-  extern int virtCallDLL(virtDLLFunction, ...);
+  extern size_t virtCallDLL(virtDLLFunction, ...);
   extern int virtLoadDLL(char *path);
 
 
