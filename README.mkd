@@ -1,0 +1,51 @@
+# wrap-vpp - An Automatically-Generated C++ Wrapper for the Haption VirtuoseAPI
+
+The haptic devices from Haption can be programmed using the vendor's provided [VirtuoseAPI][] library. This project includes both a Python script to generate a wrapper header around that library, as well as the generated wrapper headers for known versions of the library.
+
+## Introduction and functionality
+
+The VirtuoseAPI library has a C interface for optimum compatibility, but effectively presents an object-oriented model: most functions take a "VirtContext" opaque pointer as their first argument, as a sort of `self` or `this` pointer. C++ offers a more natural way of expressing this as member functions.
+
+[VirtuoseAPI]:http://www.haption.com/site/index.php/en/products-menu-en/software-menu-en/virtuose-api-menu-en
+
+The function of the `wrap-vpp` software, a Python script, is to automatically parse a VirtuoseAPI header and generate a fully-inline C++ header that wraps the VirtuoseAPI in a class that is responsible for opening and closing (RAII) the VirtContext. The C++ class provides these advantages over raw use of the C API:
+
+- RAII-style opening and cleanup of device connection: object owns its VirtContext.
+- Translation of error code return values into C++ exceptions for increased reliability (makes it impossible to forget to check the return value for success or failure)
+- Explicit object orientation: functions taking a `VirtContext` transformed into member functions, and the few remaining functions are either explicitly wrapped (e.g., the constructor/virtOpen) or transformed into static member functions.
+- Simplification of method names (prefix `virt` stripped because it's not needed for namespacing as member functions) with some spelling corrections.
+- Clarification of some method arguments by translation from French to English. (Most were already English).
+
+Note that wrap-vpp and its generated header do not *replace* the VirtuoseAPI header and library, but rather *add* a header-only C++ layer around them: `vpp.h` contains a `#include` line for the VirtuoseAPI header, and you will still need to link against the VirtuoseAPI library.
+
+## How to Use
+
+### Using the Header
+If you're using a VirtuoseAPI version with a corresponding directory in this repository, you can simply make the `vpp.h` header within available on your include path and add this line to your C++ application:
+
+```c++
+#include <vpp.h>
+```
+
+You can then proceed to use the class exposed by the header.
+
+### About the Generator
+
+File-by-file:
+
+- `make_vpp`: This script calls the Python wrapping script on multiple versions of the VirtuoseAPI header as included in the repository.
+
+- `wrap_virtuoseapi.py`: The code performing the actual wrapping. It can be run and optionally passed the input header filename and the output filename.  Wrapped methods are inserted into locations in `vpp-boilerplate.h
+
+- `vpp-boilerplate.h`: The outline that wrapped methods are inserted into when generating the header. This file contains the manually-wrapped or manually-written portions of the code, as well as placeholders for `wrap_virtuoseapi.py` to locate when generating.
+
+- `clean_boilerplate`: This script uses the [astyle code formatter](http://astyle.sourceforge.net/) and `astylerc` in this directory to apply a uniform code style to the boilerplate header. It should be manually run after editing the boilerplate.
+
+- `list_functions.py`: A dummy/test script that uses the API parsing code of `wrap_virtuoseapi.py` to simply list the methods.
+
+### Acknowledgements
+
+This software was developed by [Ryan Pavlik](http://academic.cleardefinition.com) at the Iowa State University Virtual Reality Application Center. The wrapping script depends on (and bundles) these Python modules:
+
+- [`ply`](http://www.dabeaz.com/ply/) - licensed under the 3-clause BSD license
+- [`pycparser`](https://github.com/eliben/pycparser) - licensed under the New BSD License (aka 2-clause BSD) <http://www.opensource.org/licenses/bsd-license.php>
