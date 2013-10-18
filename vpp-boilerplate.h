@@ -92,10 +92,30 @@ class Virtuose {
 		*/
 		Virtuose(const std::string & name)
 			: _name(name)
-			, _vc(virtOpen(_name.c_str())) {
+			, _vc(virtOpen(_name.c_str()))
+			, own_(true) {
 			VPP_VERBOSE_MESSAGE("Constructing a new Virtuose object, device named " << _name << ", VirtContext=" << _vc);
 			if (!_vc) {
 				throw VirtuoseAPIError("Failed opening Virtuose " + _name + getErrorMessage());
+			}
+		}
+
+		/** @brief constructor from existing VirtContext
+
+			Does not open new VirtContext. Intended for use inside a
+			periodic callback function.
+
+			@param name Name of Virtuose device to connect to.
+
+			@throws VirtuoseAPIError if opening the device failed.
+		*/
+		Virtuose(VirtContext vc)
+			: _name("unknown - from VirtContext")
+			, _vc(vc)
+			, own_(false) {
+			VPP_VERBOSE_MESSAGE("Borrowing a Virtuose object with VirtContext=" << _vc);
+			if (!_vc) {
+				throw VirtuoseAPIError("Can't borrow a null VirtContext!");
 			}
 		}
 
@@ -104,7 +124,7 @@ class Virtuose {
 		*/
 		~Virtuose() {
 			VPP_VERBOSE_MESSAGE("In destructor for device named " << _name << ", VirtContext=" << _vc);
-			if (_vc) {
+			if (_vc && own_) {
 				try {
 					VPP_CHECKED_CALL(virtClose(_vc));
 				} catch (VirtuoseAPIError & e) {
@@ -182,6 +202,7 @@ class Virtuose {
 	private:
 		std::string const _name;
 		VirtContext _vc;
+		bool const own_;
 
 		/// @brief Copy constructor forbidden
 		Virtuose(Virtuose const&);
