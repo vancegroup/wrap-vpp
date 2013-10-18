@@ -91,7 +91,7 @@ class Virtuose {
 			@throws VirtuoseAPIError if opening the device failed.
 		*/
 		Virtuose(const std::string & name)
-			: vc_(virtOpen(name_.c_str()))
+			: vc_(virtOpen(name.c_str()))
 			, name_(name)
 			, own_(true) {
 			VPP_VERBOSE_MESSAGE("Constructing a new Virtuose object, device named " << name_ << ", VirtContext=" << vc_);
