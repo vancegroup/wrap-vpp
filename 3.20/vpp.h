@@ -229,8 +229,8 @@ class Virtuose {
 		int getCenterSphere(float *pos);
 		int getAxisOfRotation(float *axis);
 		int getADC(int line, float *adc);
-		int convertDeplToHomogeneMatrix(float *d, float *m);
-		int convertHomogeneMatrixToDepl(float *d, float *m);
+		int convertDisplacementToTransformMatrix(float *d, float *m);
+		int convertTransformMatrixToDisplacement(float *d, float *m);
 		int getTrackball(int *x_move, int *y_move);
 		int getTrackballButton(int *active, int *left_btn, int *middle_btn, int *right_btn);
 		int setAbsolutePosition(float *pos);
@@ -240,11 +240,11 @@ class Virtuose {
 		int forceShiftButton(int forceShiftButton);
 		int addForce(float *force);
 		int getFailure(unsigned int *error);
-		int getArticularPositionOfAdditionalAxe(float *pos);
-		int setArticularPositionOfAdditionalAxe(float *pos);
-		int getArticularSpeedOfAdditionalAxe(float *speed);
-		int setArticularSpeedOfAdditionalAxe(float *speed);
-		int setArticularForceOfAdditionalAxe(float *effort);
+		int getArticularPositionOfAdditionalAxis(float *pos);
+		int setArticularPositionOfAdditionalAxis(float *pos);
+		int getArticularSpeedOfAdditionalAxis(float *speed);
+		int setArticularSpeedOfAdditionalAxis(float *speed);
+		int setArticularForceOfAdditionalAxis(float *effort);
 		/* Static Methods */
 		static int APIVersion(int *major, int *minor);
 
@@ -978,14 +978,14 @@ inline int Virtuose::getADC(int line, float *adc) {
 			return ret;
 }
 
-inline int Virtuose::convertDeplToHomogeneMatrix(float *d, float *m) {
+inline int Virtuose::convertDisplacementToTransformMatrix(float *d, float *m) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtConvertDeplToHomogeneMatrix(vc_, d, m));
 			return ret;
 }
 
-inline int Virtuose::convertHomogeneMatrixToDepl(float *d, float *m) {
+inline int Virtuose::convertTransformMatrixToDisplacement(float *d, float *m) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtConvertHomogeneMatrixToDepl(vc_, d, m));
@@ -1055,35 +1055,35 @@ inline int Virtuose::getFailure(unsigned int *error) {
 			return ret;
 }
 
-inline int Virtuose::getArticularPositionOfAdditionalAxe(float *pos) {
+inline int Virtuose::getArticularPositionOfAdditionalAxis(float *pos) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetArticularPositionOfAdditionalAxe(vc_, pos));
 			return ret;
 }
 
-inline int Virtuose::setArticularPositionOfAdditionalAxe(float *pos) {
+inline int Virtuose::setArticularPositionOfAdditionalAxis(float *pos) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetArticularPositionOfAdditionalAxe(vc_, pos));
 			return ret;
 }
 
-inline int Virtuose::getArticularSpeedOfAdditionalAxe(float *speed) {
+inline int Virtuose::getArticularSpeedOfAdditionalAxis(float *speed) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtGetArticularSpeedOfAdditionalAxe(vc_, speed));
 			return ret;
 }
 
-inline int Virtuose::setArticularSpeedOfAdditionalAxe(float *speed) {
+inline int Virtuose::setArticularSpeedOfAdditionalAxis(float *speed) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetArticularSpeedOfAdditionalAxe(vc_, speed));
 			return ret;
 }
 
-inline int Virtuose::setArticularForceOfAdditionalAxe(float *effort) {
+inline int Virtuose::setArticularForceOfAdditionalAxis(float *effort) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtSetArticularForceOfAdditionalAxe(vc_, effort));

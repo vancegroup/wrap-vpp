@@ -229,8 +229,8 @@ class Virtuose {
 		int getCenterSphere(float *pos);
 		int getAxisOfRotation(float *axis);
 		int getADC(int line, float *adc);
-		int convertDeplToHomogeneMatrix(float *d, float *m);
-		int convertHomogeneMatrixToDepl(float *d, float *m);
+		int convertDisplacementToTransformMatrix(float *d, float *m);
+		int convertTransformMatrixToDisplacement(float *d, float *m);
 		int getTrackball(int *x_move, int *y_move);
 		int getTrackballButton(int *active, int *left_btn, int *middle_btn, int *right_btn);
 		int setAbsolutePosition(float *pos);
@@ -972,14 +972,14 @@ inline int Virtuose::getADC(int line, float *adc) {
 			return ret;
 }
 
-inline int Virtuose::convertDeplToHomogeneMatrix(float *d, float *m) {
+inline int Virtuose::convertDisplacementToTransformMatrix(float *d, float *m) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtConvertDeplToHomogeneMatrix(vc_, d, m));
 			return ret;
 }
 
-inline int Virtuose::convertHomogeneMatrixToDepl(float *d, float *m) {
+inline int Virtuose::convertTransformMatrixToDisplacement(float *d, float *m) {
 	
 			int ret;
 			VPP_CHECKED_CALL(ret = virtConvertHomogeneMatrixToDepl(vc_, d, m));
