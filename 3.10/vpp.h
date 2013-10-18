@@ -91,45 +91,55 @@ class Virtuose {
 			@throws VirtuoseAPIError if opening the device failed.
 		*/
 		Virtuose(const std::string & name)
-			: _name(name)
-			, _vc(virtOpen(_name.c_str())) {
-			VPP_VERBOSE_MESSAGE("Constructing a new Virtuose object, device named " << _name << ", VirtContext=" << _vc);
-			if (_vc == NULL) {
-				throw VirtuoseAPIError("Failed opening Virtuose " + _name + getErrorMessage());
+			: vc_(virtOpen(name_.c_str()))
+			, name_(name)
+			, own_(true) {
+			VPP_VERBOSE_MESSAGE("Constructing a new Virtuose object, device named " << name_ << ", VirtContext=" << vc_);
+			if (!vc_) {
+				throw VirtuoseAPIError("Failed opening Virtuose " + name_ + ": " +  getErrorMessage());
+			}
+		}
+
+		/** @brief constructor from existing VirtContext
+
+			Does not open new VirtContext. Intended for use inside a
+			periodic callback function.
+
+			@param name Name of Virtuose device to connect to.
+
+			@throws VirtuoseAPIError if opening the device failed.
+		*/
+		Virtuose(VirtContext vc)
+			: vc_(vc)
+			, name_("unknown - from VirtContext")
+			, own_(false) {
+			VPP_VERBOSE_MESSAGE("Borrowing a Virtuose object with VirtContext=" << vc_);
+			if (!vc_) {
+				throw VirtuoseAPIError("Can't borrow a null VirtContext!");
 			}
 		}
 
 		/** @brief destructor that closes the connection to the Virtuose
-			device.
+			device if we opened it.
 		*/
-		~Virtuose() {
-			VPP_VERBOSE_MESSAGE("In destructor for device named " << _name << ", VirtContext=" << _vc);
-			if (_vc != NULL) {
-				try {
-					VPP_CHECKED_CALL(virtClose(_vc));
-				} catch (VirtuoseAPIError & e) {
-					(void) e; // silence warning if not in verbose mode.
-					VPP_VERBOSE_MESSAGE("Exception in destructor, ignoring: " << e.what());
-				}
-			}
-		}
+		~Virtuose();
 
 		/** @brief Conversion operator to type VirtContext.
 		*/
 		operator VirtContext() {
-			return _vc;
+			return vc_;
 		}
 
 		/** @brief Returns the managed VirtContext.
 		*/
 		VirtContext getVirtContext() const {
-			return _vc;
+			return vc_;
 		}
 
 		/** @brief Retrieve name used to create device context, if available.
 		*/
 		std::string const& getName() const {
-			return _name;
+			return name_;
 		}
 
 		int attachVO(float mass, float *mxmymz);
@@ -237,49 +247,26 @@ class Virtuose {
 		//   // handle error
 		// }
 		bool checkForError(int returnValue, const char * file = "",
-		                   int const line = -1, const char * func = "") {
-			if (returnValue == 0) {
-				// Silence unused variable warning when VPP_VERBOSE not defined
-				(void) file;
-				(void) line;
-				(void) func;
-				return false; // no error
-			} else {
-				VPP_VERBOSE_MESSAGE("Got error from Virtuose (in " << func << "@" << file << ":" << line << "): "  << getErrorMessage());
-				return true; // error
-			}
-		}
+		                   int const line = -1, const char * func = "");
 
-		bool hasError() {
-			return (virtGetErrorCode(_vc) != VIRT_E_NO_ERROR);
-		}
+		bool hasError();
 
 		/** @brief Returns the latest error message, or if none, an empty string.
 		*/
-		std::string getErrorOrEmpty() {
-			std::string ret;
-			int code = virtGetErrorCode(_vc);
-			if (virtGetErrorCode(_vc) != VIRT_E_NO_ERROR) {
-				ret = getErrorMessage(code);
-			}
-			return ret;
-		}
+		std::string getErrorOrEmpty();
 
 		/** @brief Returns the latest error message.
 		*/
-		std::string getErrorMessage() {
-			return std::string(virtGetErrorMessage(virtGetErrorCode(_vc)));
-		}
+		std::string getErrorMessage();
 
 		/** @brief Converts an error code into an error message string.
 		*/
-		static std::string getErrorMessage(int code) {
-			return std::string(virtGetErrorMessage(code));
-		}
+		static std::string getErrorMessage(int code);
 
 	private:
-		std::string const _name;
-		VirtContext _vc;
+		VirtContext vc_;
+		std::string const name_;
+		bool const own_;
 
 		/// @brief Copy constructor forbidden
 		Virtuose(Virtuose const&);
@@ -298,6 +285,57 @@ class Virtuose {
 		}
 #endif
 };
+
+inline 	Virtuose::~Virtuose() {
+	VPP_VERBOSE_MESSAGE("In destructor for device named " << name_ << ", VirtContext=" << vc_);
+	if (vc_ && own_) {
+		try {
+			VPP_CHECKED_CALL(virtClose(vc_));
+		} catch (VirtuoseAPIError & e) {
+			(void) e; // silence warning if not in verbose mode.
+			VPP_VERBOSE_MESSAGE("Exception in destructor, ignoring: " << e.what());
+		}
+	}
+}
+
+inline bool Virtuose::checkForError(int returnValue, const char * file,
+                                    int const line, const char * func) {
+	if (returnValue == 0) {
+		// Silence unused variable warning when VPP_VERBOSE not defined
+		(void) file;
+		(void) line;
+		(void) func;
+		return false; // no error
+	} else {
+		VPP_VERBOSE_MESSAGE("Got error from Virtuose (in " << func << "@" << file << ":" << line << "): "  << getErrorMessage());
+		return true; // error
+	}
+}
+
+inline bool Virtuose::hasError() {
+	return (virtGetErrorCode(vc_) != VIRT_E_NO_ERROR);
+}
+
+inline std::string Virtuose::getErrorOrEmpty() {
+	std::string ret;
+	int code = virtGetErrorCode(vc_);
+	if (virtGetErrorCode(vc_) != VIRT_E_NO_ERROR) {
+		ret = getErrorMessage(code);
+	}
+	return ret;
+}
+
+/** @brief Returns the latest error message.
+*/
+inline std::string Virtuose::getErrorMessage() {
+	return getErrorMessage(virtGetErrorCode(vc_));
+}
+
+/** @brief Converts an error code into an error message string.
+*/
+inline std::string Virtuose::getErrorMessage(int code) {
+	return virtGetErrorMessage(code);
+}
 
 /// @brief Equality between a Virtuose object and a raw VirtContext.
 inline bool operator==(Virtuose const& v, VirtContext const vc) {
@@ -328,679 +366,679 @@ inline int Virtuose::APIVersion(int *major, int *minor) {
 inline int Virtuose::attachVO(float mass, float *mxmymz) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtAttachVO(_vc, mass, mxmymz));
+			VPP_CHECKED_CALL(ret = virtAttachVO(vc_, mass, mxmymz));
 			return ret;
 }
 
 inline int Virtuose::attachQSVO(float *Ks, float *Bs) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtAttachQSVO(_vc, Ks, Bs));
+			VPP_CHECKED_CALL(ret = virtAttachQSVO(vc_, Ks, Bs));
 			return ret;
 }
 
 inline int Virtuose::attachVOAvatar(float mass, float *mxmymz) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtAttachVOAvatar(_vc, mass, mxmymz));
+			VPP_CHECKED_CALL(ret = virtAttachVOAvatar(vc_, mass, mxmymz));
 			return ret;
 }
 
 inline int Virtuose::detachVO() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtDetachVO(_vc));
+			VPP_CHECKED_CALL(ret = virtDetachVO(vc_));
 			return ret;
 }
 
 inline int Virtuose::detachVOAvatar() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtDetachVOAvatar(_vc));
+			VPP_CHECKED_CALL(ret = virtDetachVOAvatar(vc_));
 			return ret;
 }
 
 inline int Virtuose::displayHardwareStatus(FILE *fh) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtDisplayHardwareStatus(_vc, fh));
+			VPP_CHECKED_CALL(ret = virtDisplayHardwareStatus(vc_, fh));
 			return ret;
 }
 
 inline int Virtuose::getBaseFrame(float *base) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetBaseFrame(_vc, base));
+			VPP_CHECKED_CALL(ret = virtGetBaseFrame(vc_, base));
 			return ret;
 }
 
 inline int Virtuose::getButton(int button_number, int *state) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetButton(_vc, button_number, state));
+			VPP_CHECKED_CALL(ret = virtGetButton(vc_, button_number, state));
 			return ret;
 }
 
 inline int Virtuose::getCommandType(VirtCommandType *type) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetCommandType(_vc, type));
+			VPP_CHECKED_CALL(ret = virtGetCommandType(vc_, type));
 			return ret;
 }
 
 inline int Virtuose::getDeadMan(int *dead_man) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetDeadMan(_vc, dead_man));
+			VPP_CHECKED_CALL(ret = virtGetDeadMan(vc_, dead_man));
 			return ret;
 }
 
 inline int Virtuose::getEmergencyStop(int *emergency_stop) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetEmergencyStop(_vc, emergency_stop));
+			VPP_CHECKED_CALL(ret = virtGetEmergencyStop(vc_, emergency_stop));
 			return ret;
 }
 
 inline int Virtuose::getError(int *error) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetError(_vc, error));
+			VPP_CHECKED_CALL(ret = virtGetError(vc_, error));
 			return ret;
 }
 
 inline int Virtuose::getErrorCode() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetErrorCode(_vc));
+			VPP_CHECKED_CALL(ret = virtGetErrorCode(vc_));
 			return ret;
 }
 
 inline int Virtuose::getForce(float *force) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetForce(_vc, force));
+			VPP_CHECKED_CALL(ret = virtGetForce(vc_, force));
 			return ret;
 }
 
 inline int Virtuose::getForceFactor(float *force_factor) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetForceFactor(_vc, force_factor));
+			VPP_CHECKED_CALL(ret = virtGetForceFactor(vc_, force_factor));
 			return ret;
 }
 
 inline int Virtuose::getIndexingMode(VirtIndexingType *indexing_mode) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetIndexingMode(_vc, indexing_mode));
+			VPP_CHECKED_CALL(ret = virtGetIndexingMode(vc_, indexing_mode));
 			return ret;
 }
 
 inline int Virtuose::getLimitTorque(float *torque) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetLimitTorque(_vc, torque));
+			VPP_CHECKED_CALL(ret = virtGetLimitTorque(vc_, torque));
 			return ret;
 }
 
 inline int Virtuose::getObservationFrame(float *obs) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetObservationFrame(_vc, obs));
+			VPP_CHECKED_CALL(ret = virtGetObservationFrame(vc_, obs));
 			return ret;
 }
 
 inline int Virtuose::getPosition(float *pos) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetPosition(_vc, pos));
+			VPP_CHECKED_CALL(ret = virtGetPosition(vc_, pos));
 			return ret;
 }
 
 inline int Virtuose::getPowerOn(int *power) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetPowerOn(_vc, power));
+			VPP_CHECKED_CALL(ret = virtGetPowerOn(vc_, power));
 			return ret;
 }
 
 inline int Virtuose::getSpeed(float *speed) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetSpeed(_vc, speed));
+			VPP_CHECKED_CALL(ret = virtGetSpeed(vc_, speed));
 			return ret;
 }
 
 inline int Virtuose::getSpeedFactor(float *speed_factor) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetSpeedFactor(_vc, speed_factor));
+			VPP_CHECKED_CALL(ret = virtGetSpeedFactor(vc_, speed_factor));
 			return ret;
 }
 
 inline int Virtuose::getTimeLastUpdate(unsigned int *time) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetTimeLastUpdate(_vc, time));
+			VPP_CHECKED_CALL(ret = virtGetTimeLastUpdate(vc_, time));
 			return ret;
 }
 
 inline int Virtuose::getTimeoutValue(float *time_value) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetTimeoutValue(_vc, time_value));
+			VPP_CHECKED_CALL(ret = virtGetTimeoutValue(vc_, time_value));
 			return ret;
 }
 
 inline int Virtuose::setBaseFrame(float *base) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetBaseFrame(_vc, base));
+			VPP_CHECKED_CALL(ret = virtSetBaseFrame(vc_, base));
 			return ret;
 }
 
 inline int Virtuose::setCommandType(VirtCommandType type) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetCommandType(_vc, type));
+			VPP_CHECKED_CALL(ret = virtSetCommandType(vc_, type));
 			return ret;
 }
 
 inline int Virtuose::setDebugFlags(unsigned short flag) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetDebugFlags(_vc, flag));
+			VPP_CHECKED_CALL(ret = virtSetDebugFlags(vc_, flag));
 			return ret;
 }
 
 inline int Virtuose::setForce(float *force) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetForce(_vc, force));
+			VPP_CHECKED_CALL(ret = virtSetForce(vc_, force));
 			return ret;
 }
 
 inline int Virtuose::setForceFactor(float force_factor) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetForceFactor(_vc, force_factor));
+			VPP_CHECKED_CALL(ret = virtSetForceFactor(vc_, force_factor));
 			return ret;
 }
 
 inline int Virtuose::setIndexingMode(VirtIndexingType indexing_mode) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetIndexingMode(_vc, indexing_mode));
+			VPP_CHECKED_CALL(ret = virtSetIndexingMode(vc_, indexing_mode));
 			return ret;
 }
 
 inline int Virtuose::setLimitTorque(float torque) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetLimitTorque(_vc, torque));
+			VPP_CHECKED_CALL(ret = virtSetLimitTorque(vc_, torque));
 			return ret;
 }
 
 inline int Virtuose::setObservationFrame(float *obs) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetObservationFrame(_vc, obs));
+			VPP_CHECKED_CALL(ret = virtSetObservationFrame(vc_, obs));
 			return ret;
 }
 
 inline int Virtuose::setObservationFrameSpeed(float *speed) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetObservationFrameSpeed(_vc, speed));
+			VPP_CHECKED_CALL(ret = virtSetObservationFrameSpeed(vc_, speed));
 			return ret;
 }
 
 inline int Virtuose::setOutputFile(char *name) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetOutputFile(_vc, name));
+			VPP_CHECKED_CALL(ret = virtSetOutputFile(vc_, name));
 			return ret;
 }
 
 inline int Virtuose::setPeriodicFunction(void (*fn)(VirtContext, void *), float *period, void *arg) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetPeriodicFunction(_vc, fn, period, arg));
+			VPP_CHECKED_CALL(ret = virtSetPeriodicFunction(vc_, fn, period, arg));
 			return ret;
 }
 
 inline int Virtuose::setPosition(float *pos) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetPosition(_vc, pos));
+			VPP_CHECKED_CALL(ret = virtSetPosition(vc_, pos));
 			return ret;
 }
 
 inline int Virtuose::setPowerOn(int power) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetPowerOn(_vc, power));
+			VPP_CHECKED_CALL(ret = virtSetPowerOn(vc_, power));
 			return ret;
 }
 
 inline int Virtuose::setSpeed(float *speed) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetSpeed(_vc, speed));
+			VPP_CHECKED_CALL(ret = virtSetSpeed(vc_, speed));
 			return ret;
 }
 
 inline int Virtuose::setSpeedFactor(float speed_factor) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetSpeedFactor(_vc, speed_factor));
+			VPP_CHECKED_CALL(ret = virtSetSpeedFactor(vc_, speed_factor));
 			return ret;
 }
 
 inline int Virtuose::setTexture(float *position, float *intensity, int reinit) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetTexture(_vc, position, intensity, reinit));
+			VPP_CHECKED_CALL(ret = virtSetTexture(vc_, position, intensity, reinit));
 			return ret;
 }
 
 inline int Virtuose::setTextureForce(float *texture_force) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetTextureForce(_vc, texture_force));
+			VPP_CHECKED_CALL(ret = virtSetTextureForce(vc_, texture_force));
 			return ret;
 }
 
 inline int Virtuose::setTimeStep(float step) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetTimeStep(_vc, step));
+			VPP_CHECKED_CALL(ret = virtSetTimeStep(vc_, step));
 			return ret;
 }
 
 inline int Virtuose::setTimeoutValue(float time_value) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetTimeoutValue(_vc, time_value));
+			VPP_CHECKED_CALL(ret = virtSetTimeoutValue(vc_, time_value));
 			return ret;
 }
 
 inline int Virtuose::startLoop() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtStartLoop(_vc));
+			VPP_CHECKED_CALL(ret = virtStartLoop(vc_));
 			return ret;
 }
 
 inline int Virtuose::stopLoop() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtStopLoop(_vc));
+			VPP_CHECKED_CALL(ret = virtStopLoop(vc_));
 			return ret;
 }
 
 inline int Virtuose::waitForSynch() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtWaitForSynch(_vc));
+			VPP_CHECKED_CALL(ret = virtWaitForSynch(vc_));
 			return ret;
 }
 
 inline int Virtuose::trajRecordStart() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtTrajRecordStart(_vc));
+			VPP_CHECKED_CALL(ret = virtTrajRecordStart(vc_));
 			return ret;
 }
 
 inline int Virtuose::trajRecordStop() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtTrajRecordStop(_vc));
+			VPP_CHECKED_CALL(ret = virtTrajRecordStop(vc_));
 			return ret;
 }
 
 inline int Virtuose::trajSetSamplingTimeStep(float timeStep, unsigned int *recordTime) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtTrajSetSamplingTimeStep(_vc, timeStep, recordTime));
+			VPP_CHECKED_CALL(ret = virtTrajSetSamplingTimeStep(vc_, timeStep, recordTime));
 			return ret;
 }
 
 inline int Virtuose::vmStartTrajSampling(unsigned int nbSamples) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmStartTrajSampling(_vc, nbSamples));
+			VPP_CHECKED_CALL(ret = virtVmStartTrajSampling(vc_, nbSamples));
 			return ret;
 }
 
 inline int Virtuose::vmGetTrajSamples(float *samples) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmGetTrajSamples(_vc, samples));
+			VPP_CHECKED_CALL(ret = virtVmGetTrajSamples(vc_, samples));
 			return ret;
 }
 
 inline int Virtuose::vmSetType(VirtVmType type) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmSetType(_vc, type));
+			VPP_CHECKED_CALL(ret = virtVmSetType(vc_, type));
 			return ret;
 }
 
 inline int Virtuose::vmSetParameter(VirtVmParameter *param) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmSetParameter(_vc, param));
+			VPP_CHECKED_CALL(ret = virtVmSetParameter(vc_, param));
 			return ret;
 }
 
 inline int Virtuose::vmActivate() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmActivate(_vc));
+			VPP_CHECKED_CALL(ret = virtVmActivate(vc_));
 			return ret;
 }
 
 inline int Virtuose::vmDeactivate() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmDeactivate(_vc));
+			VPP_CHECKED_CALL(ret = virtVmDeactivate(vc_));
 			return ret;
 }
 
 inline int Virtuose::vmSetBaseFrame(float *base) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmSetBaseFrame(_vc, base));
+			VPP_CHECKED_CALL(ret = virtVmSetBaseFrame(vc_, base));
 			return ret;
 }
 
 inline int Virtuose::vmSetMaxArtiBounds(float *bounds) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmSetMaxArtiBounds(_vc, bounds));
+			VPP_CHECKED_CALL(ret = virtVmSetMaxArtiBounds(vc_, bounds));
 			return ret;
 }
 
 inline int Virtuose::vmSetMinArtiBounds(float *bounds) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmSetMinArtiBounds(_vc, bounds));
+			VPP_CHECKED_CALL(ret = virtVmSetMinArtiBounds(vc_, bounds));
 			return ret;
 }
 
 inline int Virtuose::getPhysicalPosition(float *pos) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetPhysicalPosition(_vc, pos));
+			VPP_CHECKED_CALL(ret = virtGetPhysicalPosition(vc_, pos));
 			return ret;
 }
 
 inline int Virtuose::getAvatarPosition(float *pos) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetAvatarPosition(_vc, pos));
+			VPP_CHECKED_CALL(ret = virtGetAvatarPosition(vc_, pos));
 			return ret;
 }
 
 inline int Virtuose::saturateTorque(float forceThreshold, float momentThreshold) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSaturateTorque(_vc, forceThreshold, momentThreshold));
+			VPP_CHECKED_CALL(ret = virtSaturateTorque(vc_, forceThreshold, momentThreshold));
 			return ret;
 }
 
 inline int Virtuose::vmSetDefaultToTransparentMode() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmSetDefaultToTransparentMode(_vc));
+			VPP_CHECKED_CALL(ret = virtVmSetDefaultToTransparentMode(vc_));
 			return ret;
 }
 
 inline int Virtuose::vmSetDefaultToCartesianPosition() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmSetDefaultToCartesianPosition(_vc));
+			VPP_CHECKED_CALL(ret = virtVmSetDefaultToCartesianPosition(vc_));
 			return ret;
 }
 
 inline int Virtuose::vmSetBaseFrameToCurrentFrame() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmSetBaseFrameToCurrentFrame(_vc));
+			VPP_CHECKED_CALL(ret = virtVmSetBaseFrameToCurrentFrame(vc_));
 			return ret;
 }
 
 inline int Virtuose::convertRGBToGrayscale(float *rgb, float *gray) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtConvertRGBToGrayscale(_vc, rgb, gray));
+			VPP_CHECKED_CALL(ret = virtConvertRGBToGrayscale(vc_, rgb, gray));
 			return ret;
 }
 
 inline int Virtuose::vmGetBaseFrame(float *base) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmGetBaseFrame(_vc, base));
+			VPP_CHECKED_CALL(ret = virtVmGetBaseFrame(vc_, base));
 			return ret;
 }
 
 inline int Virtuose::waitPressButton(int button_number) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtWaitPressButton(_vc, button_number));
+			VPP_CHECKED_CALL(ret = virtWaitPressButton(vc_, button_number));
 			return ret;
 }
 
 inline int Virtuose::getTimeStep(float *step) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetTimeStep(_vc, step));
+			VPP_CHECKED_CALL(ret = virtGetTimeStep(vc_, step));
 			return ret;
 }
 
 inline int Virtuose::vmSetRobotMode(int OnOff) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmSetRobotMode(_vc, OnOff));
+			VPP_CHECKED_CALL(ret = virtVmSetRobotMode(vc_, OnOff));
 			return ret;
 }
 
 inline int Virtuose::vmSaveCurrentSpline(char *file_name) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmSaveCurrentSpline(_vc, file_name));
+			VPP_CHECKED_CALL(ret = virtVmSaveCurrentSpline(vc_, file_name));
 			return ret;
 }
 
 inline int Virtuose::vmLoadSpline(char *file_name) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmLoadSpline(_vc, file_name));
+			VPP_CHECKED_CALL(ret = virtVmLoadSpline(vc_, file_name));
 			return ret;
 }
 
 inline int Virtuose::vmDeleteSpline(char *file_name) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmDeleteSpline(_vc, file_name));
+			VPP_CHECKED_CALL(ret = virtVmDeleteSpline(vc_, file_name));
 			return ret;
 }
 
 inline int Virtuose::vmWaitUpperBound() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtVmWaitUpperBound(_vc));
+			VPP_CHECKED_CALL(ret = virtVmWaitUpperBound(vc_));
 			return ret;
 }
 
 inline int Virtuose::disableControlConnexion(int disable) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtDisableControlConnexion(_vc, disable));
+			VPP_CHECKED_CALL(ret = virtDisableControlConnexion(vc_, disable));
 			return ret;
 }
 
 inline int Virtuose::isInBounds(unsigned int *bounds) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtIsInBounds(_vc, bounds));
+			VPP_CHECKED_CALL(ret = virtIsInBounds(vc_, bounds));
 			return ret;
 }
 
 inline int Virtuose::getAlarm(unsigned int *alarm) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetAlarm(_vc, alarm));
+			VPP_CHECKED_CALL(ret = virtGetAlarm(vc_, alarm));
 			return ret;
 }
 
 inline int Virtuose::getCatchFrame(float *frame) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetCatchFrame(_vc, frame));
+			VPP_CHECKED_CALL(ret = virtGetCatchFrame(vc_, frame));
 			return ret;
 }
 
 inline int Virtuose::setCatchFrame(float *frame) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetCatchFrame(_vc, frame));
+			VPP_CHECKED_CALL(ret = virtSetCatchFrame(vc_, frame));
 			return ret;
 }
 
 inline int Virtuose::activeSpeedControl(float radius, float speedFactor) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtActiveSpeedControl(_vc, radius, speedFactor));
+			VPP_CHECKED_CALL(ret = virtActiveSpeedControl(vc_, radius, speedFactor));
 			return ret;
 }
 
 inline int Virtuose::deactiveSpeedControl() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtDeactiveSpeedControl(_vc));
+			VPP_CHECKED_CALL(ret = virtDeactiveSpeedControl(vc_));
 			return ret;
 }
 
 inline int Virtuose::isInShiftPosition(int *shift) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtIsInShiftPosition(_vc, shift));
+			VPP_CHECKED_CALL(ret = virtIsInShiftPosition(vc_, shift));
 			return ret;
 }
 
 inline int Virtuose::setFrictionForce(float fx, float fy, float fz) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetFrictionForce(_vc, fx, fy, fz));
+			VPP_CHECKED_CALL(ret = virtSetFrictionForce(vc_, fx, fy, fz));
 			return ret;
 }
 
 inline int Virtuose::getMouseState(int *active, int *left_click, int *right_click) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetMouseState(_vc, active, left_click, right_click));
+			VPP_CHECKED_CALL(ret = virtGetMouseState(vc_, active, left_click, right_click));
 			return ret;
 }
 
 inline int Virtuose::generateDebugFile() {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGenerateDebugFile(_vc));
+			VPP_CHECKED_CALL(ret = virtGenerateDebugFile(vc_));
 			return ret;
 }
 
 inline int Virtuose::getCenterSphere(float *pos) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetCenterSphere(_vc, pos));
+			VPP_CHECKED_CALL(ret = virtGetCenterSphere(vc_, pos));
 			return ret;
 }
 
 inline int Virtuose::getAxisOfRotation(float *axis) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetAxisOfRotation(_vc, axis));
+			VPP_CHECKED_CALL(ret = virtGetAxisOfRotation(vc_, axis));
 			return ret;
 }
 
 inline int Virtuose::getADC(int line, float *adc) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetADC(_vc, line, adc));
+			VPP_CHECKED_CALL(ret = virtGetADC(vc_, line, adc));
 			return ret;
 }
 
 inline int Virtuose::convertDeplToHomogeneMatrix(float *d, float *m) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtConvertDeplToHomogeneMatrix(_vc, d, m));
+			VPP_CHECKED_CALL(ret = virtConvertDeplToHomogeneMatrix(vc_, d, m));
 			return ret;
 }
 
 inline int Virtuose::convertHomogeneMatrixToDepl(float *d, float *m) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtConvertHomogeneMatrixToDepl(_vc, d, m));
+			VPP_CHECKED_CALL(ret = virtConvertHomogeneMatrixToDepl(vc_, d, m));
 			return ret;
 }
 
 inline int Virtuose::getTrackball(int *x_move, int *y_move) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetTrackball(_vc, x_move, y_move));
+			VPP_CHECKED_CALL(ret = virtGetTrackball(vc_, x_move, y_move));
 			return ret;
 }
 
 inline int Virtuose::getTrackballButton(int *active, int *left_btn, int *middle_btn, int *right_btn) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetTrackballButton(_vc, active, left_btn, middle_btn, right_btn));
+			VPP_CHECKED_CALL(ret = virtGetTrackballButton(vc_, active, left_btn, middle_btn, right_btn));
 			return ret;
 }
 
 inline int Virtuose::setAbsolutePosition(float *pos) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtSetAbsolutePosition(_vc, pos));
+			VPP_CHECKED_CALL(ret = virtSetAbsolutePosition(vc_, pos));
 			return ret;
 }
 
 inline int Virtuose::beepOnLimit(int enable) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtBeepOnLimit(_vc, enable));
+			VPP_CHECKED_CALL(ret = virtBeepOnLimit(vc_, enable));
 			return ret;
 }
 
 inline int Virtuose::enableForceFeedback(int enable) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtEnableForceFeedback(_vc, enable));
+			VPP_CHECKED_CALL(ret = virtEnableForceFeedback(vc_, enable));
 			return ret;
 }
 
 inline int Virtuose::getPhysicalSpeed(float *speed) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtGetPhysicalSpeed(_vc, speed));
+			VPP_CHECKED_CALL(ret = virtGetPhysicalSpeed(vc_, speed));
 			return ret;
 }
 
 inline int Virtuose::forceShiftButton(int forceShiftButton) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtForceShiftButton(_vc, forceShiftButton));
+			VPP_CHECKED_CALL(ret = virtForceShiftButton(vc_, forceShiftButton));
 			return ret;
 }
 
 inline int Virtuose::addForce(float *force) {
 	
 			int ret;
-			VPP_CHECKED_CALL(ret = virtAddForce(_vc, force));
+			VPP_CHECKED_CALL(ret = virtAddForce(vc_, force));
 			return ret;
 }
 
