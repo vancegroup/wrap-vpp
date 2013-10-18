@@ -91,12 +91,12 @@ class Virtuose {
 			@throws VirtuoseAPIError if opening the device failed.
 		*/
 		Virtuose(const std::string & name)
-			: _name(name)
-			, _vc(virtOpen(_name.c_str()))
+			: vc_(virtOpen(name_.c_str()))
+			, name_(name)
 			, own_(true) {
-			VPP_VERBOSE_MESSAGE("Constructing a new Virtuose object, device named " << _name << ", VirtContext=" << _vc);
-			if (!_vc) {
-				throw VirtuoseAPIError("Failed opening Virtuose " + _name + getErrorMessage());
+			VPP_VERBOSE_MESSAGE("Constructing a new Virtuose object, device named " << name_ << ", VirtContext=" << vc_);
+			if (!vc_) {
+				throw VirtuoseAPIError("Failed opening Virtuose " + name_ + getErrorMessage());
 			}
 		}
 
@@ -110,46 +110,36 @@ class Virtuose {
 			@throws VirtuoseAPIError if opening the device failed.
 		*/
 		Virtuose(VirtContext vc)
-			: _name("unknown - from VirtContext")
-			, _vc(vc)
+			: vc_(vc)
+			, name_("unknown - from VirtContext")
 			, own_(false) {
-			VPP_VERBOSE_MESSAGE("Borrowing a Virtuose object with VirtContext=" << _vc);
-			if (!_vc) {
+			VPP_VERBOSE_MESSAGE("Borrowing a Virtuose object with VirtContext=" << vc_);
+			if (!vc_) {
 				throw VirtuoseAPIError("Can't borrow a null VirtContext!");
 			}
 		}
 
 		/** @brief destructor that closes the connection to the Virtuose
-			device.
+			device if we opened it.
 		*/
-		~Virtuose() {
-			VPP_VERBOSE_MESSAGE("In destructor for device named " << _name << ", VirtContext=" << _vc);
-			if (_vc && own_) {
-				try {
-					VPP_CHECKED_CALL(virtClose(_vc));
-				} catch (VirtuoseAPIError & e) {
-					(void) e; // silence warning if not in verbose mode.
-					VPP_VERBOSE_MESSAGE("Exception in destructor, ignoring: " << e.what());
-				}
-			}
-		}
+		~Virtuose();
 
 		/** @brief Conversion operator to type VirtContext.
 		*/
 		operator VirtContext() {
-			return _vc;
+			return vc_;
 		}
 
 		/** @brief Returns the managed VirtContext.
 		*/
 		VirtContext getVirtContext() const {
-			return _vc;
+			return vc_;
 		}
 
 		/** @brief Retrieve name used to create device context, if available.
 		*/
 		std::string const& getName() const {
-			return _name;
+			return name_;
 		}
 
 		/* CLASS BODY GOES HERE */
@@ -159,49 +149,25 @@ class Virtuose {
 		//   // handle error
 		// }
 		bool checkForError(int returnValue, const char * file = "",
-		                   int const line = -1, const char * func = "") {
-			if (returnValue == 0) {
-				// Silence unused variable warning when VPP_VERBOSE not defined
-				(void) file;
-				(void) line;
-				(void) func;
-				return false; // no error
-			} else {
-				VPP_VERBOSE_MESSAGE("Got error from Virtuose (in " << func << "@" << file << ":" << line << "): "  << getErrorMessage());
-				return true; // error
-			}
-		}
+		                   int const line = -1, const char * func = "");
 
-		bool hasError() {
-			return (virtGetErrorCode(_vc) != VIRT_E_NO_ERROR);
-		}
+		bool hasError();
 
 		/** @brief Returns the latest error message, or if none, an empty string.
 		*/
-		std::string getErrorOrEmpty() {
-			std::string ret;
-			int code = virtGetErrorCode(_vc);
-			if (virtGetErrorCode(_vc) != VIRT_E_NO_ERROR) {
-				ret = getErrorMessage(code);
-			}
-			return ret;
-		}
+		std::string getErrorOrEmpty();
 
 		/** @brief Returns the latest error message.
 		*/
-		std::string getErrorMessage() {
-			return std::string(virtGetErrorMessage(virtGetErrorCode(_vc)));
-		}
+		std::string getErrorMessage();
 
 		/** @brief Converts an error code into an error message string.
 		*/
-		static std::string getErrorMessage(int code) {
-			return std::string(virtGetErrorMessage(code));
-		}
+		static std::string getErrorMessage(int code);
 
 	private:
-		std::string const _name;
-		VirtContext _vc;
+		VirtContext vc_;
+		std::string const name_;
 		bool const own_;
 
 		/// @brief Copy constructor forbidden
@@ -221,6 +187,58 @@ class Virtuose {
 		}
 #endif
 };
+
+inline 	Virtuose::~Virtuose() {
+	VPP_VERBOSE_MESSAGE("In destructor for device named " << name_ << ", VirtContext=" << vc_);
+	if (vc_ && own_) {
+		try {
+			VPP_CHECKED_CALL(virtClose(vc_));
+		} catch (VirtuoseAPIError & e) {
+			(void) e; // silence warning if not in verbose mode.
+			VPP_VERBOSE_MESSAGE("Exception in destructor, ignoring: " << e.what());
+		}
+	}
+}
+
+inline bool Virtuose::checkForError(int returnValue, const char * file,
+                                    int const line, const char * func)
+{
+	if (returnValue == 0) {
+		// Silence unused variable warning when VPP_VERBOSE not defined
+		(void) file;
+		(void) line;
+		(void) func;
+		return false; // no error
+	} else {
+		VPP_VERBOSE_MESSAGE("Got error from Virtuose (in " << func << "@" << file << ":" << line << "): "  << getErrorMessage());
+		return true; // error
+	}
+}
+
+inline bool Virtuose::hasError() {
+	return (virtGetErrorCode(vc_) != VIRT_E_NO_ERROR);
+}
+
+inline std::string Virtuose::getErrorOrEmpty() {
+	std::string ret;
+	int code = virtGetErrorCode(vc_);
+	if (virtGetErrorCode(vc_) != VIRT_E_NO_ERROR) {
+		ret = getErrorMessage(code);
+	}
+	return ret;
+}
+
+/** @brief Returns the latest error message.
+*/
+inline std::string Virtuose::getErrorMessage() {
+	return getErrorMessage(virtGetErrorCode(vc_));
+}
+
+/** @brief Converts an error code into an error message string.
+*/
+inline std::string Virtuose::getErrorMessage(int code) {
+	return virtGetErrorMessage(code);
+}
 
 /// @brief Equality between a Virtuose object and a raw VirtContext.
 inline bool operator==(Virtuose const& v, VirtContext const vc) {

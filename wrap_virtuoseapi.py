@@ -50,7 +50,7 @@ includeplaceholder = "UPSTREAM_INCLUDE_FILENAME"
 versionplaceholder = "UPSTREAM_VERSION_GOES_HERE"
 intversionplaceholder = "UPSTREAM_INTEGER_VERSION_GOES_HERE"
 
-virtcontextmember = "_vc"
+virtcontextmember = "vc_"
 
 
 defaultoutputfilename = 'vpp.h'
