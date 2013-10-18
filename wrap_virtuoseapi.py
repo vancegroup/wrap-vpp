@@ -44,6 +44,11 @@ argTrans = {	'fichier':		'fh',
 methodTrans = { 'GetControlerVersion' : 'GetControllerVersion',
                 'ConvertDeplToHomogeneMatrix' : 'ConvertDisplacementToTransformMatrix',
                 'ConvertHomogeneMatrixToDepl' : 'ConvertTransformMatrixToDisplacement',
+                'GetArticularPositionOfAdditionalAxe' : 'GetArticularPositionOfAdditionalAxis',
+                'GetArticularSpeedOfAdditionalAxe' : 'GetArticularSpeedOfAdditionalAxis',
+                'SetArticularForceOfAdditionalAxe' : 'SetArticularForceOfAdditionalAxis',
+                'SetArticularPositionOfAdditionalAxe' : 'SetArticularPositionOfAdditionalAxis',
+                'SetArticularSpeedOfAdditionalAxe' : 'SetArticularSpeedOfAdditionalAxis',
 }
 
 bpfilename = "vpp-boilerplate.h"
