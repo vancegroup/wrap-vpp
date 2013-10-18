@@ -33,13 +33,13 @@ You can then proceed to use the class exposed by the header.
 
 File-by-file:
 
-- `make_vpp`: This script calls the Python wrapping script on multiple versions of the VirtuoseAPI header as included in the repository.
+- `Makefile`: This makefile calls the Python wrapping script on multiple versions of the VirtuoseAPI header as included in the repository, calling the cleanup script first.  Just type `make` in this directory to do it all.
 
 - `wrap_virtuoseapi.py`: The code performing the actual wrapping. It can be run and optionally passed the input header filename and the output filename.
 
 - `vpp-boilerplate.h`: The outline or text template into which wrapped methods are inserted when generating the header. This file contains the manually-wrapped or manually-written portions of the code, as well as placeholders for `wrap_virtuoseapi.py` to locate and use when generating.
 
-- `clean_boilerplate`: This script uses the [astyle code formatter](http://astyle.sourceforge.net/) and `astylerc` in this directory to apply a uniform code style to the boilerplate header. It should be manually run after editing the boilerplate.
+- `clean_boilerplate`: This script uses the [astyle code formatter](http://astyle.sourceforge.net/) and `astylerc` in this directory to apply a uniform code style to the boilerplate header.
 
 - `list_functions.py`: A dummy/test script that uses the API parsing code of `wrap_virtuoseapi.py` to simply list the methods.
 
