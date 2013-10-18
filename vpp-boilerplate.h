@@ -94,7 +94,7 @@ class Virtuose {
 			: _name(name)
 			, _vc(virtOpen(_name.c_str())) {
 			VPP_VERBOSE_MESSAGE("Constructing a new Virtuose object, device named " << _name << ", VirtContext=" << _vc);
-			if (_vc == NULL) {
+			if (!_vc) {
 				throw VirtuoseAPIError("Failed opening Virtuose " + _name + getErrorMessage());
 			}
 		}
@@ -104,7 +104,7 @@ class Virtuose {
 		*/
 		~Virtuose() {
 			VPP_VERBOSE_MESSAGE("In destructor for device named " << _name << ", VirtContext=" << _vc);
-			if (_vc != NULL) {
+			if (_vc) {
 				try {
 					VPP_CHECKED_CALL(virtClose(_vc));
 				} catch (VirtuoseAPIError & e) {
