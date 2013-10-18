@@ -96,7 +96,7 @@ class Virtuose {
 			, own_(true) {
 			VPP_VERBOSE_MESSAGE("Constructing a new Virtuose object, device named " << name_ << ", VirtContext=" << vc_);
 			if (!vc_) {
-				throw VirtuoseAPIError("Failed opening Virtuose " + name_ + ": "+  getErrorMessage());
+				throw VirtuoseAPIError("Failed opening Virtuose " + name_ + ": " +  getErrorMessage());
 			}
 		}
 
@@ -201,8 +201,7 @@ inline 	Virtuose::~Virtuose() {
 }
 
 inline bool Virtuose::checkForError(int returnValue, const char * file,
-                                    int const line, const char * func)
-{
+                                    int const line, const char * func) {
 	if (returnValue == 0) {
 		// Silence unused variable warning when VPP_VERBOSE not defined
 		(void) file;
