@@ -96,7 +96,7 @@ class Virtuose {
 			, own_(true) {
 			VPP_VERBOSE_MESSAGE("Constructing a new Virtuose object, device named " << name_ << ", VirtContext=" << vc_);
 			if (!vc_) {
-				throw VirtuoseAPIError("Failed opening Virtuose " + name_ + getErrorMessage());
+				throw VirtuoseAPIError("Failed opening Virtuose " + name_ + ": "+  getErrorMessage());
 			}
 		}
 
