@@ -41,7 +41,10 @@ argTrans = {	'fichier':		'fh',
 				'decalage':		'shift'
 			}
 
-methodTrans = { 'GetControlerVersion' : 'GetControllerVersion' }
+methodTrans = { 'GetControlerVersion' : 'GetControllerVersion',
+                'ConvertDeplToHomogeneMatrix' : 'ConvertDisplacementToTransformMatrix',
+                'ConvertHomogeneMatrixToDepl' : 'ConvertTransformMatrixToDisplacement',
+}
 
 bpfilename = "vpp-boilerplate.h"
 classmarker = "/* CLASS BODY GOES HERE */"
