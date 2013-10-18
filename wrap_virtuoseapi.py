@@ -202,8 +202,7 @@ class TypeWrapper(object):
 			return self.contained.type.declname
 
 	def changeName(self, oldName, name):
-		functor = lambda x: name if x == oldName else x
-		changer = ChangeNameVisitor(functor)
+		changer = ChangeNameVisitor(lambda x: name if x == oldName else x)
 		changer.visit(self.contained)
 
 	def getFullType(self):
