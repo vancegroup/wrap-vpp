@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 # List of versions to wrap
-versions = 3.10 3.20 3.60 3.70
+versions = 3.10 3.20 3.60 3.70 3.80
 
 # Function to compute input header from a version
 define inputheader
